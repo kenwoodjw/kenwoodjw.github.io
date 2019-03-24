@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Post on Kenwood Blog</title>
+    <link>https://kenwoodjw.github.io/post/</link>
+    <description>Recent content in Post on Kenwood Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>Copyright © 2018</copyright>
+    <lastBuildDate>Sun, 24 Mar 2019 20:52:13 +0800</lastBuildDate>
+    
+	<atom:link href="https://kenwoodjw.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hugo</title>
+      <link>https://kenwoodjw.github.io/post/hugo/</link>
+      <pubDate>Sun, 24 Mar 2019 20:52:13 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/post/hugo/</guid>
+      <description>1. 安裝 Hugo brew install hugo 2. 建立新网站 hugo new site my-website cd my-website my-website 可以替换成任意名称，但你也可以跟我一样，避免麻煩。找到名为 my-website 的文件夾，观察文件夹结构。
+3. 新增主題 (theme)：此处以 Casper 为例 git clone https://github.com/vjeantet/hugo-theme-casper themes/casper 你也可以选其他主題，进到该主題的 GitHub repo，將上面的网址改成 repo 的网址、themes/casper 改成 themes/你的主題名称。
+4. 將 /themes/casper 中的 static 和 layouts 文件夹复制，取代根目录中的 static 和 layouts 文件夹 5. 建立新文章 hugo new posts/my-first-post.md 此指令会在 /content/posts 文件夾中建立 my-first-post.md。使用任意文字编輯器打开此 markdown 文件，將 draft 改成 false，文件內容任意。以后建立文章都是以此方式。
+使用文字编輯器打开 config.toml，并调整內容为上面这样。
+6. 编輯 config.toml baseURL = &amp;#34;https://kenwoodjw.github.io/&amp;#34; #改成你的GitHub帳號名稱 languageCode = &amp;#34;zh-cn&amp;#34; title = &amp;#34;kenwood Blog&amp;#34; #自由命名 7.</description>
+    </item>
+    
+  </channel>
+</rss>

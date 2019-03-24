@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    
+        <meta name="twitter:card" content="summary"/>
+    
+
+
+
+<meta name="twitter:title" content="Hugo"/>
+<meta name="twitter:description" content=""/>
+<meta name="twitter:site" content="@"/>
+
+
+
+  	<meta property="og:title" content="Hugo &middot; Kenwood Blog" />
+  	<meta property="og:site_name" content="Kenwood Blog" />
+  	<meta property="og:url" content="https://kenwoodjw.github.io/post/hugo/" />
+
+    
+        
+            <meta property="og:image" content="/images/python-go.jpg"/>
+        
+    
+
+    
+    <meta property="og:description" content="" />
+  	<meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2019-03-24T20:52:13&#43;08:00" />
+
+    
+    
+
+    <title>Hugo &middot; Kenwood Blog</title>
+
+    
+    <meta name="description" content="1. 安裝 Hugo brew install hugo 2. 建立新网站 hugo new site my-website cd my-website my-website 可以替换成任意名称，但你也可以跟我一样，避免麻煩。找到名为 my-website 的文件夾，观察文件夹结构。
+3. 新增主題 (theme)：此" />
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="https://kenwoodjw.github.io/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="https://kenwoodjw.github.io/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="https://kenwoodjw.github.io/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="https://kenwoodjw.github.io/css/nav.css" />
+
+    
+
+    
+
+    
+      
+          <link href="https://kenwoodjw.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Kenwood Blog" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.52" />
+
+    <link rel="canonical" href="https://kenwoodjw.github.io/post/hugo/" />
+
+    
+      
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": 
+    },
+    "author": {
+        "@type": "Person",
+        "name": ,
+        
+        "url": https://kenwoodjw.github.io/,
+        "sameAs": [
+            
+            
+             
+             
+             
+             
+             
+            
+        ]
+    },
+    "headline": Hugo,
+    "name": Hugo,
+    "wordCount": 188,
+    "timeRequired": "PT1M",
+    "inLanguage": {
+      "@type": "Language",
+      "alternateName": en
+    },
+    "url": https://kenwoodjw.github.io/post/hugo/,
+    "datePublished": 2019-03-24T20:52Z,
+    "dateModified": 2019-03-24T20:52Z,
+    
+    
+    "description": ,
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": https://kenwoodjw.github.io/post/hugo/
+    }
+}
+    </script>
+    
+
+
+    
+
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-136760087-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    
+
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="https://kenwoodjw.github.io/about">About me</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="https://kenwoodjw.github.io/">My Blog</a>
+            </li>
+        
+        
+    </ul>
+
+    
+    <a class="subscribe-button icon-feed" href="https://kenwoodjw.github.io/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+<header class="main-header post-head no-cover">
+  <nav class="main-nav clearfix">
+
+
+  
+  
+      <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
+  
+  </nav>
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post post">
+
+    <header class="post-header">
+        <h1 class="post-title">Hugo</h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+          <time class="post-date" datetime="2019-03-24T20:52:13&#43;08:00">
+            Mar 24, 2019
+          </time>
+        
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      
+
+<h3 id="1-安裝-hugo">1. 安裝 Hugo</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">brew install hugo</pre></div>
+<h3 id="2-建立新网站">2. 建立新网站</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">hugo new site my-website
+cd my-website</pre></div>
+<p><code>my-website</code> 可以替换成任意名称，但你也可以跟我一样，避免麻煩。找到名为 <code>my-website</code> 的文件夾，观察文件夹结构。</p>
+
+<h3 id="3-新增主題-theme-https-themes-gohugo-io-此处以-casper-https-themes-gohugo-io-casper-为例">3. 新增主題 <a href="https://themes.gohugo.io">(theme)</a>：此处以 <a href="https://themes.gohugo.io/casper/">Casper</a> 为例</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">git clone https://github.com/vjeantet/hugo-theme-casper themes/casper</pre></div>
+<p>你也可以选其他主題，进到该主題的 GitHub repo，將上面的网址改成 repo 的网址、<code>themes/casper</code> 改成 <code>themes/你的主題名称</code>。</p>
+
+<h3 id="4-將-themes-casper-中的-static-和-layouts-文件夹复制-取代根目录中的-static-和-layouts-文件夹">4. 將 /themes/casper 中的 static 和 layouts 文件夹复制，取代根目录中的 static 和 layouts 文件夹</h3>
+
+<h3 id="5-建立新文章">5. 建立新文章</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">hugo new posts/my-first-post.md</pre></div>
+<p>此指令会在 <code>/content/posts</code> 文件夾中建立 <code>my-first-post.md</code>。使用任意文字编輯器打开此 markdown 文件，將 draft 改成 false，文件內容任意。以后建立文章都是以此方式。</p>
+
+<p>使用文字编輯器打开 <code>config.toml</code>，并调整內容为上面这样。</p>
+
+<h3 id="6-编輯-config-toml">6. 编輯 config.toml</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">baseURL = &#34;https://kenwoodjw.github.io/&#34;    #改成你的GitHub帳號名稱
+languageCode = &#34;zh-cn&#34;
+title = &#34;kenwood Blog&#34;    #自由命名</pre></div>
+<h3 id="7-本地测试">7. 本地测试</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">hugo server -D</pre></div>
+<p>执行完后，在浏览器中輸入网址 <a href="http://localhost:1313/">http://localhost:1313/</a> ，就可以看到网站的雏形了！</p>
+
+<h2 id="第二部分-部署到-github">第二部分：部署到 GitHub</h2>
+
+<p><a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/">Hugo 部署在 GitHub 的方式</a>有两种，这边介绍部署个人唯一主页的方式。</p>
+
+<h3 id="1-在-github-建立两个-repo">1. 在 GitHub 建立两个 repo</h3>
+
+<p>在 GitHub 建立 <code>my-website</code> 和 <code>kenwoodjw.github.io</code> (改成自己的帐号名称) 兩個 repo。</p>
+
+<h3 id="2-建立-public-文件夹">2. 建立 /public 文件夹</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">hugo</pre></div>
+<p>执行 <code>hugo</code>，就会在 <code>my-website</code> 內产生名为 <code>public</code> 的文件夾。</p>
+
+<h3 id="3-将-public-文件夾连接到-github-上的-kenwoodjw-github-io">3. 将 /public 文件夾连接到 GitHub 上的 kenwoodjw.github.io</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">cd public
+git init
+git remote add origin https://github.com/chswei/kenwoodjw.github.io.git
+git add .
+git commit -m &#34;Initial commit&#34;
+git push -u origin master</pre></div>
+<h3 id="4-将整个-my-website文件夹连接到-github-上的-website-hugo">4. 将整个 my-website文件夹连接到 GitHub 上的 website-hugo</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">cd ../
+git init
+git remote add origin https://github.com/kenwood/my-website.git
+git add .
+git commit -m &#34;Initial commit&#34;
+git push -u origin master</pre></div>
+<p>在执行 <code>git add .</code> 时出现如下面的 warning 时不用在意</p>
+
+<p>等个几分钟，输入网址 <a href="https://kenwoodjw.github.io/">https://kenwoodjw.github.io/</a> 就大功告成！</p>
+
+<h3 id="references">References:</h3>
+
+<ol>
+<li><a href="https://gohugo.io/documentation/">Hugo Documentation</a></li>
+<li><a href="https://brent-li.github.io/post/build-personal-site-with-hugo/">用Hugo搭建个人网站</a></li>
+<li><a href="https://chengjunwang.com/note/note_archive/2016-08-03-github/">Github个人网站维护</a></li>
+</ol>
+
+    </section>
+
+
+  <footer class="post-footer">
+
+
+    
+
+
+
+
+
+
+
+
+
+<section class="author">
+  <h4><a href="https://kenwoodjw.github.io/">kenwoodjw</a></h4>
+  
+  <p>Read <a href="https://kenwoodjw.github.io/">more posts</a> by this author.</p>
+  
+  <div class="author-meta">
+    <span class="author-location icon-location">China</span>
+    <span class="author-link icon-link"><a href="https://kenwoodjw.github.io/">https://kenwoodjw.github.io/</a></span>
+  </div>
+</section>
+
+
+
+
+    
+<section class="share">
+  <h4>Share this post</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Hugo&nbsp;-&nbsp;Kenwood%20Blog&amp;url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fhugo%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fhugo%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-pinterest" style="font-size: 1.4em" href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fhugo%2f&amp;description=Hugo"
+      onclick="window.open(this.href, 'pinterest-share','width=580,height=296');return false;">
+      <span class="hidden">Pinterest</span>
+  </a>
+  <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fhugo%2f"
+     onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+      <span class="hidden">Google+</span>
+  </a>
+</section>
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "https:\/\/kenwoodjw.github.io\/post\/hugo\/";  
+this.page.identifier = "https:\/\/kenwoodjw.github.io\/post\/hugo\/"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://kenwoodjw.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
+
+
+  </footer>
+</article>
+
+</main>
+
+
+  <aside class="read-next">
+  
+  
+</aside>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Kenwood Blog</a> Copyright © 2018</section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="https://kenwoodjw.github.io/js/jquery.js"></script>
+    <script type="text/javascript" src="https://kenwoodjw.github.io/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://kenwoodjw.github.io/js/index.js"></script>
+    
+</body>
+</html>
+
