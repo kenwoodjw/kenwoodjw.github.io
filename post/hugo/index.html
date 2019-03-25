@@ -12,13 +12,13 @@
 
 
 
-<meta name="twitter:title" content="Hugo"/>
+<meta name="twitter:title" content="hugo部署网站，circleci自动构建静态页面"/>
 <meta name="twitter:description" content=""/>
 <meta name="twitter:site" content="@"/>
 
 
 
-  	<meta property="og:title" content="Hugo &middot; Kenwood Blog" />
+  	<meta property="og:title" content="hugo部署网站，circleci自动构建静态页面 &middot; Kenwood Blog" />
   	<meta property="og:site_name" content="Kenwood Blog" />
   	<meta property="og:url" content="https://kenwoodjw.github.io/post/hugo/" />
 
@@ -36,11 +36,11 @@
     
     
 
-    <title>Hugo &middot; Kenwood Blog</title>
+    <title>hugo部署网站，circleci自动构建静态页面 &middot; Kenwood Blog</title>
 
     
-    <meta name="description" content="1. 安裝 Hugo brew install hugo 2. 建立新网站 hugo new site my-website cd my-website my-website 可以替换成任意名称，但你也可以跟我一样，避免麻煩。找到名为 my-website 的文件夾，观察文件夹结构。
-3. 新增主題 (theme)：此" />
+    <meta name="description" content="1. 安裝 Hugo brew install hugo 2. 建立新网站 hugo new site my-website cd my-website git init my-website 可以替换成任意名称，但你也可以跟我一样，避免麻煩。找到名为 my-website 的文件夾，观察文件夹结构。
+3. 新增主題 " />
     
 
     <meta name="HandheldFriendly" content="True" />
@@ -93,10 +93,10 @@
             
         ]
     },
-    "headline": Hugo,
-    "name": Hugo,
-    "wordCount": 188,
-    "timeRequired": "PT1M",
+    "headline": hugo部署网站，circleci自动构建静态页面,
+    "name": hugo部署网站，circleci自动构建静态页面,
+    "wordCount": 292,
+    "timeRequired": "PT2M",
     "inLanguage": {
       "@type": "Language",
       "alternateName": en
@@ -189,7 +189,7 @@
   <article class="post post">
 
     <header class="post-header">
-        <h1 class="post-title">Hugo</h1>
+        <h1 class="post-title">hugo部署网站，circleci自动构建静态页面</h1>
         <small></small>
 
         <section class="post-meta">
@@ -209,11 +209,12 @@
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">brew install hugo</pre></div>
 <h3 id="2-建立新网站">2. 建立新网站</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">hugo new site my-website
-cd my-website</pre></div>
+cd my-website
+git init</pre></div>
 <p><code>my-website</code> 可以替换成任意名称，但你也可以跟我一样，避免麻煩。找到名为 <code>my-website</code> 的文件夾，观察文件夹结构。</p>
 
 <h3 id="3-新增主題-theme-https-themes-gohugo-io-此处以-casper-https-themes-gohugo-io-casper-为例">3. 新增主題 <a href="https://themes.gohugo.io">(theme)</a>：此处以 <a href="https://themes.gohugo.io/casper/">Casper</a> 为例</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">git clone https://github.com/vjeantet/hugo-theme-casper themes/casper</pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">git submodule add git@github.com:vjeantet/hugo-theme-casper.git themes/casper</pre></div>
 <p>你也可以选其他主題，进到该主題的 GitHub repo，將上面的网址改成 repo 的网址、<code>themes/casper</code> 改成 <code>themes/你的主題名称</code>。</p>
 
 <h3 id="4-將-themes-casper-中的-static-和-layouts-文件夹复制-取代根目录中的-static-和-layouts-文件夹">4. 將 /themes/casper 中的 static 和 layouts 文件夹复制，取代根目录中的 static 和 layouts 文件夹</h3>
@@ -245,15 +246,16 @@ title = &#34;kenwood Blog&#34;    #自由命名</pre></div>
 <p>执行 <code>hugo</code>，就会在 <code>my-website</code> 內产生名为 <code>public</code> 的文件夾。</p>
 
 <h3 id="3-将-public-文件夾连接到-github-上的-kenwoodjw-github-io">3. 将 /public 文件夾连接到 GitHub 上的 kenwoodjw.github.io</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">cd public
-git init
-git remote add origin https://github.com/chswei/kenwoodjw.github.io.git
-git add .
-git commit -m &#34;Initial commit&#34;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">#建立submodule
+git submodule add git@github.com:&lt;your-account&gt;/&lt;your-account&gt;.github.io.git public
+#上传submodule
+cd public
+git status
+git commit -m &#34;first commit&#34;
+git remote add origin git@github.com:&lt;you-account&gt;/&lt;your-account&gt;.github.io.git
 git push -u origin master</pre></div>
 <h3 id="4-将整个-my-website文件夹连接到-github-上的-website-hugo">4. 将整个 my-website文件夹连接到 GitHub 上的 website-hugo</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">cd ../
-git init
 git remote add origin https://github.com/kenwood/my-website.git
 git add .
 git commit -m &#34;Initial commit&#34;
@@ -262,12 +264,53 @@ git push -u origin master</pre></div>
 
 <p>等个几分钟，输入网址 <a href="https://kenwoodjw.github.io/">https://kenwoodjw.github.io/</a> 就大功告成！</p>
 
+<h3 id="5-自动构建静态页面并上传到git">5.自动构建静态页面并上传到git</h3>
+
+<p>使用circleci，打开<a href="https://circleci.com链接github仓库，在项目顶层，新建.circleci/config.yml">https://circleci.com链接github仓库，在项目顶层，新建.circleci/config.yml</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">version: 2
+global: &amp;global
+  working_directory: ~/project
+  docker:
+    - image: cibuilds/hugo:latest
+
+jobs:
+  build_n_deploy:
+    &lt;&lt;: *global
+    steps:
+      - run: apk update &amp;&amp; apk add git
+      - checkout
+      - run:
+          name: &#34;Run Hugo&#34;
+          command: |
+            git submodule sync &amp;&amp; git submodule update --init 
+            git submodule foreach --recursive git pull origin master
+            HUGO_ENV=production hugo -v
+
+      - run:
+          name: &#34;Deploy to github.io&#34;       
+          command: |
+            cd ~/project/public
+            git config --global user.email &#34;xxxgmail.com&#34;
+            git config --global user.name &#34;xxx&#34;
+            git add -A
+            git commit -m &#34;Deploy from CircleCI&#34;
+            git push origin HEAD:master
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build_n_deploy:
+          filters:
+            branches:
+              only: master</pre></div>
 <h3 id="references">References:</h3>
 
 <ol>
 <li><a href="https://gohugo.io/documentation/">Hugo Documentation</a></li>
 <li><a href="https://brent-li.github.io/post/build-personal-site-with-hugo/">用Hugo搭建个人网站</a></li>
 <li><a href="https://chengjunwang.com/note/note_archive/2016-08-03-github/">Github个人网站维护</a></li>
+<li><a href="https://jimmylin212.github.io/post/0001_create_hugo_and_deploy_on-github_page/">jimmylin blog</a></li>
 </ol>
 
     </section>
@@ -303,7 +346,7 @@ git push -u origin master</pre></div>
     
 <section class="share">
   <h4>Share this post</h4>
-  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Hugo&nbsp;-&nbsp;Kenwood%20Blog&amp;url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fhugo%2f"
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=hugo%e9%83%a8%e7%bd%b2%e7%bd%91%e7%ab%99%ef%bc%8ccircleci%e8%87%aa%e5%8a%a8%e6%9e%84%e5%bb%ba%e9%9d%99%e6%80%81%e9%a1%b5%e9%9d%a2&nbsp;-&nbsp;Kenwood%20Blog&amp;url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fhugo%2f"
       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
       <span class="hidden">Twitter</span>
   </a>
@@ -311,7 +354,7 @@ git push -u origin master</pre></div>
       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
       <span class="hidden">Facebook</span>
   </a>
-  <a class="icon-pinterest" style="font-size: 1.4em" href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fhugo%2f&amp;description=Hugo"
+  <a class="icon-pinterest" style="font-size: 1.4em" href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fhugo%2f&amp;description=hugo%e9%83%a8%e7%bd%b2%e7%bd%91%e7%ab%99%ef%bc%8ccircleci%e8%87%aa%e5%8a%a8%e6%9e%84%e5%bb%ba%e9%9d%99%e6%80%81%e9%a1%b5%e9%9d%a2"
       onclick="window.open(this.href, 'pinterest-share','width=580,height=296');return false;">
       <span class="hidden">Pinterest</span>
   </a>
