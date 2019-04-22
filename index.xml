@@ -7,10 +7,26 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>Copyright © 2018</copyright>
-    <lastBuildDate>Sun, 24 Mar 2019 20:52:13 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 22 Apr 2019 23:25:20 +0800</lastBuildDate>
     
 	<atom:link href="https://kenwoodjw.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Python后端架构演进</title>
+      <link>https://kenwoodjw.github.io/post/python_02/</link>
+      <pubDate>Mon, 22 Apr 2019 23:25:20 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/post/python_02/</guid>
+      <description>转载自https://zhu327.github.io/2018/07/19/python%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B/
+来腾讯之前在前公司做了3年的后端开发, 经历一款SaaS产品从0到10(还没有到100, 哈哈哈)的过程, 3年间后端的架构逐步演变, 在微服务的实践过程中遇到的问题也越来越多, 在这里总结下.
+产品是一款服务于人力资源的SaaS在线服务, 面向HR有Web Android/iOS 小程序多个客户端, 后端采用RESTful风格API来提供服务. 主要使用Python语言, 方便快速迭代.
+架构的演进经历了4个大的阶段: 1. MVC 2. 服务拆分 3. 微服务架构 4. 领域驱动设计.
+ MVC 项目刚开始的时候, 后端同事不超过5个, 这个阶段主要的工作是实现产品的原型, 没有太多的考虑架构, 使用Django来快速实现功能, DB的表结构设计好之后, 抽象出功能View, 由于产品设计也很不完善, 后端需要很多的预留设计, 避免产品逻辑的变更带来整个表结构的变动, 在这个阶段代码上最重要的是确定适合团队的代码规范, 代码检查规则.  整体上架构如上图, Nginx负责负载均衡, 分发流量到多个Django服务, Django处理逻辑, 需要异步任务就交给Celery, 然后数据量比较大的地方使用Redis做缓存. 同时还有实时消息通知的需要使用了Nginx Push Module.
+问题与优化方式:
+Django并发性能差 使用uWSGI Master+Worker 配合 gevent 携程支持高并发 Redis连接数过多 使用redis-py自带的连接池来实现连接复用 MySQL连接数过多 使用djorm-ext-pool连接池复用连接 Celery配置gevent支持并发任务 随着开发的功能越来越多, Django下的app也越来越多, 这就带了发布上的不方便, 每次发布版本都需要重启所有的Django服务, 如果发布遇到问题, 只能加班解决了. 而且单个Django工程下的代码量也越来越多, 不好维护.
+ 服务拆分 随着后端团队的壮大, 分给每个同事的需求也越来越细, 如果继续在一个工程里面开发所有的代码, 维护起来的代价太高, 而我们的上一个架构中在Django里面已经按模块划分了一个个app, app内高类聚, app之间低耦合, 这就为服务的拆分带来了便利.</description>
+    </item>
     
     <item>
       <title>hugo部署网站，circleci自动构建静态页面</title>
