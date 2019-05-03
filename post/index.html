@@ -278,10 +278,10 @@ if (!doNotTrack) {
   <i class="fas fa-calendar"></i>&nbsp;发表于 April 10, 2019
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;分钟
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;4&nbsp;分钟
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;80&nbsp;个字
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1841&nbsp;个字
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood Chan
@@ -293,17 +293,7 @@ if (!doNotTrack) {
               </p>
               <div class="post-entry">
                 
-                  Pod的实现原理： 首先，关于Pod最重要的一个事实是：它只是一个逻辑概念。Pod，其实是一组共享了某些资源的容器。具体的说，Pod里的所有容器，共享的是同一个Network Namespace，并且可以声明共享同一个Volume。在kubernetes项目里，Pod的实现需要使用一个中间容器，这个容器叫做Infra容器（pause)，则通过Join Network Namespace的方式,与Infra容器关联在一起。
-明白了Pod的实现原理后，我们再来讨论“容器设计模式”，就容易多了。Pod这种“超亲密关系”容器的设计思想，实际上就是希望，当用户想在一个容器里跑多个功能并不相关的应用时，应该优先考虑它们是不是更应该被描述成一个Pod里的多个容器。
-第一个最典型的例子是：war包与web服务器
-我们现在有一个Java Web应用的WAR包，它需要被放在Tomcat的webapps目录下运行起来。
-假如用docker来做这件事情
-*.一种方法是，把WAR包直接放Tomcat镜像的webapps目录下，做成一个新的镜像运行起来，可是，如果你要更新WAR包的内容或要升级Tomcat镜像，就要重新制作一个新的发布镜像，非常麻烦
-*.另一种方法是，你不管WAR包，永远只发布一个Tomcat容器，不过这个容器的webapps目录，就必须声明一个hostPath类型的Volume，从而把宿主机上的WAR包挂载进Tomcat容器中运行起来。不过，这样你就必须要解决一个问题，即：如何让每一台宿主机，都预先准备好这个存储WAR包的目录呢？这样来看，你只能独立维护一套分布式存储系统
-实际上，有了Pod之后，我们可以把WAR包和Tomcat分别做成镜像，然后把它们作为一个Pod的两个容器“组合”在一起。
-apiVersion: v1 kind: Pod metadata: name: javaweb-2 spec: initContainers: - image: geektime/sample:v2 name: war command: [&#34;cp&#34;,&#34;/sample.war&#34;,&#34;/app&#34;] volumeMounts: - mountPath: /app name: app-volume containers: - image: geektime/tomcat:7.0 name: tomcat command: [&#34;sh&#34;,&#34;-c&#34;,&#34;/root/apache-tomcat-7.0.42-v2/bin/start.sh&#34;] volumeMounts: - mountPath: /root/apache-tomcat-7.0.42-v2/webapps name: app-volume ports: - containerPort: 8080 hostPort: 8001 volumes: - name: app-volume emptyDir: {} war包容器的类型不再是一个普通容器，而是一个Init Container类型的容器。在Pod中，所有Init Container定义的容器，都会比spec.containers定义的用户容器先启动。并且，Init Containers容器会按顺序逐一启动，而直到它们都启动并且退出了，用户容器才会启动。
-所以，这个Init Container类型的WAR包容器启动后，我执行了一句&rdquo;cp /sample.war/app&rdquo;,把应用的WAR包拷贝到/app目录下，然后退出。而后这个/app目录，就挂载了一个名叫app-volume的Volume。Tomcat容器，同样声明了挂载app-volume到自己的webapps目录下。所以，等Tomcat容器启动时，它的webapps目录下就一定会存在sample.war文件:这个文件正是WAR包容器启动时拷贝到这个Volume里面的，而这个Volume是被这两人容器共享的。
-像这样，我们用一种”组合“的方式，解决了WAR包与Tomcat容器之间耦合关系的问题。 实际上，这个所谓的”组合“操作，正是容器设计模式里最常用的一种模式，它的名字叫： sidecar,顾名思义，sidecar指的就是我们可以在一个Pod中，启动一个辅助容器，来完成一些独立于主进程（主容器）之外的工作。
+                  Pod的实现原理： 首先，关于Pod最重要的一个事实是：它只是一个逻辑概念。Pod，其实是一组共享了某些资源的容器。具体的说，Pod里的所有容
                   <a href="https://kenwoodjw.github.io/post/k8s01/" class="post-read-more">[阅读全文]</a>
                 
               </div>
@@ -367,7 +357,7 @@ apiVersion: v1 kind: Pod metadata: name: javaweb-2 spec: initContainers: - image
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;分钟
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;292&nbsp;个字
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;819&nbsp;个字
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood Chan
@@ -379,11 +369,7 @@ apiVersion: v1 kind: Pod metadata: name: javaweb-2 spec: initContainers: - image
               </p>
               <div class="post-entry">
                 
-                  1. 安裝 Hugo brew install hugo 2. 建立新网站 hugo new site my-website cd my-website git init my-website 可以替换成任意名称，但你也可以跟我一样，避免麻煩。找到名为 my-website 的文件夾，观察文件夹结构。
-3. 新增主題 (theme)：此处以 Casper 为例 git submodule add git@github.com:vjeantet/hugo-theme-casper.git themes/casper 你也可以选其他主題，进到该主題的 GitHub repo，將上面的网址改成 repo 的网址、themes/casper 改成 themes/你的主題名称。
-4. 將 /themes/casper 中的 static 和 layouts 文件夹复制，取代根目录中的 static 和 layouts 文件夹 5. 建立新文章 hugo new posts/my-first-post.md 此指令会在 /content/posts 文件夾中建立 my-first-post.md。使用任意文字编輯器打开此 markdown 文件，將 draft 改成 false，文件內容任意。以后建立文章都是以此方式。
-使用文字编輯器打开 config.toml，并调整內容为上面这样。
-6. 编輯 config.toml baseURL = &#34;https://kenwoodjw.
+                  1. 安裝 Hugo brew install hugo 2. 建立新网站 hugo new site my-website cd my-website git init my-website 可以替换成任意名称，但你也可以跟我一样，避免麻煩。找到名为 my-website 的文件夾，观察文件夹结构。 3. 新增主題
                   <a href="https://kenwoodjw.github.io/post/hugo/" class="post-read-more">[阅读全文]</a>
                 
               </div>
