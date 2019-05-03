@@ -20,17 +20,34 @@
   </url>
   
   <url>
+    <loc>https://kenwoodjw.github.io/post/k8s01/</loc>
+    <lastmod>2019-04-10T22:35:58+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/post/python_standard_lib_01/</loc>
+    <lastmod>2019-04-08T22:41:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/tags/</loc>
+    <lastmod>2019-03-24T20:52:13+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/tags/hugo/</loc>
+    <lastmod>2019-03-24T20:52:13+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://kenwoodjw.github.io/post/hugo/</loc>
     <lastmod>2019-03-24T20:52:13+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://kenwoodjw.github.io/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://kenwoodjw.github.io/tags/</loc>
     <priority>0</priority>
   </url>
   

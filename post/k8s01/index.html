@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>为什么需要pod - Kenwood Chan</title>
+  <meta property="og:title" content="为什么需要pod" />
+  <meta name="twitter:title" content="为什么需要pod" />
+  <meta name="description" content="Pod的实现原理： 首先，关于Pod最重要的一个事实是：它只是一个逻辑概念。Pod，其实是一组共享了某些资源的容器。具体的说，Pod里的所有容器，共享的是同一个Network Namespace，并且可以声明共享同一个Volume。在kubernetes项目里，Pod的实现需要使用一个中间容器，这个容器叫做Infra容器（pause)，则通过Join Network Namespace的方式,与Infra容器关联在一起。
+明白了Pod的实现原理后，我们再来讨论“容器设计模式”，就容易多了。Pod这种“超亲密关系”容器的设计思想，实际上就是希望，当用户想在一个容器里跑多个功能并不相关的应用时，应该优先考虑它们是不是更应该被描述成一个Pod里的多个容器。
+第一个最典型的例子是：war包与web服务器
+我们现在有一个Java Web应用的WAR包，它需要被放在Tomcat的webapps目录下运行起来。
+假如用docker来做这件事情
+*.一种方法是，把WAR包直接放Tomcat镜像的webapps目录下，做成一个新的镜像运行起来，可是，如果你要更新WAR包的内容或要升级Tomcat镜像，就要重新制作一个新的发布镜像，非常麻烦
+*.另一种方法是，你不管WAR包，永远只发布一个Tomcat容器，不过这个容器的webapps目录，就必须声明一个hostPath类型的Volume，从而把宿主机上的WAR包挂载进Tomcat容器中运行起来。不过，这样你就必须要解决一个问题，即：如何让每一台宿主机，都预先准备好这个存储WAR包的目录呢？这样来看，你只能独立维护一套分布式存储系统
+实际上，有了Pod之后，我们可以把WAR包和Tomcat分别做成镜像，然后把它们作为一个Pod的两个容器“组合”在一起。
+apiVersion: v1 kind: Pod metadata: name: javaweb-2 spec: initContainers: - image: geektime/sample:v2 name: war command: [&#34;cp&#34;,&#34;/sample.war&#34;,&#34;/app&#34;] volumeMounts: - mountPath: /app name: app-volume containers: - image: geektime/tomcat:7.0 name: tomcat command: [&#34;sh&#34;,&#34;-c&#34;,&#34;/root/apache-tomcat-7.0.42-v2/bin/start.sh&#34;] volumeMounts: - mountPath: /root/apache-tomcat-7.0.42-v2/webapps name: app-volume ports: - containerPort: 8080 hostPort: 8001 volumes: - name: app-volume emptyDir: {} war包容器的类型不再是一个普通容器，而是一个Init Container类型的容器。在Pod中，所有Init Container定义的容器，都会比spec.containers定义的用户容器先启动。并且，Init Containers容器会按顺序逐一启动，而直到它们都启动并且退出了，用户容器才会启动。
+所以，这个Init Container类型的WAR包容器启动后，我执行了一句&rdquo;cp /sample.war/app&rdquo;,把应用的WAR包拷贝到/app目录下，然后退出。而后这个/app目录，就挂载了一个名叫app-volume的Volume。Tomcat容器，同样声明了挂载app-volume到自己的webapps目录下。所以，等Tomcat容器启动时，它的webapps目录下就一定会存在sample.war文件:这个文件正是WAR包容器启动时拷贝到这个Volume里面的，而这个Volume是被这两人容器共享的。
+像这样，我们用一种”组合“的方式，解决了WAR包与Tomcat容器之间耦合关系的问题。 实际上，这个所谓的”组合“操作，正是容器设计模式里最常用的一种模式，它的名字叫： sidecar,顾名思义，sidecar指的就是我们可以在一个Pod中，启动一个辅助容器，来完成一些独立于主进程（主容器）之外的工作。">
+  <meta property="og:description" content="Pod的实现原理： 首先，关于Pod最重要的一个事实是：它只是一个逻辑概念。Pod，其实是一组共享了某些资源的容器。具体的说，Pod里的所有容器，共享的是同一个Network Namespace，并且可以声明共享同一个Volume。在kubernetes项目里，Pod的实现需要使用一个中间容器，这个容器叫做Infra容器（pause)，则通过Join Network Namespace的方式,与Infra容器关联在一起。
+明白了Pod的实现原理后，我们再来讨论“容器设计模式”，就容易多了。Pod这种“超亲密关系”容器的设计思想，实际上就是希望，当用户想在一个容器里跑多个功能并不相关的应用时，应该优先考虑它们是不是更应该被描述成一个Pod里的多个容器。
+第一个最典型的例子是：war包与web服务器
+我们现在有一个Java Web应用的WAR包，它需要被放在Tomcat的webapps目录下运行起来。
+假如用docker来做这件事情
+*.一种方法是，把WAR包直接放Tomcat镜像的webapps目录下，做成一个新的镜像运行起来，可是，如果你要更新WAR包的内容或要升级Tomcat镜像，就要重新制作一个新的发布镜像，非常麻烦
+*.另一种方法是，你不管WAR包，永远只发布一个Tomcat容器，不过这个容器的webapps目录，就必须声明一个hostPath类型的Volume，从而把宿主机上的WAR包挂载进Tomcat容器中运行起来。不过，这样你就必须要解决一个问题，即：如何让每一台宿主机，都预先准备好这个存储WAR包的目录呢？这样来看，你只能独立维护一套分布式存储系统
+实际上，有了Pod之后，我们可以把WAR包和Tomcat分别做成镜像，然后把它们作为一个Pod的两个容器“组合”在一起。
+apiVersion: v1 kind: Pod metadata: name: javaweb-2 spec: initContainers: - image: geektime/sample:v2 name: war command: [&#34;cp&#34;,&#34;/sample.war&#34;,&#34;/app&#34;] volumeMounts: - mountPath: /app name: app-volume containers: - image: geektime/tomcat:7.0 name: tomcat command: [&#34;sh&#34;,&#34;-c&#34;,&#34;/root/apache-tomcat-7.0.42-v2/bin/start.sh&#34;] volumeMounts: - mountPath: /root/apache-tomcat-7.0.42-v2/webapps name: app-volume ports: - containerPort: 8080 hostPort: 8001 volumes: - name: app-volume emptyDir: {} war包容器的类型不再是一个普通容器，而是一个Init Container类型的容器。在Pod中，所有Init Container定义的容器，都会比spec.containers定义的用户容器先启动。并且，Init Containers容器会按顺序逐一启动，而直到它们都启动并且退出了，用户容器才会启动。
+所以，这个Init Container类型的WAR包容器启动后，我执行了一句&rdquo;cp /sample.war/app&rdquo;,把应用的WAR包拷贝到/app目录下，然后退出。而后这个/app目录，就挂载了一个名叫app-volume的Volume。Tomcat容器，同样声明了挂载app-volume到自己的webapps目录下。所以，等Tomcat容器启动时，它的webapps目录下就一定会存在sample.war文件:这个文件正是WAR包容器启动时拷贝到这个Volume里面的，而这个Volume是被这两人容器共享的。
+像这样，我们用一种”组合“的方式，解决了WAR包与Tomcat容器之间耦合关系的问题。 实际上，这个所谓的”组合“操作，正是容器设计模式里最常用的一种模式，它的名字叫： sidecar,顾名思义，sidecar指的就是我们可以在一个Pod中，启动一个辅助容器，来完成一些独立于主进程（主容器）之外的工作。">
+  <meta name="twitter:description" content="Pod的实现原理： 首先，关于Pod最重要的一个事实是：它只是一个逻辑概念。Pod，其实是一组共享了某些资源的容器。具体的说，Pod里的所有容器，共享的是同一个Network Namespace，并且可以声明共享同一个Volume。在kubernetes项目里，Pod的实现需要使用一个中间容器，这个容器叫做Infra容器（pause)，则通过Join Network Namespace的方式, …">
+  <meta name="author" content="kenwood Chan"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Kenwood Chan",
+    
+    "url": "https:\/\/kenwoodjw.github.io"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/kenwoodjw.github.io"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/kenwoodjw.github.io",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/kenwoodjw.github.io\/post\/k8s01\/",
+          "name": "为什么需要pod"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "kenwood Chan"
+  },
+  "headline": "为什么需要pod",
+  "description" : "Pod的实现原理： 首先，关于Pod最重要的一个事实是：它只是一个逻辑概念。Pod，其实是一组共享了某些资源的容器。具体的说，Pod里的所有容器，共享的是同一个Network Namespace，并且可以声明共享同一个Volume。在kubernetes项目里，Pod的实现需要使用一个中间容器，这个容器叫做Infra容器（pause)，则通过Join Network Namespace的方式,与Infra容器关联在一起。\n明白了Pod的实现原理后，我们再来讨论“容器设计模式”，就容易多了。Pod这种“超亲密关系”容器的设计思想，实际上就是希望，当用户想在一个容器里跑多个功能并不相关的应用时，应该优先考虑它们是不是更应该被描述成一个Pod里的多个容器。\n第一个最典型的例子是：war包与web服务器\n我们现在有一个Java Web应用的WAR包，它需要被放在Tomcat的webapps目录下运行起来。\n假如用docker来做这件事情\n*.一种方法是，把WAR包直接放Tomcat镜像的webapps目录下，做成一个新的镜像运行起来，可是，如果你要更新WAR包的内容或要升级Tomcat镜像，就要重新制作一个新的发布镜像，非常麻烦\n*.另一种方法是，你不管WAR包，永远只发布一个Tomcat容器，不过这个容器的webapps目录，就必须声明一个hostPath类型的Volume，从而把宿主机上的WAR包挂载进Tomcat容器中运行起来。不过，这样你就必须要解决一个问题，即：如何让每一台宿主机，都预先准备好这个存储WAR包的目录呢？这样来看，你只能独立维护一套分布式存储系统\n实际上，有了Pod之后，我们可以把WAR包和Tomcat分别做成镜像，然后把它们作为一个Pod的两个容器“组合”在一起。\napiVersion: v1 kind: Pod metadata: name: javaweb-2 spec: initContainers: - image: geektime\/sample:v2 name: war command: [\x26#34;cp\x26#34;,\x26#34;\/sample.war\x26#34;,\x26#34;\/app\x26#34;] volumeMounts: - mountPath: \/app name: app-volume containers: - image: geektime\/tomcat:7.0 name: tomcat command: [\x26#34;sh\x26#34;,\x26#34;-c\x26#34;,\x26#34;\/root\/apache-tomcat-7.0.42-v2\/bin\/start.sh\x26#34;] volumeMounts: - mountPath: \/root\/apache-tomcat-7.0.42-v2\/webapps name: app-volume ports: - containerPort: 8080 hostPort: 8001 volumes: - name: app-volume emptyDir: {} war包容器的类型不再是一个普通容器，而是一个Init Container类型的容器。在Pod中，所有Init Container定义的容器，都会比spec.containers定义的用户容器先启动。并且，Init Containers容器会按顺序逐一启动，而直到它们都启动并且退出了，用户容器才会启动。\n所以，这个Init Container类型的WAR包容器启动后，我执行了一句\x26rdquo;cp \/sample.war\/app\x26rdquo;,把应用的WAR包拷贝到\/app目录下，然后退出。而后这个\/app目录，就挂载了一个名叫app-volume的Volume。Tomcat容器，同样声明了挂载app-volume到自己的webapps目录下。所以，等Tomcat容器启动时，它的webapps目录下就一定会存在sample.war文件:这个文件正是WAR包容器启动时拷贝到这个Volume里面的，而这个Volume是被这两人容器共享的。\n像这样，我们用一种”组合“的方式，解决了WAR包与Tomcat容器之间耦合关系的问题。 实际上，这个所谓的”组合“操作，正是容器设计模式里最常用的一种模式，它的名字叫： sidecar,顾名思义，sidecar指的就是我们可以在一个Pod中，启动一个辅助容器，来完成一些独立于主进程（主容器）之外的工作。",
+  "inLanguage" : "en",
+  "wordCount":  80 ,
+  "datePublished" : "2019-04-10T22:35:58",
+  "dateModified" : "2019-04-10T22:35:58",
+  "image" : "https:\/\/kenwoodjw.github.io\/images\/kenwood.jpg",
+  "keywords" : [ "" ],
+  "mainEntityOfPage" : "https:\/\/kenwoodjw.github.io\/post\/k8s01\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/kenwoodjw.github.io",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/kenwoodjw.github.io\/images\/kenwood.jpg",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="为什么需要pod" />
+<meta property="og:description" content="Pod的实现原理： 首先，关于Pod最重要的一个事实是：它只是一个逻辑概念。Pod，其实是一组共享了某些资源的容器。具体的说，Pod里的所有容器，共享的是同一个Network Namespace，并且可以声明共享同一个Volume。在kubernetes项目里，Pod的实现需要使用一个中间容器，这个容器叫做Infra容器（pause)，则通过Join Network Namespace的方式,与Infra容器关联在一起。
+明白了Pod的实现原理后，我们再来讨论“容器设计模式”，就容易多了。Pod这种“超亲密关系”容器的设计思想，实际上就是希望，当用户想在一个容器里跑多个功能并不相关的应用时，应该优先考虑它们是不是更应该被描述成一个Pod里的多个容器。
+第一个最典型的例子是：war包与web服务器
+我们现在有一个Java Web应用的WAR包，它需要被放在Tomcat的webapps目录下运行起来。
+假如用docker来做这件事情
+*.一种方法是，把WAR包直接放Tomcat镜像的webapps目录下，做成一个新的镜像运行起来，可是，如果你要更新WAR包的内容或要升级Tomcat镜像，就要重新制作一个新的发布镜像，非常麻烦
+*.另一种方法是，你不管WAR包，永远只发布一个Tomcat容器，不过这个容器的webapps目录，就必须声明一个hostPath类型的Volume，从而把宿主机上的WAR包挂载进Tomcat容器中运行起来。不过，这样你就必须要解决一个问题，即：如何让每一台宿主机，都预先准备好这个存储WAR包的目录呢？这样来看，你只能独立维护一套分布式存储系统
+实际上，有了Pod之后，我们可以把WAR包和Tomcat分别做成镜像，然后把它们作为一个Pod的两个容器“组合”在一起。
+apiVersion: v1 kind: Pod metadata: name: javaweb-2 spec: initContainers: - image: geektime/sample:v2 name: war command: [&#34;cp&#34;,&#34;/sample.war&#34;,&#34;/app&#34;] volumeMounts: - mountPath: /app name: app-volume containers: - image: geektime/tomcat:7.0 name: tomcat command: [&#34;sh&#34;,&#34;-c&#34;,&#34;/root/apache-tomcat-7.0.42-v2/bin/start.sh&#34;] volumeMounts: - mountPath: /root/apache-tomcat-7.0.42-v2/webapps name: app-volume ports: - containerPort: 8080 hostPort: 8001 volumes: - name: app-volume emptyDir: {} war包容器的类型不再是一个普通容器，而是一个Init Container类型的容器。在Pod中，所有Init Container定义的容器，都会比spec.containers定义的用户容器先启动。并且，Init Containers容器会按顺序逐一启动，而直到它们都启动并且退出了，用户容器才会启动。
+所以，这个Init Container类型的WAR包容器启动后，我执行了一句&rdquo;cp /sample.war/app&rdquo;,把应用的WAR包拷贝到/app目录下，然后退出。而后这个/app目录，就挂载了一个名叫app-volume的Volume。Tomcat容器，同样声明了挂载app-volume到自己的webapps目录下。所以，等Tomcat容器启动时，它的webapps目录下就一定会存在sample.war文件:这个文件正是WAR包容器启动时拷贝到这个Volume里面的，而这个Volume是被这两人容器共享的。
+像这样，我们用一种”组合“的方式，解决了WAR包与Tomcat容器之间耦合关系的问题。 实际上，这个所谓的”组合“操作，正是容器设计模式里最常用的一种模式，它的名字叫： sidecar,顾名思义，sidecar指的就是我们可以在一个Pod中，启动一个辅助容器，来完成一些独立于主进程（主容器）之外的工作。">
+<meta property="og:image" content="https://kenwoodjw.github.io/images/kenwood.jpg" />
+<meta property="og:url" content="https://kenwoodjw.github.io/post/k8s01/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Kenwood Chan" />
+  <meta name="twitter:title" content="为什么需要pod" />
+  <meta name="twitter:description" content="Pod的实现原理： 首先，关于Pod最重要的一个事实是：它只是一个逻辑概念。Pod，其实是一组共享了某些资源的容器。具体的说，Pod里的所有容器，共享的是同一个Network Namespace，并且可以声明共享同一个Volume。在kubernetes项目里，Pod的实现需要使用一个中间容器，这个容器叫做Infra容器（pause)，则通过Join Network Namespace的方式, …">
+  <meta name="twitter:image" content="https://kenwoodjw.github.io/images/kenwood.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <link href='https://kenwoodjw.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://kenwoodjw.github.io/images/kenwood.jpg" />
+  <meta name="twitter:image" content="https://kenwoodjw.github.io/images/kenwood.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://kenwoodjw.github.io/post/k8s01/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Kenwood Chan" />
+
+  <meta name="generator" content="Hugo 0.55.5" />
+  <link rel="alternate" href="https://kenwoodjw.github.io/index.xml" type="application/rss+xml" title="Kenwood Chan"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://kenwoodjw.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://kenwoodjw.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://kenwoodjw.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-136760087-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://kenwoodjw.github.io">Kenwood Chan</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Kenwood Chan" href="https://kenwoodjw.github.io">
+            <img class="avatar-img" src="https://kenwoodjw.github.io/images/kenwood.jpg" alt="Kenwood Chan" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>为什么需要pod</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on April 10, 2019
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;minutes
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood Chan
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>Pod的实现原理： 首先，关于Pod最重要的一个事实是：它只是一个逻辑概念。Pod，其实是一组共享了某些资源的容器。具体的说，Pod里的所有容器，共享的是同一个Network Namespace，并且可以声明共享同一个Volume。在kubernetes项目里，Pod的实现需要使用一个中间容器，这个容器叫做Infra容器（pause)，则通过Join Network Namespace的方式,与Infra容器关联在一起。</p>
+
+<p>明白了Pod的实现原理后，我们再来讨论“容器设计模式”，就容易多了。Pod这种“超亲密关系”容器的设计思想，实际上就是希望，当用户想在一个容器里跑多个功能并不相关的应用时，应该优先考虑它们是不是更应该被描述成一个Pod里的多个容器。</p>
+
+<p>第一个最典型的例子是：war包与web服务器</p>
+
+<p>我们现在有一个Java Web应用的WAR包，它需要被放在Tomcat的webapps目录下运行起来。</p>
+
+<p>假如用docker来做这件事情</p>
+
+<p>*.一种方法是，把WAR包直接放Tomcat镜像的webapps目录下，做成一个新的镜像运行起来，可是，如果你要更新WAR包的内容或要升级Tomcat镜像，就要重新制作一个新的发布镜像，非常麻烦</p>
+
+<p>*.另一种方法是，你不管WAR包，永远只发布一个Tomcat容器，不过这个容器的webapps目录，就必须声明一个hostPath类型的Volume，从而把宿主机上的WAR包挂载进Tomcat容器中运行起来。不过，这样你就必须要解决一个问题，即：如何让每一台宿主机，都预先准备好这个存储WAR包的目录呢？这样来看，你只能独立维护一套分布式存储系统</p>
+
+<p>实际上，有了Pod之后，我们可以把WAR包和Tomcat分别做成镜像，然后把它们作为一个Pod的两个容器“组合”在一起。</p>
+<div class="highlight"><pre class="chroma">apiVersion: v1
+kind: Pod
+metadata:
+   name: javaweb-2
+spec:
+  initContainers:
+  - image: geektime/sample:v2
+    name: war
+    command: [&#34;cp&#34;,&#34;/sample.war&#34;,&#34;/app&#34;]
+    volumeMounts:
+    - mountPath: /app
+      name: app-volume 
+  containers:
+   - image: geektime/tomcat:7.0
+     name: tomcat
+     command: [&#34;sh&#34;,&#34;-c&#34;,&#34;/root/apache-tomcat-7.0.42-v2/bin/start.sh&#34;]
+     volumeMounts:
+     - mountPath: /root/apache-tomcat-7.0.42-v2/webapps
+       name: app-volume
+    ports:
+    - containerPort: 8080
+      hostPort: 8001
+  volumes:
+  - name: app-volume
+    emptyDir: {}</pre></div>
+<p>war包容器的类型不再是一个普通容器，而是一个Init Container类型的容器。在Pod中，所有Init Container定义的容器，都会比spec.containers定义的用户容器先启动。并且，Init Containers容器会按顺序逐一启动，而直到它们都启动并且退出了，用户容器才会启动。</p>
+
+<p>所以，这个Init Container类型的WAR包容器启动后，我执行了一句&rdquo;cp /sample.war/app&rdquo;,把应用的WAR包拷贝到/app目录下，然后退出。而后这个/app目录，就挂载了一个名叫app-volume的Volume。Tomcat容器，同样声明了挂载app-volume到自己的webapps目录下。所以，等Tomcat容器启动时，它的webapps目录下就一定会存在sample.war文件:这个文件正是WAR包容器启动时拷贝到这个Volume里面的，而这个Volume是被这两人容器共享的。</p>
+
+<p>像这样，我们用一种”组合“的方式，解决了WAR包与Tomcat容器之间耦合关系的问题。 实际上，这个所谓的”组合“操作，正是容器设计模式里最常用的一种模式，它的名字叫： <strong>sidecar</strong>,顾名思义，sidecar指的就是我们可以在一个Pod中，启动一个辅助容器，来完成一些独立于主进程（主容器）之外的工作。</p>
+
+<p>比如，在我们的这个应用Pod中，Tomcat容器是我们要使用的主容器，而WAR包容器的存在，只是为了给它提供一个WAR包而已。所以，我们用Init Container的方式优先运行WAR包容器，扮演了一个sidewar的角色。</p>
+
+<p>第二个例子，则是容器的日志收集。</p>
+
+<p>比如，我现在有一个应用，需要不断地把日志文件输出到容器的/var/log目录中。</p>
+
+<p>这时，我就可以把一个Pod里的Volume挂载到应用容器的/var/log目录上。</p>
+
+<p>然后，我在这个Pod里同时运行一个sidecar容器，它是声明挂载同一个Volume到自己的/var/log目录上。</p>
+
+<p>这样，接下来sidecar容器就只需要做一件事，那就是不断从自己的/var/log目录里读取日志文件，转发到MongoDB或者Elasticsearch中存储起来，这样，一个最基本的日志收集工作就完成了</p>
+
+<p>不要忘记，Pod的另一个重要特性是，它的所有容器都共享同一个Network Namespace。这就使得很多与Pod网络相关的配置和管理，也都可以交给sidecar完成，而完全无须干涉用户容器，这里最典型的例子莫过于lstio这个微服务治理项目。</p>
+
+
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fk8s01%2f&amp;text=%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81pod&amp;via=" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//plus.google.com/share?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fk8s01%2f" target="_blank" title="Share on Google Plus">
+          <i class="fab fa-google-plus"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fk8s01%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fk8s01%2f&amp;title=%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81pod" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fk8s01%2f&amp;title=%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81pod" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fk8s01%2f&amp;title=%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81pod" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fk8s01%2f&amp;description=%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81pod" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+              </div>
+            </section>
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://kenwoodjw.github.io/post/python_standard_lib_01/" data-toggle="tooltip" data-placement="top" title="每天一个python标准库00">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://kenwoodjw.github.io/post/python_02/" data-toggle="tooltip" data-placement="top" title="Python后端架构演进">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+        
+          
+          <div class="disqus-comments">
+            <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "kenwoodjw-github-io" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+          </div>
+          
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="https://github.com/kenwoodjw" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="https://kenwoodjw.github.io/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="kenwoodjw.github.io">kenwood Chan</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2019
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://kenwoodjw.github.io">Kenwood Chan</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.55.5</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://kenwoodjw.github.io/js/main.js"></script>
+<script src="https://kenwoodjw.github.io/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://kenwoodjw.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
+

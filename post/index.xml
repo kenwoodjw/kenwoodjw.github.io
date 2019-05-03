@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Post on Kenwood Blog</title>
+    <title>Posts on Kenwood Chan</title>
     <link>https://kenwoodjw.github.io/post/</link>
-    <description>Recent content in Post on Kenwood Blog</description>
+    <description>Recent content in Posts on Kenwood Chan</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <copyright>Copyright © 2018</copyright>
     <lastBuildDate>Mon, 22 Apr 2019 23:25:20 +0800</lastBuildDate>
     
 	<atom:link href="https://kenwoodjw.github.io/post/index.xml" rel="self" type="application/rss+xml" />
@@ -18,14 +16,35 @@
       <pubDate>Mon, 22 Apr 2019 23:25:20 +0800</pubDate>
       
       <guid>https://kenwoodjw.github.io/post/python_02/</guid>
-      <description>转载自https://zhu327.github.io/2018/07/19/python%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B/
-来腾讯之前在前公司做了3年的后端开发, 经历一款SaaS产品从0到10(还没有到100, 哈哈哈)的过程, 3年间后端的架构逐步演变, 在微服务的实践过程中遇到的问题也越来越多, 在这里总结下.
-产品是一款服务于人力资源的SaaS在线服务, 面向HR有Web Android/iOS 小程序多个客户端, 后端采用RESTful风格API来提供服务. 主要使用Python语言, 方便快速迭代.
-架构的演进经历了4个大的阶段: 1. MVC 2. 服务拆分 3. 微服务架构 4. 领域驱动设计.
- MVC 项目刚开始的时候, 后端同事不超过5个, 这个阶段主要的工作是实现产品的原型, 没有太多的考虑架构, 使用Django来快速实现功能, DB的表结构设计好之后, 抽象出功能View, 由于产品设计也很不完善, 后端需要很多的预留设计, 避免产品逻辑的变更带来整个表结构的变动, 在这个阶段代码上最重要的是确定适合团队的代码规范, 代码检查规则.  整体上架构如上图, Nginx负责负载均衡, 分发流量到多个Django服务, Django处理逻辑, 需要异步任务就交给Celery, 然后数据量比较大的地方使用Redis做缓存. 同时还有实时消息通知的需要使用了Nginx Push Module.
-问题与优化方式:
-Django并发性能差 使用uWSGI Master+Worker 配合 gevent 携程支持高并发 Redis连接数过多 使用redis-py自带的连接池来实现连接复用 MySQL连接数过多 使用djorm-ext-pool连接池复用连接 Celery配置gevent支持并发任务 随着开发的功能越来越多, Django下的app也越来越多, 这就带了发布上的不方便, 每次发布版本都需要重启所有的Django服务, 如果发布遇到问题, 只能加班解决了. 而且单个Django工程下的代码量也越来越多, 不好维护.
- 服务拆分 随着后端团队的壮大, 分给每个同事的需求也越来越细, 如果继续在一个工程里面开发所有的代码, 维护起来的代价太高, 而我们的上一个架构中在Django里面已经按模块划分了一个个app, app内高类聚, app之间低耦合, 这就为服务的拆分带来了便利.</description>
+      <description>转载自https://zhu327.github.io/2018/07/19/python%E5%90%8E%E7%AB%AF%E6%9E%</description>
+    </item>
+    
+    <item>
+      <title>为什么需要pod</title>
+      <link>https://kenwoodjw.github.io/post/k8s01/</link>
+      <pubDate>Wed, 10 Apr 2019 22:35:58 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/post/k8s01/</guid>
+      <description>Pod的实现原理： 首先，关于Pod最重要的一个事实是：它只是一个逻辑概念。Pod，其实是一组共享了某些资源的容器。具体的说，Pod里的所有容器，共享的是同一个Network Namespace，并且可以声明共享同一个Volume。在kubernetes项目里，Pod的实现需要使用一个中间容器，这个容器叫做Infra容器（pause)，则通过Join Network Namespace的方式,与Infra容器关联在一起。
+明白了Pod的实现原理后，我们再来讨论“容器设计模式”，就容易多了。Pod这种“超亲密关系”容器的设计思想，实际上就是希望，当用户想在一个容器里跑多个功能并不相关的应用时，应该优先考虑它们是不是更应该被描述成一个Pod里的多个容器。
+第一个最典型的例子是：war包与web服务器
+我们现在有一个Java Web应用的WAR包，它需要被放在Tomcat的webapps目录下运行起来。
+假如用docker来做这件事情
+*.一种方法是，把WAR包直接放Tomcat镜像的webapps目录下，做成一个新的镜像运行起来，可是，如果你要更新WAR包的内容或要升级Tomcat镜像，就要重新制作一个新的发布镜像，非常麻烦
+*.另一种方法是，你不管WAR包，永远只发布一个Tomcat容器，不过这个容器的webapps目录，就必须声明一个hostPath类型的Volume，从而把宿主机上的WAR包挂载进Tomcat容器中运行起来。不过，这样你就必须要解决一个问题，即：如何让每一台宿主机，都预先准备好这个存储WAR包的目录呢？这样来看，你只能独立维护一套分布式存储系统
+实际上，有了Pod之后，我们可以把WAR包和Tomcat分别做成镜像，然后把它们作为一个Pod的两个容器“组合”在一起。
+apiVersion: v1 kind: Pod metadata: name: javaweb-2 spec: initContainers: - image: geektime/sample:v2 name: war command: [&amp;#34;cp&amp;#34;,&amp;#34;/sample.war&amp;#34;,&amp;#34;/app&amp;#34;] volumeMounts: - mountPath: /app name: app-volume containers: - image: geektime/tomcat:7.0 name: tomcat command: [&amp;#34;sh&amp;#34;,&amp;#34;-c&amp;#34;,&amp;#34;/root/apache-tomcat-7.0.42-v2/bin/start.sh&amp;#34;] volumeMounts: - mountPath: /root/apache-tomcat-7.0.42-v2/webapps name: app-volume ports: - containerPort: 8080 hostPort: 8001 volumes: - name: app-volume emptyDir: {} war包容器的类型不再是一个普通容器，而是一个Init Container类型的容器。在Pod中，所有Init Container定义的容器，都会比spec.containers定义的用户容器先启动。并且，Init Containers容器会按顺序逐一启动，而直到它们都启动并且退出了，用户容器才会启动。
+所以，这个Init Container类型的WAR包容器启动后，我执行了一句&amp;rdquo;cp /sample.war/app&amp;rdquo;,把应用的WAR包拷贝到/app目录下，然后退出。而后这个/app目录，就挂载了一个名叫app-volume的Volume。Tomcat容器，同样声明了挂载app-volume到自己的webapps目录下。所以，等Tomcat容器启动时，它的webapps目录下就一定会存在sample.war文件:这个文件正是WAR包容器启动时拷贝到这个Volume里面的，而这个Volume是被这两人容器共享的。
+像这样，我们用一种”组合“的方式，解决了WAR包与Tomcat容器之间耦合关系的问题。 实际上，这个所谓的”组合“操作，正是容器设计模式里最常用的一种模式，它的名字叫： sidecar,顾名思义，sidecar指的就是我们可以在一个Pod中，启动一个辅助容器，来完成一些独立于主进程（主容器）之外的工作。</description>
+    </item>
+    
+    <item>
+      <title>每天一个python标准库00</title>
+      <link>https://kenwoodjw.github.io/post/python_standard_lib_01/</link>
+      <pubDate>Mon, 08 Apr 2019 22:41:26 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/post/python_standard_lib_01/</guid>
+      <description>itertools &amp;mdash; 为高效循环而创建迭代器的函数 In [2]: dir(itertools) Out[2]: [&amp;#39;__doc__&amp;#39;, &amp;#39;__loader__&amp;#39;, &amp;#39;__name__&amp;#39;, &amp;#39;__package__&amp;#39;, &amp;#39;__spec__&amp;#39;, &amp;#39;_grouper&amp;#39;, &amp;#39;_tee&amp;#39;, &amp;#39;_tee_dataobject&amp;#39;, &amp;#39;accumulate&amp;#39;, &amp;#39;chain&amp;#39;, &amp;#39;combinations&amp;#39;, &amp;#39;combinations_with_replacement&amp;#39;, &amp;#39;compress&amp;#39;, &amp;#39;count&amp;#39;, &amp;#39;cycle&amp;#39;, &amp;#39;dropwhile&amp;#39;, &amp;#39;filterfalse&amp;#39;, &amp;#39;groupby&amp;#39;, &amp;#39;islice&amp;#39;, &amp;#39;permutations&amp;#39;, &amp;#39;product&amp;#39;, &amp;#39;repeat&amp;#39;, &amp;#39;starmap&amp;#39;, &amp;#39;takewhile&amp;#39;, &amp;#39;tee&amp;#39;, &amp;#39;zip_longest&amp;#39;] 无穷迭代器 from itertools import count [i for i in count(10)] -- &amp;gt; [10,11,12,13,14.</description>
     </item>
     
     <item>
