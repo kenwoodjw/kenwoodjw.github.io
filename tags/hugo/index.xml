@@ -5,19 +5,10 @@
     <link>https://kenwoodjw.github.io/tags/hugo/</link>
     <description>Recent content in hugo on Kenwood Chan</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 03 May 2019 14:41:16 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 24 Mar 2019 20:52:13 +0800</lastBuildDate>
     
 	<atom:link href="https://kenwoodjw.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Test</title>
-      <link>https://kenwoodjw.github.io/post/test/</link>
-      <pubDate>Fri, 03 May 2019 14:41:16 +0800</pubDate>
-      
-      <guid>https://kenwoodjw.github.io/post/test/</guid>
-      <description>This is a test page</description>
-    </item>
     
     <item>
       <title>hugo部署网站，circleci自动构建静态页面</title>
