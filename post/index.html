@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
   <head>
     
 
@@ -74,7 +74,7 @@ if (!doNotTrack) {
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
+        <span class="sr-only">切换导航</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -195,11 +195,13 @@ if (!doNotTrack) {
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on April 22, 2019
+  <i class="fas fa-calendar"></i>&nbsp;发表于 May 3, 2019
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;0&nbsp;minutes
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;0&nbsp;分钟
   
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;0&nbsp;个字
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood Chan
@@ -225,6 +227,76 @@ if (!doNotTrack) {
         <div class="posts-list">
           
             <article class="post-preview">
+              <a href="https://kenwoodjw.github.io/post/test/">
+                <h2 class="post-title">Test</h2>
+
+                
+              </a>
+
+              <p class="post-meta">
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;发表于 May 3, 2019
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;分钟
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;5&nbsp;个字
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood
+  
+  
+</span>
+
+
+              </p>
+              <div class="post-entry">
+                
+                  
+
+<h2 id="this-is-a-test-page">This is a test page</h2>
+
+                
+              </div>
+
+              
+                <div class="blog-tags">
+                  
+                    <a href="https://kenwoodjw.github.io/tags/hugo/">Hugo</a>&nbsp;
+                  
+                    <a href="https://kenwoodjw.github.io/tags/github/">GitHub</a>&nbsp;
+                  
+                    <a href="https://kenwoodjw.github.io/tags/circleci/">CircleCI</a>&nbsp;
+                  
+                    <a href="https://kenwoodjw.github.io/tags/build/">Build</a>&nbsp;
+                  
+                    <a href="https://kenwoodjw.github.io/tags/docker/">Docker</a>&nbsp;
+                  
+                    <a href="https://kenwoodjw.github.io/tags/books/">Books</a>&nbsp;
+                  
+                    <a href="https://kenwoodjw.github.io/tags/nextjs/">Nextjs</a>&nbsp;
+                  
+                    <a href="https://kenwoodjw.github.io/tags/nodejs/">Nodejs</a>&nbsp;
+                  
+                    <a href="https://kenwoodjw.github.io/tags/golang/">Golang</a>&nbsp;
+                  
+                    <a href="https://kenwoodjw.github.io/tags/graphql/">GraphQL</a>&nbsp;
+                  
+                    <a href="https://kenwoodjw.github.io/tags/backend/">Backend</a>&nbsp;
+                  
+                    <a href="https://kenwoodjw.github.io/tags/frontend/">Frontend</a>&nbsp;
+                  
+                    <a href="https://kenwoodjw.github.io/tags/angular/">Angular</a>&nbsp;
+                  
+                </div>
+              
+
+            </article>
+          
+            <article class="post-preview">
               <a href="https://kenwoodjw.github.io/post/python_02/">
                 <h2 class="post-title">Python后端架构演进</h2>
 
@@ -235,11 +307,13 @@ if (!doNotTrack) {
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on April 22, 2019
+  <i class="fas fa-calendar"></i>&nbsp;发表于 April 22, 2019
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;5&nbsp;minutes
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;5&nbsp;分钟
   
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;2264&nbsp;个字
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood Chan
@@ -252,7 +326,7 @@ if (!doNotTrack) {
               <div class="post-entry">
                 
                   转载自https://zhu327.github.io/2018/07/19/python%E5%90%8E%E7%AB%AF%E6%9E%
-                  <a href="https://kenwoodjw.github.io/post/python_02/" class="post-read-more">[Read More]</a>
+                  <a href="https://kenwoodjw.github.io/post/python_02/" class="post-read-more">[阅读全文]</a>
                 
               </div>
 
@@ -271,11 +345,13 @@ if (!doNotTrack) {
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on April 10, 2019
+  <i class="fas fa-calendar"></i>&nbsp;发表于 April 10, 2019
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;minutes
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;分钟
   
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;80&nbsp;个字
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood Chan
@@ -298,7 +374,7 @@ if (!doNotTrack) {
 apiVersion: v1 kind: Pod metadata: name: javaweb-2 spec: initContainers: - image: geektime/sample:v2 name: war command: [&#34;cp&#34;,&#34;/sample.war&#34;,&#34;/app&#34;] volumeMounts: - mountPath: /app name: app-volume containers: - image: geektime/tomcat:7.0 name: tomcat command: [&#34;sh&#34;,&#34;-c&#34;,&#34;/root/apache-tomcat-7.0.42-v2/bin/start.sh&#34;] volumeMounts: - mountPath: /root/apache-tomcat-7.0.42-v2/webapps name: app-volume ports: - containerPort: 8080 hostPort: 8001 volumes: - name: app-volume emptyDir: {} war包容器的类型不再是一个普通容器，而是一个Init Container类型的容器。在Pod中，所有Init Container定义的容器，都会比spec.containers定义的用户容器先启动。并且，Init Containers容器会按顺序逐一启动，而直到它们都启动并且退出了，用户容器才会启动。
 所以，这个Init Container类型的WAR包容器启动后，我执行了一句&rdquo;cp /sample.war/app&rdquo;,把应用的WAR包拷贝到/app目录下，然后退出。而后这个/app目录，就挂载了一个名叫app-volume的Volume。Tomcat容器，同样声明了挂载app-volume到自己的webapps目录下。所以，等Tomcat容器启动时，它的webapps目录下就一定会存在sample.war文件:这个文件正是WAR包容器启动时拷贝到这个Volume里面的，而这个Volume是被这两人容器共享的。
 像这样，我们用一种”组合“的方式，解决了WAR包与Tomcat容器之间耦合关系的问题。 实际上，这个所谓的”组合“操作，正是容器设计模式里最常用的一种模式，它的名字叫： sidecar,顾名思义，sidecar指的就是我们可以在一个Pod中，启动一个辅助容器，来完成一些独立于主进程（主容器）之外的工作。
-                  <a href="https://kenwoodjw.github.io/post/k8s01/" class="post-read-more">[Read More]</a>
+                  <a href="https://kenwoodjw.github.io/post/k8s01/" class="post-read-more">[阅读全文]</a>
                 
               </div>
 
@@ -317,11 +393,13 @@ apiVersion: v1 kind: Pod metadata: name: javaweb-2 spec: initContainers: - image
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on April 8, 2019
+  <i class="fas fa-calendar"></i>&nbsp;发表于 April 8, 2019
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;minutes
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;分钟
   
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;46&nbsp;个字
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood Chan
@@ -334,7 +412,7 @@ apiVersion: v1 kind: Pod metadata: name: javaweb-2 spec: initContainers: - image
               <div class="post-entry">
                 
                   itertools &mdash; 为高效循环而创建迭代器的函数 In [2]: dir(itertools) Out[2]: [&#39;__doc__&#39;, &#39;__loader__&#39;, &#39;__name__&#39;, &#39;__package__&#39;, &#39;__spec__&#39;, &#39;_grouper&#39;, &#39;_tee&#39;, &#39;_tee_dataobject&#39;, &#39;accumulate&#39;, &#39;chain&#39;, &#39;combinations&#39;, &#39;combinations_with_replacement&#39;, &#39;compress&#39;, &#39;count&#39;, &#39;cycle&#39;, &#39;dropwhile&#39;, &#39;filterfalse&#39;, &#39;groupby&#39;, &#39;islice&#39;, &#39;permutations&#39;, &#39;product&#39;, &#39;repeat&#39;, &#39;starmap&#39;, &#39;takewhile&#39;, &#39;tee&#39;, &#39;zip_longest&#39;] 无穷迭代器 from itertools import count [i for i in count(10)] -- &gt; [10,11,12,13,14.
-                  <a href="https://kenwoodjw.github.io/post/python_standard_lib_01/" class="post-read-more">[Read More]</a>
+                  <a href="https://kenwoodjw.github.io/post/python_standard_lib_01/" class="post-read-more">[阅读全文]</a>
                 
               </div>
 
@@ -353,11 +431,13 @@ apiVersion: v1 kind: Pod metadata: name: javaweb-2 spec: initContainers: - image
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on March 24, 2019
+  <i class="fas fa-calendar"></i>&nbsp;发表于 March 24, 2019
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;分钟
   
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;292&nbsp;个字
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood Chan
@@ -374,7 +454,7 @@ apiVersion: v1 kind: Pod metadata: name: javaweb-2 spec: initContainers: - image
 4. 將 /themes/casper 中的 static 和 layouts 文件夹复制，取代根目录中的 static 和 layouts 文件夹 5. 建立新文章 hugo new posts/my-first-post.md 此指令会在 /content/posts 文件夾中建立 my-first-post.md。使用任意文字编輯器打开此 markdown 文件，將 draft 改成 false，文件內容任意。以后建立文章都是以此方式。
 使用文字编輯器打开 config.toml，并调整內容为上面这样。
 6. 编輯 config.toml baseURL = &#34;https://kenwoodjw.
-                  <a href="https://kenwoodjw.github.io/post/hugo/" class="post-read-more">[Read More]</a>
+                  <a href="https://kenwoodjw.github.io/post/hugo/" class="post-read-more">[阅读全文]</a>
                 
               </div>
 
@@ -440,7 +520,7 @@ apiVersion: v1 kind: Pod metadata: name: javaweb-2 spec: initContainers: - image
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.55.5</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          由 <a href="http://gohugo.io">Hugo v0.55.5</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

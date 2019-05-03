@@ -5,9 +5,64 @@
     <link>https://kenwoodjw.github.io/categories/</link>
     <description>Recent content in Categories on Kenwood Chan</description>
     <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 03 May 2019 14:41:16 +0800</lastBuildDate>
     
 	<atom:link href="https://kenwoodjw.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Back-end Development</title>
+      <link>https://kenwoodjw.github.io/categories/back-end-development/</link>
+      <pubDate>Fri, 03 May 2019 14:41:16 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/categories/back-end-development/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Books</title>
+      <link>https://kenwoodjw.github.io/categories/books/</link>
+      <pubDate>Fri, 03 May 2019 14:41:16 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/categories/books/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DevOps</title>
+      <link>https://kenwoodjw.github.io/categories/devops/</link>
+      <pubDate>Fri, 03 May 2019 14:41:16 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/categories/devops/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Front-end Development</title>
+      <link>https://kenwoodjw.github.io/categories/front-end-development/</link>
+      <pubDate>Fri, 03 May 2019 14:41:16 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/categories/front-end-development/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Software Development</title>
+      <link>https://kenwoodjw.github.io/categories/software-development/</link>
+      <pubDate>Fri, 03 May 2019 14:41:16 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/categories/software-development/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Web App Development</title>
+      <link>https://kenwoodjw.github.io/categories/web-app-development/</link>
+      <pubDate>Fri, 03 May 2019 14:41:16 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/categories/web-app-development/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

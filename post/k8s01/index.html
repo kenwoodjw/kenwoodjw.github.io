@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
   <head>
     
 
@@ -82,7 +82,7 @@ apiVersion: v1 kind: Pod metadata: name: javaweb-2 spec: initContainers: - image
   },
   "headline": "为什么需要pod",
   "description" : "Pod的实现原理： 首先，关于Pod最重要的一个事实是：它只是一个逻辑概念。Pod，其实是一组共享了某些资源的容器。具体的说，Pod里的所有容器，共享的是同一个Network Namespace，并且可以声明共享同一个Volume。在kubernetes项目里，Pod的实现需要使用一个中间容器，这个容器叫做Infra容器（pause)，则通过Join Network Namespace的方式,与Infra容器关联在一起。\n明白了Pod的实现原理后，我们再来讨论“容器设计模式”，就容易多了。Pod这种“超亲密关系”容器的设计思想，实际上就是希望，当用户想在一个容器里跑多个功能并不相关的应用时，应该优先考虑它们是不是更应该被描述成一个Pod里的多个容器。\n第一个最典型的例子是：war包与web服务器\n我们现在有一个Java Web应用的WAR包，它需要被放在Tomcat的webapps目录下运行起来。\n假如用docker来做这件事情\n*.一种方法是，把WAR包直接放Tomcat镜像的webapps目录下，做成一个新的镜像运行起来，可是，如果你要更新WAR包的内容或要升级Tomcat镜像，就要重新制作一个新的发布镜像，非常麻烦\n*.另一种方法是，你不管WAR包，永远只发布一个Tomcat容器，不过这个容器的webapps目录，就必须声明一个hostPath类型的Volume，从而把宿主机上的WAR包挂载进Tomcat容器中运行起来。不过，这样你就必须要解决一个问题，即：如何让每一台宿主机，都预先准备好这个存储WAR包的目录呢？这样来看，你只能独立维护一套分布式存储系统\n实际上，有了Pod之后，我们可以把WAR包和Tomcat分别做成镜像，然后把它们作为一个Pod的两个容器“组合”在一起。\napiVersion: v1 kind: Pod metadata: name: javaweb-2 spec: initContainers: - image: geektime\/sample:v2 name: war command: [\x26#34;cp\x26#34;,\x26#34;\/sample.war\x26#34;,\x26#34;\/app\x26#34;] volumeMounts: - mountPath: \/app name: app-volume containers: - image: geektime\/tomcat:7.0 name: tomcat command: [\x26#34;sh\x26#34;,\x26#34;-c\x26#34;,\x26#34;\/root\/apache-tomcat-7.0.42-v2\/bin\/start.sh\x26#34;] volumeMounts: - mountPath: \/root\/apache-tomcat-7.0.42-v2\/webapps name: app-volume ports: - containerPort: 8080 hostPort: 8001 volumes: - name: app-volume emptyDir: {} war包容器的类型不再是一个普通容器，而是一个Init Container类型的容器。在Pod中，所有Init Container定义的容器，都会比spec.containers定义的用户容器先启动。并且，Init Containers容器会按顺序逐一启动，而直到它们都启动并且退出了，用户容器才会启动。\n所以，这个Init Container类型的WAR包容器启动后，我执行了一句\x26rdquo;cp \/sample.war\/app\x26rdquo;,把应用的WAR包拷贝到\/app目录下，然后退出。而后这个\/app目录，就挂载了一个名叫app-volume的Volume。Tomcat容器，同样声明了挂载app-volume到自己的webapps目录下。所以，等Tomcat容器启动时，它的webapps目录下就一定会存在sample.war文件:这个文件正是WAR包容器启动时拷贝到这个Volume里面的，而这个Volume是被这两人容器共享的。\n像这样，我们用一种”组合“的方式，解决了WAR包与Tomcat容器之间耦合关系的问题。 实际上，这个所谓的”组合“操作，正是容器设计模式里最常用的一种模式，它的名字叫： sidecar,顾名思义，sidecar指的就是我们可以在一个Pod中，启动一个辅助容器，来完成一些独立于主进程（主容器）之外的工作。",
-  "inLanguage" : "en",
+  "inLanguage" : "zh-cn",
   "wordCount":  80 ,
   "datePublished" : "2019-04-10T22:35:58",
   "dateModified" : "2019-04-10T22:35:58",
@@ -157,7 +157,7 @@ if (!doNotTrack) {
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
+        <span class="sr-only">切换导航</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -278,11 +278,13 @@ if (!doNotTrack) {
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on April 10, 2019
+  <i class="fas fa-calendar"></i>&nbsp;发表于 April 10, 2019
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;minutes
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;分钟
   
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;80&nbsp;个字
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood Chan
@@ -438,12 +440,12 @@ spec:
         <ul class="pager blog-pager">
           
             <li class="previous">
-              <a href="https://kenwoodjw.github.io/post/python_standard_lib_01/" data-toggle="tooltip" data-placement="top" title="每天一个python标准库00">&larr; Previous Post</a>
+              <a href="https://kenwoodjw.github.io/post/python_standard_lib_01/" data-toggle="tooltip" data-placement="top" title="每天一个python标准库00">&larr; 前一篇</a>
             </li>
           
           
             <li class="next">
-              <a href="https://kenwoodjw.github.io/post/python_02/" data-toggle="tooltip" data-placement="top" title="Python后端架构演进">Next Post &rarr;</a>
+              <a href="https://kenwoodjw.github.io/post/python_02/" data-toggle="tooltip" data-placement="top" title="Python后端架构演进">后一篇 &rarr;</a>
             </li>
           
         </ul>
@@ -530,7 +532,7 @@ spec:
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.55.5</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          由 <a href="http://gohugo.io">Hugo v0.55.5</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

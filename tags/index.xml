@@ -5,15 +5,123 @@
     <link>https://kenwoodjw.github.io/tags/</link>
     <description>Recent content in Tags on Kenwood Chan</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 24 Mar 2019 20:52:13 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 03 May 2019 14:41:16 +0800</lastBuildDate>
     
 	<atom:link href="https://kenwoodjw.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Angular</title>
+      <link>https://kenwoodjw.github.io/tags/angular/</link>
+      <pubDate>Fri, 03 May 2019 14:41:16 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/tags/angular/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Backend</title>
+      <link>https://kenwoodjw.github.io/tags/backend/</link>
+      <pubDate>Fri, 03 May 2019 14:41:16 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/tags/backend/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Books</title>
+      <link>https://kenwoodjw.github.io/tags/books/</link>
+      <pubDate>Fri, 03 May 2019 14:41:16 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/tags/books/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Build</title>
+      <link>https://kenwoodjw.github.io/tags/build/</link>
+      <pubDate>Fri, 03 May 2019 14:41:16 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/tags/build/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CircleCI</title>
+      <link>https://kenwoodjw.github.io/tags/circleci/</link>
+      <pubDate>Fri, 03 May 2019 14:41:16 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/tags/circleci/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://kenwoodjw.github.io/tags/docker/</link>
+      <pubDate>Fri, 03 May 2019 14:41:16 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Frontend</title>
+      <link>https://kenwoodjw.github.io/tags/frontend/</link>
+      <pubDate>Fri, 03 May 2019 14:41:16 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/tags/frontend/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GitHub</title>
+      <link>https://kenwoodjw.github.io/tags/github/</link>
+      <pubDate>Fri, 03 May 2019 14:41:16 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/tags/github/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Golang</title>
+      <link>https://kenwoodjw.github.io/tags/golang/</link>
+      <pubDate>Fri, 03 May 2019 14:41:16 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GraphQL</title>
+      <link>https://kenwoodjw.github.io/tags/graphql/</link>
+      <pubDate>Fri, 03 May 2019 14:41:16 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/tags/graphql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nextjs</title>
+      <link>https://kenwoodjw.github.io/tags/nextjs/</link>
+      <pubDate>Fri, 03 May 2019 14:41:16 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/tags/nextjs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nodejs</title>
+      <link>https://kenwoodjw.github.io/tags/nodejs/</link>
+      <pubDate>Fri, 03 May 2019 14:41:16 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/tags/nodejs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>hugo</title>
       <link>https://kenwoodjw.github.io/tags/hugo/</link>
-      <pubDate>Sun, 24 Mar 2019 20:52:13 +0800</pubDate>
+      <pubDate>Fri, 03 May 2019 14:41:16 +0800</pubDate>
       
       <guid>https://kenwoodjw.github.io/tags/hugo/</guid>
       <description></description>
