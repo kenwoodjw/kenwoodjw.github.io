@@ -3,14 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://kenwoodjw.github.io/post/arch_linux_01/</loc>
+    <lastmod>2019-05-04T22:47:12+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://kenwoodjw.github.io/</loc>
-    <lastmod>2019-04-22T23:25:20+08:00</lastmod>
+    <lastmod>2019-05-04T22:47:12+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://kenwoodjw.github.io/post/</loc>
-    <lastmod>2019-04-22T23:25:20+08:00</lastmod>
+    <lastmod>2019-05-04T22:47:12+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/tags/</loc>
+    <lastmod>2019-05-04T22:47:12+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/tags/linux/</loc>
+    <lastmod>2019-05-04T22:47:12+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -27,12 +44,6 @@
   <url>
     <loc>https://kenwoodjw.github.io/post/python_standard_lib_01/</loc>
     <lastmod>2019-04-08T22:41:26+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://kenwoodjw.github.io/tags/</loc>
-    <lastmod>2019-03-24T20:52:13+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
