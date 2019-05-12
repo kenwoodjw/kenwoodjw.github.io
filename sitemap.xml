@@ -3,20 +3,145 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://kenwoodjw.github.io/tags/angular/</loc>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/categories/back-end-development/</loc>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/tags/backend/</loc>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/categories/books/</loc>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/tags/books/</loc>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/tags/build/</loc>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/categories/</loc>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/tags/circleci/</loc>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/categories/devops/</loc>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/tags/docker/</loc>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/categories/front-end-development/</loc>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/tags/frontend/</loc>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/tags/github/</loc>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/tags/golang/</loc>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/tags/graphql/</loc>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/tags/hugo/</loc>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://kenwoodjw.github.io/</loc>
-    <lastmod>2019-05-08T22:22:54+08:00</lastmod>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/tags/nextjs/</loc>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/tags/nodejs/</loc>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://kenwoodjw.github.io/post/</loc>
-    <lastmod>2019-05-08T22:22:54+08:00</lastmod>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/post/python_03/</loc>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/categories/software-development/</loc>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://kenwoodjw.github.io/tags/</loc>
-    <lastmod>2019-05-08T22:22:54+08:00</lastmod>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/categories/web-app-development/</loc>
+    <lastmod>2019-05-11T22:15:01+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -58,19 +183,8 @@
   </url>
   
   <url>
-    <loc>https://kenwoodjw.github.io/tags/hugo/</loc>
-    <lastmod>2019-03-24T20:52:13+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://kenwoodjw.github.io/post/hugo/</loc>
     <lastmod>2019-03-24T20:52:13+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://kenwoodjw.github.io/categories/</loc>
-    <priority>0</priority>
   </url>
   
 </urlset>

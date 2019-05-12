@@ -5,18 +5,18 @@
     <link>https://kenwoodjw.github.io/tags/docker/</link>
     <description>Recent content in Docker on Kenwood Chan</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 03 May 2019 14:41:16 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 11 May 2019 22:15:01 +0800</lastBuildDate>
     
 	<atom:link href="https://kenwoodjw.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Test</title>
-      <link>https://kenwoodjw.github.io/post/test/</link>
-      <pubDate>Fri, 03 May 2019 14:41:16 +0800</pubDate>
+      <title>Python装饰器</title>
+      <link>https://kenwoodjw.github.io/post/python_03/</link>
+      <pubDate>Sat, 11 May 2019 22:15:01 +0800</pubDate>
       
-      <guid>https://kenwoodjw.github.io/post/test/</guid>
-      <description>This is a test page</description>
+      <guid>https://kenwoodjw.github.io/post/python_03/</guid>
+      <description>python装饰器 python装饰传入一个函数，添加一些功能，然后返回它 闭包 先了解闭包的功能，对理解装饰器有很大的帮助 什么是闭包(closu</description>
     </item>
     
   </channel>
