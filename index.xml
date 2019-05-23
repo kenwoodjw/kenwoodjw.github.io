@@ -5,10 +5,19 @@
     <link>https://kenwoodjw.github.io/</link>
     <description>Recent content on Kenwood Chan</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 11 May 2019 22:15:01 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 23 May 2019 23:30:31 +0800</lastBuildDate>
     
 	<atom:link href="https://kenwoodjw.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Docker组件构成</title>
+      <link>https://kenwoodjw.github.io/post/docker/</link>
+      <pubDate>Thu, 23 May 2019 23:30:31 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/post/docker/</guid>
+      <description>历史 docker公司原名dotclound, Docker项目刚刚兴起时，Google也开源了一个在内部使用多年，经历过生产环 境验证的Linu</description>
+    </item>
     
     <item>
       <title>Python装饰器</title>
