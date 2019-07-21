@@ -3,6 +3,47 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://kenwoodjw.github.io/categories/</loc>
+    <lastmod>2019-07-22T00:07:37+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/tags/k8s/</loc>
+    <lastmod>2019-07-22T00:07:37+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/post/k8s_02/</loc>
+    <lastmod>2019-07-22T00:07:37+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/</loc>
+    <lastmod>2019-07-22T00:07:37+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/post/</loc>
+    <lastmod>2019-07-22T00:07:37+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/tags/</loc>
+    <lastmod>2019-07-22T00:07:37+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/categories/k8s/</loc>
+    <lastmod>2019-07-22T00:07:37+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://kenwoodjw.github.io/tags/docker/</loc>
     <lastmod>2019-05-23T23:30:31+08:00</lastmod>
     <priority>0</priority>
@@ -11,24 +52,6 @@
   <url>
     <loc>https://kenwoodjw.github.io/post/docker/</loc>
     <lastmod>2019-05-23T23:30:31+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://kenwoodjw.github.io/</loc>
-    <lastmod>2019-05-23T23:30:31+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://kenwoodjw.github.io/post/</loc>
-    <lastmod>2019-05-23T23:30:31+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://kenwoodjw.github.io/tags/</loc>
-    <lastmod>2019-05-23T23:30:31+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -88,11 +111,6 @@
   <url>
     <loc>https://kenwoodjw.github.io/post/hugo/</loc>
     <lastmod>2019-03-24T20:52:13+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://kenwoodjw.github.io/categories/</loc>
-    <priority>0</priority>
   </url>
   
 </urlset>
