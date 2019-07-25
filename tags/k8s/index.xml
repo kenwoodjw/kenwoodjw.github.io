@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>K8s on Kenwood Chan</title>
+    <title>k8s on Kenwood Chan</title>
     <link>https://kenwoodjw.github.io/tags/k8s/</link>
-    <description>Recent content in K8s on Kenwood Chan</description>
+    <description>Recent content in k8s on Kenwood Chan</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 22 Jul 2019 00:07:37 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 25 Jul 2019 23:37:29 +0800</lastBuildDate>
     
 	<atom:link href="https://kenwoodjw.github.io/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8s_03</title>
+      <link>https://kenwoodjw.github.io/post/k8s_03/</link>
+      <pubDate>Thu, 25 Jul 2019 23:37:29 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/post/k8s_03/</guid>
+      <description>configmap 热更新 更新应用配置且不重启应用程序 使用环境变量或者命令行参数作为配置源的弊端在于无法在进程运行时更新配置。将configmap 暴露为卷可以</description>
+    </item>
     
     <item>
       <title>K8s_02</title>
