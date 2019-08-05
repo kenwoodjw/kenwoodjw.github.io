@@ -5,10 +5,19 @@
     <link>https://kenwoodjw.github.io/</link>
     <description>Recent content on Kenwood Chan</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 25 Jul 2019 23:37:29 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 05 Aug 2019 22:48:13 +0800</lastBuildDate>
     
 	<atom:link href="https://kenwoodjw.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8s_04</title>
+      <link>https://kenwoodjw.github.io/post/k8s_04/</link>
+      <pubDate>Mon, 05 Aug 2019 22:48:13 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/post/k8s_04/</guid>
+      <description>为什么需要ingress？ Ingress 只需要一个公网ip就能为许多服务提供访问，当客户端向ingress发送HTTP请求时，Ingress 会根据请求的</description>
+    </item>
     
     <item>
       <title>K8s_03</title>

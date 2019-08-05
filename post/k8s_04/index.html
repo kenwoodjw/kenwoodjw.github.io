@@ -7,12 +7,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>每天一个python标准库00 - Kenwood Chan</title>
-  <meta property="og:title" content="每天一个python标准库00" />
-  <meta name="twitter:title" content="每天一个python标准库00" />
-  <meta name="description" content="itertools &mdash; 为高效循环而创建迭代器的函数 In [2]: dir(itertools) Out[2]: [&#39;__doc__&#39;, &#39;__loader__&#39;, &#39;__name__&#39;, &#39;__package__&#39;, &#39;__spec__&#39;, &#39;_grouper&#39;, &#39;_tee&#39;, &#39;_tee_dataobject&#39;, &#39;accumulate&#39;, &#39;chain&#39;, &#39;combinations&#39;, &#39;combinations_with_replacement&#39;, &#39;compress&#39;, &#39;count&#39;, &#39;cycle&#39;, &#39;dropwhile&#39;, &#39;filterfalse&#39;, &#39;groupby&#39;, &#39;islice&#39;, &#39;permutations&#39;, &#39;product&#39;, &#39;repeat&#39;, &#39;starmap&#39;, &#39;takewhile&#39;, &#39;tee&#39;, &#39;zip_longest&#39;] 无穷迭代器 from itertools import count [i for i in count(10)] -- &gt; [10,11,12,13,14.">
-  <meta property="og:description" content="itertools &mdash; 为高效循环而创建迭代器的函数 In [2]: dir(itertools) Out[2]: [&#39;__doc__&#39;, &#39;__loader__&#39;, &#39;__name__&#39;, &#39;__package__&#39;, &#39;__spec__&#39;, &#39;_grouper&#39;, &#39;_tee&#39;, &#39;_tee_dataobject&#39;, &#39;accumulate&#39;, &#39;chain&#39;, &#39;combinations&#39;, &#39;combinations_with_replacement&#39;, &#39;compress&#39;, &#39;count&#39;, &#39;cycle&#39;, &#39;dropwhile&#39;, &#39;filterfalse&#39;, &#39;groupby&#39;, &#39;islice&#39;, &#39;permutations&#39;, &#39;product&#39;, &#39;repeat&#39;, &#39;starmap&#39;, &#39;takewhile&#39;, &#39;tee&#39;, &#39;zip_longest&#39;] 无穷迭代器 from itertools import count [i for i in count(10)] -- &gt; [10,11,12,13,14.">
-  <meta name="twitter:description" content="itertools &mdash; 为高效循环而创建迭代器的函数 In [2]: dir(itertools) Out[2]: [&#39;__doc__&#39;, &#39;__loader__&#39;, &#39;__name__&#39;, &#39;__package__&#39;, &#39;__spec__&#39;, &#39;_grouper&#39;, …">
+  <title>K8s_04 - Kenwood Chan</title>
+  <meta property="og:title" content="K8s_04" />
+  <meta name="twitter:title" content="K8s_04" />
+  <meta name="description" content="为什么需要ingress？ Ingress 只需要一个公网ip就能为许多服务提供访问，当客户端向ingress发送HTTP请求时，Ingress 会根据请求的">
+  <meta property="og:description" content="为什么需要ingress？ Ingress 只需要一个公网ip就能为许多服务提供访问，当客户端向ingress发送HTTP请求时，Ingress 会根据请求的">
+  <meta name="twitter:description" content="为什么需要ingress？ Ingress 只需要一个公网ip就能为许多服务提供访问，当客户端向ingress发送HTTP请求时，Ingress 会根据请求的">
   <meta name="author" content="kenwood Chan"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -48,8 +48,8 @@
         "@type": "ListItem",
         "position": 3,
         "item": {
-          "@id": "https:\/\/kenwoodjw.github.io\/post\/python_standard_lib_01\/",
-          "name": "每天一个python标准库00"
+          "@id": "https:\/\/kenwoodjw.github.io\/post\/k8s_04\/",
+          "name": "K8s 04"
         }
     }]
 }
@@ -58,17 +58,17 @@
   "@context": "http://schema.org",
   "@type": "Article",
   "author": {
-    "name" : "kenwood Chan"
+    "name" : "kenwood"
   },
-  "headline": "每天一个python标准库00",
-  "description" : "itertools \x26mdash; 为高效循环而创建迭代器的函数 In [2]: dir(itertools) Out[2]: [\x26#39;__doc__\x26#39;, \x26#39;__loader__\x26#39;, \x26#39;__name__\x26#39;, \x26#39;__package__\x26#39;, \x26#39;__spec__\x26#39;, \x26#39;_grouper\x26#39;, \x26#39;_tee\x26#39;, \x26#39;_tee_dataobject\x26#39;, \x26#39;accumulate\x26#39;, \x26#39;chain\x26#39;, \x26#39;combinations\x26#39;, \x26#39;combinations_with_replacement\x26#39;, \x26#39;compress\x26#39;, \x26#39;count\x26#39;, \x26#39;cycle\x26#39;, \x26#39;dropwhile\x26#39;, \x26#39;filterfalse\x26#39;, \x26#39;groupby\x26#39;, \x26#39;islice\x26#39;, \x26#39;permutations\x26#39;, \x26#39;product\x26#39;, \x26#39;repeat\x26#39;, \x26#39;starmap\x26#39;, \x26#39;takewhile\x26#39;, \x26#39;tee\x26#39;, \x26#39;zip_longest\x26#39;] 无穷迭代器 from itertools import count [i for i in count(10)] -- \x26gt; [10,11,12,13,14.",
+  "headline": "K8s_04",
+  "description" : "为什么需要ingress？ Ingress 只需要一个公网ip就能为许多服务提供访问，当客户端向ingress发送HTTP请求时，Ingress 会根据请求的",
   "inLanguage" : "zh-cn",
-  "wordCount":  46 ,
-  "datePublished" : "2019-04-08T22:41:26",
-  "dateModified" : "2019-04-08T22:41:26",
+  "wordCount":  498 ,
+  "datePublished" : "2019-08-05T22:48:13",
+  "dateModified" : "2019-08-05T22:48:13",
   "image" : "https:\/\/kenwoodjw.github.io\/images\/kenwood.jpg",
-  "keywords" : [ "" ],
-  "mainEntityOfPage" : "https:\/\/kenwoodjw.github.io\/post\/python_standard_lib_01\/",
+  "keywords" : [ "k8s" ],
+  "mainEntityOfPage" : "https:\/\/kenwoodjw.github.io\/post\/k8s_04\/",
   "publisher" : {
     "@type": "Organization",
     "name" : "https:\/\/kenwoodjw.github.io",
@@ -82,21 +82,21 @@
 }
 </script>
 
-<meta property="og:title" content="每天一个python标准库00" />
-<meta property="og:description" content="itertools &mdash; 为高效循环而创建迭代器的函数 In [2]: dir(itertools) Out[2]: [&#39;__doc__&#39;, &#39;__loader__&#39;, &#39;__name__&#39;, &#39;__package__&#39;, &#39;__spec__&#39;, &#39;_grouper&#39;, &#39;_tee&#39;, &#39;_tee_dataobject&#39;, &#39;accumulate&#39;, &#39;chain&#39;, &#39;combinations&#39;, &#39;combinations_with_replacement&#39;, &#39;compress&#39;, &#39;count&#39;, &#39;cycle&#39;, &#39;dropwhile&#39;, &#39;filterfalse&#39;, &#39;groupby&#39;, &#39;islice&#39;, &#39;permutations&#39;, &#39;product&#39;, &#39;repeat&#39;, &#39;starmap&#39;, &#39;takewhile&#39;, &#39;tee&#39;, &#39;zip_longest&#39;] 无穷迭代器 from itertools import count [i for i in count(10)] -- &gt; [10,11,12,13,14.">
+<meta property="og:title" content="K8s_04" />
+<meta property="og:description" content="为什么需要ingress？ Ingress 只需要一个公网ip就能为许多服务提供访问，当客户端向ingress发送HTTP请求时，Ingress 会根据请求的">
 <meta property="og:image" content="https://kenwoodjw.github.io/images/kenwood.jpg" />
-<meta property="og:url" content="https://kenwoodjw.github.io/post/python_standard_lib_01/" />
+<meta property="og:url" content="https://kenwoodjw.github.io/post/k8s_04/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Kenwood Chan" />
-  <meta name="twitter:title" content="每天一个python标准库00" />
-  <meta name="twitter:description" content="itertools &mdash; 为高效循环而创建迭代器的函数 In [2]: dir(itertools) Out[2]: [&#39;__doc__&#39;, &#39;__loader__&#39;, &#39;__name__&#39;, &#39;__package__&#39;, &#39;__spec__&#39;, &#39;_grouper&#39;, …">
+  <meta name="twitter:title" content="K8s_04" />
+  <meta name="twitter:description" content="为什么需要ingress？ Ingress 只需要一个公网ip就能为许多服务提供访问，当客户端向ingress发送HTTP请求时，Ingress 会根据请求的">
   <meta name="twitter:image" content="https://kenwoodjw.github.io/images/kenwood.jpg" />
   <meta name="twitter:card" content="summary" />
   <link href='https://kenwoodjw.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
   <meta property="og:image" content="https://kenwoodjw.github.io/images/kenwood.jpg" />
   <meta name="twitter:image" content="https://kenwoodjw.github.io/images/kenwood.jpg" />
   <meta name="twitter:card" content="summary" />
-  <meta property="og:url" content="https://kenwoodjw.github.io/post/python_standard_lib_01/" />
+  <meta property="og:url" content="https://kenwoodjw.github.io/post/k8s_04/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Kenwood Chan" />
 
@@ -240,7 +240,7 @@ if (!doNotTrack) {
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
               
-                <h1>每天一个python标准库00</h1>
+                <h1>K8s_04</h1>
               
               
               
@@ -248,16 +248,16 @@ if (!doNotTrack) {
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;发表于 April 8, 2019
+  <i class="fas fa-calendar"></i>&nbsp;发表于 August 5, 2019
   
   
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;分钟
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;46&nbsp;个字
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;498&nbsp;个字
   
   
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood Chan
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood
   
   
 </span>
@@ -279,39 +279,96 @@ if (!doNotTrack) {
       <article role="main" class="blog-post">
         
 
-<h2 id="itertools-为高效循环而创建迭代器的函数">itertools &mdash; 为高效循环而创建迭代器的函数</h2>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="nb">dir</span><span class="p">(</span><span class="n">itertools</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> 
-<span class="p">[</span><span class="s1">&#39;__doc__&#39;</span><span class="p">,</span>
- <span class="s1">&#39;__loader__&#39;</span><span class="p">,</span>
- <span class="s1">&#39;__name__&#39;</span><span class="p">,</span>
- <span class="s1">&#39;__package__&#39;</span><span class="p">,</span>
- <span class="s1">&#39;__spec__&#39;</span><span class="p">,</span>
- <span class="s1">&#39;_grouper&#39;</span><span class="p">,</span>
- <span class="s1">&#39;_tee&#39;</span><span class="p">,</span>
- <span class="s1">&#39;_tee_dataobject&#39;</span><span class="p">,</span>
- <span class="s1">&#39;accumulate&#39;</span><span class="p">,</span>
- <span class="s1">&#39;chain&#39;</span><span class="p">,</span>
- <span class="s1">&#39;combinations&#39;</span><span class="p">,</span>
- <span class="s1">&#39;combinations_with_replacement&#39;</span><span class="p">,</span>
- <span class="s1">&#39;compress&#39;</span><span class="p">,</span>
- <span class="s1">&#39;count&#39;</span><span class="p">,</span>
- <span class="s1">&#39;cycle&#39;</span><span class="p">,</span>
- <span class="s1">&#39;dropwhile&#39;</span><span class="p">,</span>
- <span class="s1">&#39;filterfalse&#39;</span><span class="p">,</span>
- <span class="s1">&#39;groupby&#39;</span><span class="p">,</span>
- <span class="s1">&#39;islice&#39;</span><span class="p">,</span>
- <span class="s1">&#39;permutations&#39;</span><span class="p">,</span>
- <span class="s1">&#39;product&#39;</span><span class="p">,</span>
- <span class="s1">&#39;repeat&#39;</span><span class="p">,</span>
- <span class="s1">&#39;starmap&#39;</span><span class="p">,</span>
- <span class="s1">&#39;takewhile&#39;</span><span class="p">,</span>
- <span class="s1">&#39;tee&#39;</span><span class="p">,</span>
- <span class="s1">&#39;zip_longest&#39;</span><span class="p">]</span></code></pre></div>
-<h3 id="无穷迭代器">无穷迭代器</h3>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">count</span>
-<span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">count</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span> <span class="o">--</span> <span class="o">&gt;</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mf">14.</span><span class="o">...</span><span class="p">]</span></code></pre></div>
+<h3 id="为什么需要ingress">为什么需要ingress？</h3>
 
+<p>Ingress 只需要一个公网ip就能为许多服务提供访问，当客户端向ingress发送HTTP请求时，Ingress 会根据请求的主机名和路径决定请求转发到的服务</p>
+
+<h3 id="部署测试demo">部署测试demo</h3>
+
+<p><code>kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/baremetal/service-nodeport.yaml</code></p>
+
+<p>验证安装</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">kubectl get pods --all-namespaces -l app.kubernetes.io/name<span class="o">=</span>ingress-nginx --watch
+<span class="nv">POD_NAMESPACE</span><span class="o">=</span>ingress-nginx
+<span class="nv">POD_NAME</span><span class="o">=</span><span class="k">$(</span>kubectl get pods -n <span class="nv">$POD_NAMESPACE</span> -l app.kubernetes.io/name<span class="o">=</span>ingress-nginx -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
+
+kubectl <span class="nb">exec</span> -it <span class="nv">$POD_NAME</span> -n <span class="nv">$POD_NAMESPACE</span> -- /nginx-ingress-controller --version</code></pre></div>
+<p>参考link <a href="https://kubernetes.github.io/ingress-nginx/deploy/#bare-metal">https://kubernetes.github.io/ingress-nginx/deploy/#bare-metal</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">apiVersion<span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Service<span class="w">
+</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
+</span><span class="w">  </span>namespace<span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
+</span><span class="w">  </span>labels<span class="p">:</span><span class="w">
+</span><span class="w">    </span>app.kubernetes.io/name<span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
+</span><span class="w">    </span>app.kubernetes.io/part-of<span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
+</span><span class="w"></span>spec<span class="p">:</span><span class="w">
+</span><span class="w">  </span>type<span class="p">:</span><span class="w"> </span>NodePort<span class="w">
+</span><span class="w">  </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>http<span class="w">
+</span><span class="w">      </span>port<span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w">      </span>targetPort<span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w">      </span>protocol<span class="p">:</span><span class="w"> </span>TCP<span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>https<span class="w">
+</span><span class="w">      </span>port<span class="p">:</span><span class="w"> </span><span class="m">443</span><span class="w">
+</span><span class="w">      </span>targetPort<span class="p">:</span><span class="w"> </span><span class="m">443</span><span class="w">
+</span><span class="w">      </span>protocol<span class="p">:</span><span class="w"> </span>TCP<span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>proxied-tcp<span class="m">-9000</span><span class="w">
+</span><span class="w">      </span>port<span class="p">:</span><span class="w"> </span><span class="m">9000</span><span class="w">
+</span><span class="w">      </span>targetPort<span class="p">:</span><span class="w"> </span><span class="m">9000</span><span class="w">
+</span><span class="w">      </span>protocol<span class="p">:</span><span class="w"> </span>TCP<span class="w">
+</span><span class="w">  </span>selector<span class="p">:</span><span class="w">
+</span><span class="w">    </span>app.kubernetes.io/name<span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
+</span><span class="w">    </span>app.kubernetes.io/part-of<span class="p">:</span><span class="w"> </span>ingress-nginx</code></pre></div>
+<h3 id="测试http-7层负载">测试http 7层负载</h3>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">kubectl run test-hello --image<span class="o">=</span>nginx:alpine --expose --port<span class="o">=</span><span class="m">80</span>
+<span class="c1">##</span>
+<span class="c1"># kubectl get deploy test-hello</span>
+NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+test-hello   <span class="m">1</span>         <span class="m">1</span>         <span class="m">1</span>            <span class="m">1</span>           56s
+<span class="c1"># kubectl get svc test-hello</span>
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT<span class="o">(</span>S<span class="o">)</span>   AGE
+test-hello   ClusterIP   <span class="m">10</span>.68.124.115   &lt;none&gt;        <span class="m">80</span>/TCP    1m</code></pre></div>
+<ul>
+<li><p>然后为这个应用创建 ingress</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">```<span class="w">
+</span><span class="w"></span><span class="c"># test-hello.ing.yaml内容</span><span class="w">
+</span><span class="w"></span>apiVersion<span class="p">:</span><span class="w"> </span>extensions/v1beta1<span class="w">
+</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Ingress<span class="w">
+</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
+</span><span class="w"></span>name<span class="p">:</span><span class="w"> </span>test-hello<span class="w">
+</span><span class="w"></span>spec<span class="p">:</span><span class="w">
+</span><span class="w"></span>rules<span class="p">:</span><span class="w">
+</span><span class="w"></span>-<span class="w"> </span>host<span class="p">:</span><span class="w"> </span>hello.test.com<span class="w">
+</span><span class="w"></span>http<span class="p">:</span><span class="w">
+</span><span class="w">  </span>paths<span class="p">:</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>path<span class="p">:</span><span class="w"> </span>/<span class="w">
+</span><span class="w">    </span>backend<span class="p">:</span><span class="w">
+</span><span class="w">      </span>serviceName<span class="p">:</span><span class="w"> </span>test-hello<span class="w">
+</span><span class="w">      </span>servicePort<span class="p">:</span><span class="w"> </span><span class="m">80</span></code></pre></div></li>
+
+<li><p>集群内部尝试访问: <code>curl -H Host:hello.test.com 10.68.69.170(ingress-service的服务地址)</code> 能够看到欢迎页面 <code>Welcome to nginx!</code>；</p></li>
+</ul>
+
+<h3 id="tcp-udp">TCP /UDP</h3>
+
+<p>Ingress does not support TCP or UDP services. For this reason this Ingress controller uses the flags <code>--tcp-services-configmap</code> and <code>--udp-services-configmap</code> to point to an existing config map where the key is the external port to use and the value indicates the service to expose using the format: <code>&lt;namespace/service name&gt;:&lt;service port&gt;:[PROXY]:[PROXY]</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">apiVersion<span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>ConfigMap<span class="w">
+</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>tcp-services<span class="w">
+</span><span class="w">  </span>namespace<span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
+</span><span class="w"></span>data<span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="m">9000</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;default/example-go:8080&#34;</span></code></pre></div>
+<p>参考官网 <a href="https://kubernetes.github.io/ingress-nginx/user-guide/exposing-tcp-udp-services/">https://kubernetes.github.io/ingress-nginx/user-guide/exposing-tcp-udp-services/</a></p>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://kenwoodjw.github.io/tags/k8s/">k8s</a>&nbsp;
+            
+          </div>
         
 
         
@@ -324,49 +381,49 @@ if (!doNotTrack) {
     <ul class="share">
       
       <li>
-        <a href="//twitter.com/share?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fpython_standard_lib_01%2f&amp;text=%e6%af%8f%e5%a4%a9%e4%b8%80%e4%b8%aapython%e6%a0%87%e5%87%86%e5%ba%9300&amp;via=" target="_blank" title="Share on Twitter">
+        <a href="//twitter.com/share?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fk8s_04%2f&amp;text=K8s_04&amp;via=" target="_blank" title="Share on Twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//plus.google.com/share?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fpython_standard_lib_01%2f" target="_blank" title="Share on Google Plus">
+        <a href="//plus.google.com/share?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fk8s_04%2f" target="_blank" title="Share on Google Plus">
           <i class="fab fa-google-plus"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fpython_standard_lib_01%2f" target="_blank" title="Share on Facebook">
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fk8s_04%2f" target="_blank" title="Share on Facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//reddit.com/submit?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fpython_standard_lib_01%2f&amp;title=%e6%af%8f%e5%a4%a9%e4%b8%80%e4%b8%aapython%e6%a0%87%e5%87%86%e5%ba%9300" target="_blank" title="Share on Reddit">
+        <a href="//reddit.com/submit?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fk8s_04%2f&amp;title=K8s_04" target="_blank" title="Share on Reddit">
           <i class="fab fa-reddit"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fpython_standard_lib_01%2f&amp;title=%e6%af%8f%e5%a4%a9%e4%b8%80%e4%b8%aapython%e6%a0%87%e5%87%86%e5%ba%9300" target="_blank" title="Share on LinkedIn">
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fk8s_04%2f&amp;title=K8s_04" target="_blank" title="Share on LinkedIn">
           <i class="fab fa-linkedin"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fpython_standard_lib_01%2f&amp;title=%e6%af%8f%e5%a4%a9%e4%b8%80%e4%b8%aapython%e6%a0%87%e5%87%86%e5%ba%9300" target="_blank" title="Share on StumbleUpon">
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fk8s_04%2f&amp;title=K8s_04" target="_blank" title="Share on StumbleUpon">
           <i class="fab fa-stumbleupon"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fpython_standard_lib_01%2f&amp;description=%e6%af%8f%e5%a4%a9%e4%b8%80%e4%b8%aapython%e6%a0%87%e5%87%86%e5%ba%9300" target="_blank" title="Share on Pinterest">
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fk8s_04%2f&amp;description=K8s_04" target="_blank" title="Share on Pinterest">
           <i class="fab fa-pinterest"></i>
         </a>
       </li>
@@ -384,13 +441,9 @@ if (!doNotTrack) {
         <ul class="pager blog-pager">
           
             <li class="previous">
-              <a href="https://kenwoodjw.github.io/post/hugo/" data-toggle="tooltip" data-placement="top" title="hugo部署网站，circleci自动构建静态页面">&larr; 前一篇</a>
+              <a href="https://kenwoodjw.github.io/post/k8s_03/" data-toggle="tooltip" data-placement="top" title="K8s_03">&larr; 前一篇</a>
             </li>
           
-          
-            <li class="next">
-              <a href="https://kenwoodjw.github.io/post/k8s01/" data-toggle="tooltip" data-placement="top" title="为什么需要pod">后一篇 &rarr;</a>
-            </li>
           
         </ul>
       
