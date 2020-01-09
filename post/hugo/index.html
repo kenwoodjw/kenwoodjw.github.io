@@ -100,7 +100,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Kenwood Chan" />
 
-  <meta name="generator" content="Hugo 0.56.3" />
+  <meta name="generator" content="Hugo 0.62.2" />
   <link rel="alternate" href="https://kenwoodjw.github.io/index.xml" type="application/rss+xml" title="Kenwood Chan"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://kenwoodjw.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -277,71 +277,55 @@ if (!doNotTrack) {
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        
-
-<h3 id="1-安裝-hugo">1. 安裝 Hugo</h3>
-<div class="highlight"><pre class="chroma">brew install hugo</pre></div>
-<h3 id="2-建立新网站">2. 建立新网站</h3>
-<div class="highlight"><pre class="chroma">hugo new site my-website
+        <h3 id="1-安裝-hugo">1. 安裝 Hugo</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">brew install hugo
+</code></pre></div><h3 id="2-建立新网站">2. 建立新网站</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">hugo new site my-website
 cd my-website
-git init</pre></div>
-<p><code>my-website</code> 可以替换成任意名称，但你也可以跟我一样，避免麻煩。找到名为 <code>my-website</code> 的文件夾，观察文件夹结构。</p>
-
-<h3 id="3-新增主題-theme-https-themes-gohugo-io-此处以-casper-https-themes-gohugo-io-casper-为例">3. 新增主題 <a href="https://themes.gohugo.io">(theme)</a>：此处以 <a href="https://themes.gohugo.io/casper/">Casper</a> 为例</h3>
-<div class="highlight"><pre class="chroma">git submodule add git@github.com:vjeantet/hugo-theme-casper.git themes/casper</pre></div>
-<p>你也可以选其他主題，进到该主題的 GitHub repo，將上面的网址改成 repo 的网址、<code>themes/casper</code> 改成 <code>themes/你的主題名称</code>。</p>
-
-<h3 id="4-將-themes-casper-中的-static-和-layouts-文件夹复制-取代根目录中的-static-和-layouts-文件夹">4. 將 /themes/casper 中的 static 和 layouts 文件夹复制，取代根目录中的 static 和 layouts 文件夹</h3>
-
+git init
+</code></pre></div><p><code>my-website</code> 可以替换成任意名称，但你也可以跟我一样，避免麻煩。找到名为 <code>my-website</code> 的文件夾，观察文件夹结构。</p>
+<h3 id="3-新增主題-themehttpsthemesgohugoio此处以-casperhttpsthemesgohugoiocasper-为例">3. 新增主題 <a href="https://themes.gohugo.io">(theme)</a>：此处以 <a href="https://themes.gohugo.io/casper/">Casper</a> 为例</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">git submodule add git@github.com:vjeantet/hugo-theme-casper.git themes/casper
+</code></pre></div><p>你也可以选其他主題，进到该主題的 GitHub repo，將上面的网址改成 repo 的网址、<code>themes/casper</code> 改成 <code>themes/你的主題名称</code>。</p>
+<h3 id="4-將-themescasper-中的-static-和-layouts-文件夹复制取代根目录中的-static-和-layouts-文件夹">4. 將 /themes/casper 中的 static 和 layouts 文件夹复制，取代根目录中的 static 和 layouts 文件夹</h3>
 <h3 id="5-建立新文章">5. 建立新文章</h3>
-<div class="highlight"><pre class="chroma">hugo new posts/my-first-post.md</pre></div>
-<p>此指令会在 <code>/content/posts</code> 文件夾中建立 <code>my-first-post.md</code>。使用任意文字编輯器打开此 markdown 文件，將 draft 改成 false，文件內容任意。以后建立文章都是以此方式。</p>
-
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">hugo new posts/my-first-post.md
+</code></pre></div><p>此指令会在 <code>/content/posts</code> 文件夾中建立 <code>my-first-post.md</code>。使用任意文字编輯器打开此 markdown 文件，將 draft 改成 false，文件內容任意。以后建立文章都是以此方式。</p>
 <p>使用文字编輯器打开 <code>config.toml</code>，并调整內容为上面这样。</p>
-
-<h3 id="6-编輯-config-toml">6. 编輯 config.toml</h3>
-<div class="highlight"><pre class="chroma">baseURL = &#34;https://kenwoodjw.github.io/&#34;    #改成你的GitHub帳號名稱
+<h3 id="6-编輯-configtoml">6. 编輯 config.toml</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">baseURL = &#34;https://kenwoodjw.github.io/&#34;    #改成你的GitHub帳號名稱
 languageCode = &#34;zh-cn&#34;
-title = &#34;kenwood Blog&#34;    #自由命名</pre></div>
-<h3 id="7-本地测试">7. 本地测试</h3>
-<div class="highlight"><pre class="chroma">hugo server -D</pre></div>
-<p>执行完后，在浏览器中輸入网址 <a href="http://localhost:1313/">http://localhost:1313/</a> ，就可以看到网站的雏形了！</p>
-
-<h2 id="第二部分-部署到-github">第二部分：部署到 GitHub</h2>
-
+title = &#34;kenwood Blog&#34;    #自由命名
+</code></pre></div><h3 id="7-本地测试">7. 本地测试</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">hugo server -D
+</code></pre></div><p>执行完后，在浏览器中輸入网址 http://localhost:1313/ ，就可以看到网站的雏形了！</p>
+<h2 id="第二部分部署到-github">第二部分：部署到 GitHub</h2>
 <p><a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/">Hugo 部署在 GitHub 的方式</a>有两种，这边介绍部署个人唯一主页的方式。</p>
-
 <h3 id="1-在-github-建立两个-repo">1. 在 GitHub 建立两个 repo</h3>
-
 <p>在 GitHub 建立 <code>my-website</code> 和 <code>kenwoodjw.github.io</code> (改成自己的帐号名称) 兩個 repo。</p>
-
 <h3 id="2-建立-public-文件夹">2. 建立 /public 文件夹</h3>
-<div class="highlight"><pre class="chroma">hugo</pre></div>
-<p>执行 <code>hugo</code>，就会在 <code>my-website</code> 內产生名为 <code>public</code> 的文件夾。</p>
-
-<h3 id="3-将-public-文件夾连接到-github-上的-kenwoodjw-github-io">3. 将 /public 文件夾连接到 GitHub 上的 kenwoodjw.github.io</h3>
-<div class="highlight"><pre class="chroma">#建立submodule
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">hugo
+</code></pre></div><p>执行 <code>hugo</code>，就会在 <code>my-website</code> 內产生名为 <code>public</code> 的文件夾。</p>
+<h3 id="3-将-public-文件夾连接到-github-上的-kenwoodjwgithubio">3. 将 /public 文件夾连接到 GitHub 上的 kenwoodjw.github.io</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">#建立submodule
 git submodule add git@github.com:&lt;your-account&gt;/&lt;your-account&gt;.github.io.git public
 #上传submodule
 cd public
 git status
 git commit -m &#34;first commit&#34;
 git remote add origin git@github.com:&lt;you-account&gt;/&lt;your-account&gt;.github.io.git
-git push -u origin master</pre></div>
-<h3 id="4-将整个-my-website文件夹连接到-github-上的-website-hugo">4. 将整个 my-website文件夹连接到 GitHub 上的 website-hugo</h3>
-<div class="highlight"><pre class="chroma">cd ../
+git push -u origin master
+</code></pre></div><h3 id="4-将整个-my-website文件夹连接到-github-上的-website-hugo">4. 将整个 my-website文件夹连接到 GitHub 上的 website-hugo</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">cd ../
 git remote add origin https://github.com/kenwood/my-website.git
 git add .
 git commit -m &#34;Initial commit&#34;
-git push -u origin master</pre></div>
-<p>在执行 <code>git add .</code> 时出现如下面的 warning 时不用在意</p>
-
+git push -u origin master
+</code></pre></div><p>在执行 <code>git add .</code> 时出现如下面的 warning 时不用在意</p>
 <p>等个几分钟，输入网址 <a href="https://kenwoodjw.github.io/">https://kenwoodjw.github.io/</a> 就大功告成！</p>
-
-<h3 id="5-自动构建静态页面并上传到git">5.自动构建静态页面并上传到git</h3>
-
-<p>使用circleci，打开<a href="https://circleci.com链接github仓库，在项目顶层，新建.circleci/config.yml">https://circleci.com链接github仓库，在项目顶层，新建.circleci/config.yml</a></p>
-<div class="highlight"><pre class="chroma">version: 2
+<h3 id="5自动构建静态页面并上传到git">5.自动构建静态页面并上传到git</h3>
+<p>使用circleci，打开https://circleci.com链接github仓库，在项目顶层，新建.circleci/config.yml</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">version: 2
 global: &amp;global
   working_directory: ~/project
   docker:
@@ -377,9 +361,9 @@ workflows:
       - build_n_deploy:
           filters:
             branches:
-              only: master</pre></div>
-<h3 id="references">References:</h3>
+              only: master
 
+</code></pre></div><h3 id="references">References:</h3>
 <ol>
 <li><a href="https://gohugo.io/documentation/">Hugo Documentation</a></li>
 <li><a href="https://brent-li.github.io/post/build-personal-site-with-hugo/">用Hugo搭建个人网站</a></li>
@@ -544,7 +528,7 @@ workflows:
 
           &nbsp;&bull;&nbsp;&copy;
           
-            2019
+            2020
           
 
           
@@ -554,7 +538,7 @@ workflows:
         </p>
         
         <p class="credits theme-by text-muted">
-          由 <a href="http://gohugo.io">Hugo v0.56.3</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          由 <a href="https://gohugo.io">Hugo v0.62.2</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

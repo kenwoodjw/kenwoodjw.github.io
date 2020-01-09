@@ -63,7 +63,7 @@
   "headline": "Python装饰器",
   "description" : "python装饰器 python装饰传入一个函数，添加一些功能，然后返回它 闭包 先了解闭包的功能，对理解装饰器有很大的帮助 什么是闭包(closu",
   "inLanguage" : "zh-cn",
-  "wordCount":  1104 ,
+  "wordCount":  1103 ,
   "datePublished" : "2019-05-11T22:15:01",
   "dateModified" : "2019-05-11T22:15:01",
   "image" : "https:\/\/kenwoodjw.github.io\/images\/kenwood.jpg",
@@ -100,7 +100,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Kenwood Chan" />
 
-  <meta name="generator" content="Hugo 0.56.3" />
+  <meta name="generator" content="Hugo 0.62.2" />
   <link rel="alternate" href="https://kenwoodjw.github.io/index.xml" type="application/rss+xml" title="Kenwood Chan"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://kenwoodjw.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -254,7 +254,7 @@ if (!doNotTrack) {
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;3&nbsp;分钟
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1104&nbsp;个字
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1103&nbsp;个字
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood
@@ -277,88 +277,80 @@ if (!doNotTrack) {
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        
-
-<h3 id="python装饰器">python装饰器</h3>
-
+        <h3 id="python装饰器">python装饰器</h3>
 <p>python装饰传入一个函数，添加一些功能，然后返回它</p>
-
 <h3 id="闭包">闭包</h3>
-
 <p>先了解闭包的功能，对理解装饰器有很大的帮助</p>
-
 <p>什么是闭包(closure),如何捕获变量</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">dog</span><span class="p">():</span>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">dog</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
     <span class="n">height</span> <span class="o">=</span> <span class="mi">40</span>
    	
-    <span class="k">def</span> <span class="nf">profile</span><span class="p">():</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&#34;I&#39;m a dog and my height is {}&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">height</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">profile</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">I</span><span class="s2">&#39;</span><span class="s2">m a dog and my height is {}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">height</span><span class="p">)</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">profile</span>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
-    <span class="n">dog_profile</span> <span class="o">=</span> <span class="n">dog</span><span class="p">()</span>
-    <span class="n">dog_profile</span><span class="p">()</span>
-    </code></pre></div>
-<p>function dog()里面包了一个和profile()function，在调用的dog()会返回profile,在一般认知中，function中的</p>
-
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">__main__</span><span class="s2">&#34;</span><span class="p">:</span>
+    <span class="n">dog_profile</span> <span class="o">=</span> <span class="n">dog</span><span class="p">(</span><span class="p">)</span>
+    <span class="n">dog_profile</span><span class="p">(</span><span class="p">)</span>
+    
+</code></pre></div><p>function dog()里面包了一个和profile()function，在调用的dog()会返回profile,在一般认知中，function中的</p>
 <p>variable其life cycle(生命周期)会随函数执行完而消灭，理论上变量height在执行完function dog()后就要消失，但在dog_profile()(调用profile())时还能够找到variable height，原因就是return profile时，函数profile capture 住了variable,把属于上一层的变量偷渡到自己函数范围,带有 capture variable的函数就是闭包.</p>
-
 <h4 id="capture-variable不能被assign">capture variable不能被assign</h4>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">dog</span><span class="p">():</span>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">dog</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
     <span class="n">height</span> <span class="o">=</span> <span class="mi">40</span>
     
-    <span class="k">def</span> <span class="nf">grow_up</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">grow_up</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
         <span class="n">height</span> <span class="o">=</span> <span class="n">height</span> <span class="o">+</span><span class="mi">1</span>
     <span class="k">return</span> <span class="n">grow_up</span>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
-    <span class="n">dog_grow_up</span> <span class="o">=</span> <span class="n">dog</span><span class="p">()</span>
-    <span class="n">dog_grow_up</span><span class="p">()</span></code></pre></div>
-<p>报错UnboundLocalError，一般用global声明变量，如果在某个函数中同样命名的变量要赋值的话，一样会报UnboundLocalError，在python中，对变量赋值就等于建立局部变量</p>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">__main__</span><span class="s2">&#34;</span><span class="p">:</span>
+    <span class="n">dog_grow_up</span> <span class="o">=</span> <span class="n">dog</span><span class="p">(</span><span class="p">)</span>
+    <span class="n">dog_grow_up</span><span class="p">(</span><span class="p">)</span>
+</code></pre></div><p>报错UnboundLocalError，一般用global声明变量，如果在某个函数中同样命名的变量要赋值的话，一样会报UnboundLocalError，在python中，对变量赋值就等于建立局部变量</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">global</span> <span class="n">x</span>
 <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="k">def</span> <span class="nf">add_x</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">add_x</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span><span class="mi">1</span>
     
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
-    <span class="n">add_x</span><span class="p">()</span></code></pre></div>
-<h4 id="如何赋值capture-variable">如何赋值capture variable</h4>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">dog</span><span class="p">():</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">__main__</span><span class="s2">&#34;</span><span class="p">:</span>
+    <span class="n">add_x</span><span class="p">(</span><span class="p">)</span>
+</code></pre></div><h4 id="如何赋值capture-variable">如何赋值capture variable</h4>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">dog</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
     <span class="n">height</span> <span class="o">=</span> <span class="mi">40</span>
     
-    <span class="k">def</span> <span class="nf">grow_up</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">grow_up</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
         <span class="n">nonlocal</span> <span class="n">height</span>
         <span class="n">height</span> <span class="o">=</span> <span class="n">height</span> <span class="o">+</span><span class="mi">1</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&#34;Thanks for making me growing up.I&#39;m now {} meters!!!&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">height</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Thanks for making me growing up.I</span><span class="s2">&#39;</span><span class="s2">m now {} meters!!!</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">height</span><span class="p">)</span><span class="p">)</span>
 	<span class="k">return</span> <span class="n">grow_up</span>
 
-<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
-    <span class="n">dog_grow_up</span> <span class="o">=</span> <span class="n">dog</span><span class="p">()</span>
-    <span class="n">dog_grow_up</span><span class="p">()</span></code></pre></div>
-<h3 id="什么是decorator-装饰器">什么是Decorator(装饰器)</h3>
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">__main__</span><span class="s2">&#34;</span><span class="p">:</span>
+    <span class="n">dog_grow_up</span> <span class="o">=</span> <span class="n">dog</span><span class="p">(</span><span class="p">)</span>
+    <span class="n">dog_grow_up</span><span class="p">(</span><span class="p">)</span>
+</code></pre></div><h3 id="什么是decorator装饰器">什么是Decorator(装饰器)</h3>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># defining a decorator </span>
-<span class="k">def</span> <span class="nf">hello_decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span> 
+<span class="k">def</span> <span class="nf">hello_decorator</span><span class="p">(</span><span class="n">func</span><span class="p">)</span><span class="p">:</span> 
 
 	<span class="c1"># inner1 is a Wrapper function in </span>
 	<span class="c1"># which the argument is called </span>
 	
 	<span class="c1"># inner function can access the outer local </span>
 	<span class="c1"># functions like in this case &#34;func&#34; </span>
-	<span class="k">def</span> <span class="nf">inner1</span><span class="p">():</span> 
-		<span class="k">print</span><span class="p">(</span><span class="s2">&#34;Hello, this is before function execution&#34;</span><span class="p">)</span> 
+	<span class="k">def</span> <span class="nf">inner1</span><span class="p">(</span><span class="p">)</span><span class="p">:</span> 
+		<span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Hello, this is before function execution</span><span class="s2">&#34;</span><span class="p">)</span> 
 
 		<span class="c1"># calling the actual function now </span>
 		<span class="c1"># inside the wrapper function. </span>
-		<span class="n">func</span><span class="p">()</span> 
+		<span class="n">func</span><span class="p">(</span><span class="p">)</span> 
 
-		<span class="k">print</span><span class="p">(</span><span class="s2">&#34;This is after function execution&#34;</span><span class="p">)</span> 
+		<span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">This is after function execution</span><span class="s2">&#34;</span><span class="p">)</span> 
 		
 	<span class="k">return</span> <span class="n">inner1</span> 
 
 
 <span class="c1"># defining a function, to be called inside wrapper </span>
-<span class="k">def</span> <span class="nf">function_to_be_used</span><span class="p">():</span> 
-	<span class="k">print</span><span class="p">(</span><span class="s2">&#34;This is inside the function !!&#34;</span><span class="p">)</span> 
+<span class="k">def</span> <span class="nf">function_to_be_used</span><span class="p">(</span><span class="p">)</span><span class="p">:</span> 
+	<span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">This is inside the function !!</span><span class="s2">&#34;</span><span class="p">)</span> 
 
 
 <span class="c1"># passing &#39;function_to_be_used&#39; inside the </span>
@@ -367,12 +359,15 @@ if (!doNotTrack) {
 
 
 <span class="c1"># calling the function </span>
-<span class="n">function_to_be_used</span><span class="p">()</span> </code></pre></div>
-<p><strong>Output:</strong></p>
-<div class="highlight"><pre class="chroma">Hello, this is before function execution
-This is inside the function !!
-This is after function execution</pre></div>
+<span class="n">function_to_be_used</span><span class="p">(</span><span class="p">)</span> 
 
+</code></pre></div><p><strong>Output:</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Hello, this is before function execution
+This is inside the function !!
+This is after function execution
+
+
+</code></pre></div>
 <link rel="stylesheet" href="/css/hugo-easy-gallery.css" />
 <div class="box" >
   <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
@@ -383,76 +378,70 @@ This is after function execution</pre></div>
   </figure>
 </div>
 
-
 <h3 id="decorator的执行顺序">Decorator的执行顺序</h3>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">print_func_name</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">warp_1</span><span class="p">():</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&#34;Now use function &#39;{}&#39;&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
-    	<span class="n">func</span><span class="p">()</span>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">print_func_name</span><span class="p">(</span><span class="n">func</span><span class="p">)</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">warp_1</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Now use function </span><span class="s2">&#39;</span><span class="s2">{}</span><span class="s2">&#39;</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span><span class="p">)</span>
+    	<span class="n">func</span><span class="p">(</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">warp_1</span>
 
-<span class="k">def</span> <span class="nf">print_time</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">print_time</span><span class="p">(</span><span class="n">func</span><span class="p">)</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">time</span>
-    <span class="k">def</span> <span class="nf">warp_2</span><span class="p">():</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&#34;Now the Unix time is {}&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())))</span>
-        <span class="n">func</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">warp_2</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Now the Unix time is {}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">)</span><span class="p">)</span>
+        <span class="n">func</span><span class="p">(</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">warp_2</span>
 
 <span class="nd">@print_func_name</span>
 <span class="nd">@print_time</span>
-<span class="k">def</span> <span class="nf">dog_bark</span><span class="p">():</span>
-    <span class="k">print</span><span class="p">(</span><span class="s2">&#34;Bark !!!&#34;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">dog_bark</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Bark !!!</span><span class="s2">&#34;</span><span class="p">)</span>
   
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
-    <span class="n">dog_bark</span><span class="p">()</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">__main__</span><span class="s2">&#34;</span><span class="p">:</span>
+    <span class="n">dog_bark</span><span class="p">(</span><span class="p">)</span>
 <span class="c1"># &gt; Now use function &#39;warp_2&#39;</span>
 <span class="c1"># &gt; Now the Unix time is 16532445</span>
-<span class="c1"># &gt; Bark !!!</span></code></pre></div>
-<p>dog_bark会先被@print_time吃进去，然后吐出一个warp_2的function，然后这个warp_2的function 又会被 print_func_name吃进去，返回一个叫做warp_1的function</p>
-
+<span class="c1"># &gt; Bark !!!</span>
+</code></pre></div><p>dog_bark会先被@print_time吃进去，然后吐出一个warp_2的function，然后这个warp_2的function 又会被 print_func_name吃进去，返回一个叫做warp_1的function</p>
 <h3 id="class式的decorator">class式的Decorator</h3>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">myDecorator</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">fn</span><span class="p">):</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&#34;inside myDecorator.__init__()&#34;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">fn</span><span class="p">)</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">inside myDecorator.__init__()</span><span class="s2">&#34;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fn</span> <span class="o">=</span> <span class="n">fn</span>
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="p">()</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&#34;inside myDecorator.__call__()&#34;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">inside myDecorator.__call__()</span><span class="s2">&#34;</span><span class="p">)</span>
 <span class="nd">@myDecorator</span>
-<span class="k">def</span> <span class="nf">aFunction</span><span class="p">():</span>
-    <span class="k">print</span><span class="p">(</span><span class="s2">&#34;inside aFunction()&#34;</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&#34;Finished decorating aFunction()&#34;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">aFunction</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">inside aFunction()</span><span class="s2">&#34;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Finished decorating aFunction()</span><span class="s2">&#34;</span><span class="p">)</span>
 
 <span class="c1"># 输出</span>
 <span class="c1"># inside myDecorator.__init__()</span>
 <span class="c1"># Finished decorating aFunction()</span>
 <span class="c1"># inside aFunction()</span>
-<span class="c1"># inside myDecorator.__call__()</span></code></pre></div>
-<h3 id="decorator的副作用">Decorator的副作用</h3>
-
-<p>被decoratoe的函数其实已经是另一个函数了，如果你查询一下function.<code>__name__</code>的输出是&rdquo;wrapper&rdquo;.</p>
-
+<span class="c1"># inside myDecorator.__call__()</span>
+</code></pre></div><h3 id="decorator的副作用">Decorator的副作用</h3>
+<p>被decoratoe的函数其实已经是另一个函数了，如果你查询一下function.<code>__name__</code>的输出是&quot;wrapper&rdquo;.</p>
 <p>这会给程序埋坑，python的functool包中提供一个叫wrap的decorator来消除副作用</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
-<span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span><span class="p">:</span>
     <span class="nd">@wraps</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">():</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&#34;hello, </span><span class="si">%s</span><span class="s2">&#34;</span><span class="o">%</span><span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="n">fn</span><span class="p">()</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&#34;goodby, </span><span class="si">%s</span><span class="s2">&#34;</span><span class="o">%</span><span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">hello, </span><span class="si">%s</span><span class="s2">&#34;</span><span class="o">%</span><span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">fn</span><span class="p">(</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">goodby, </span><span class="si">%s</span><span class="s2">&#34;</span><span class="o">%</span><span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">wrapper</span>
 <span class="nd">@hello</span>
-<span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
-    <span class="s1">&#39;&#39;&#39;foo help doc&#39;&#39;&#39;</span>
-    <span class="k">print</span><span class="p">(</span><span class="s2">&#34;I am foo&#34;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="p">)</span><span class="p">:</span>
+    <span class="sa"></span><span class="s1">&#39;&#39;&#39;</span><span class="s1">foo help doc</span><span class="s1">&#39;&#39;&#39;</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">I am foo</span><span class="s2">&#34;</span><span class="p">)</span>
    	<span class="k">pass</span>
-<span class="n">foo</span><span class="p">()</span>
+<span class="n">foo</span><span class="p">(</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span></code></pre></div>
-<p>参考文章</p>
-
+<span class="k">print</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
+</code></pre></div><p>参考文章</p>
 <p><a href="https://coolshell.cn/articles/11265.html">https://coolshell.cn/articles/11265.html</a></p>
-
 <p><a href="https://medium.com/citycoddee/python%E9%80%B2%E9%9A%8E%E6%8A%80%E5%B7%A7-3-%E7%A5%9E%E5%A5%87%E5%8F%88%E7%BE%8E%E5%A5%BD%E7%9A%84-decorator-%E5%97%B7%E5%97%9A-6559edc87bc0">https://medium.com/citycoddee/python%E9%80%B2%E9%9A%8E%E6%8A%80%E5%B7%A7-3-%E7%A5%9E%E5%A5%87%E5%8F%88%E7%BE%8E%E5%A5%BD%E7%9A%84-decorator-%E5%97%B7%E5%97%9A-6559edc87bc0</a></p>
 
 
@@ -616,7 +605,7 @@ This is after function execution</pre></div>
 
           &nbsp;&bull;&nbsp;&copy;
           
-            2019
+            2020
           
 
           
@@ -626,7 +615,7 @@ This is after function execution</pre></div>
         </p>
         
         <p class="credits theme-by text-muted">
-          由 <a href="http://gohugo.io">Hugo v0.56.3</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          由 <a href="https://gohugo.io">Hugo v0.62.2</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

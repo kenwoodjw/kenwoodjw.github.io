@@ -1,14 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>k8s on Kenwood Chan</title>
     <link>https://kenwoodjw.github.io/categories/k8s/</link>
     <description>Recent content in k8s on Kenwood Chan</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 05 Aug 2019 22:48:13 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 03 Jan 2020 11:33:46 +0800</lastBuildDate>
     
 	<atom:link href="https://kenwoodjw.github.io/categories/k8s/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>prometheus 使用blackbox-exporter</title>
+      <link>https://kenwoodjw.github.io/post/k8s_05/</link>
+      <pubDate>Fri, 03 Jan 2020 11:33:46 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/post/k8s_05/</guid>
+      <description>Blackbox-exporter介绍 Blackbox Exporter 是 Prometheus 社区提供的官方黑盒监控解决方案，其允许用户通过：HTTP、HTTPS、DNS、TCP 以及 ICMP 的方</description>
+    </item>
     
     <item>
       <title>K8s_04</title>

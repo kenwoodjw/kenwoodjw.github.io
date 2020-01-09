@@ -1,14 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kenwood Chan</title>
     <link>https://kenwoodjw.github.io/</link>
     <description>Recent content on Kenwood Chan</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 05 Aug 2019 22:48:13 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 03 Jan 2020 11:33:46 +0800</lastBuildDate>
     
 	<atom:link href="https://kenwoodjw.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>prometheus 使用blackbox-exporter</title>
+      <link>https://kenwoodjw.github.io/post/k8s_05/</link>
+      <pubDate>Fri, 03 Jan 2020 11:33:46 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/post/k8s_05/</guid>
+      <description>Blackbox-exporter介绍 Blackbox Exporter 是 Prometheus 社区提供的官方黑盒监控解决方案，其允许用户通过：HTTP、HTTPS、DNS、TCP 以及 ICMP 的方</description>
+    </item>
     
     <item>
       <title>K8s_04</title>
@@ -97,7 +106,7 @@
       <pubDate>Mon, 08 Apr 2019 22:41:26 +0800</pubDate>
       
       <guid>https://kenwoodjw.github.io/post/python_standard_lib_01/</guid>
-      <description>itertools &amp;mdash; 为高效循环而创建迭代器的函数 In [2]: dir(itertools) Out[2]: [&amp;#39;__doc__&amp;#39;, &amp;#39;__loader__&amp;#39;, &amp;#39;__name__&amp;#39;, &amp;#39;__package__&amp;#39;, &amp;#39;__spec__&amp;#39;, &amp;#39;_grouper&amp;#39;, &amp;#39;_tee&amp;#39;, &amp;#39;_tee_dataobject&amp;#39;, &amp;#39;accumulate&amp;#39;, &amp;#39;chain&amp;#39;, &amp;#39;combinations&amp;#39;, &amp;#39;combinations_with_replacement&amp;#39;, &amp;#39;compress&amp;#39;, &amp;#39;count&amp;#39;, &amp;#39;cycle&amp;#39;, &amp;#39;dropwhile&amp;#39;, &amp;#39;filterfalse&amp;#39;, &amp;#39;groupby&amp;#39;, &amp;#39;islice&amp;#39;, &amp;#39;permutations&amp;#39;, &amp;#39;product&amp;#39;, &amp;#39;repeat&amp;#39;, &amp;#39;starmap&amp;#39;, &amp;#39;takewhile&amp;#39;, &amp;#39;tee&amp;#39;, &amp;#39;zip_longest&amp;#39;] 无穷迭代器 from itertools import count [i for i in count(10)] -- &amp;gt; [10,11,12,13,14.</description>
+      <description>itertools &amp;mdash; 为高效循环而创建迭代器的函数 In [2]: dir(itertools) Out[2]: [&amp;#39;__doc__&amp;#39;, &amp;#39;__loader__&amp;#39;, &amp;#39;__name__&amp;#39;, &amp;#39;__package__&amp;#39;, &amp;#39;__spec__&amp;#39;, &amp;#39;_grouper&amp;#39;, &amp;#39;_tee&amp;#39;, &amp;#39;_tee_dataobject&amp;#39;, &amp;#39;accumulate&amp;#39;, &amp;#39;chain&amp;#39;, &amp;#39;combinations&amp;#39;, &amp;#39;combinations_with_replacement&amp;#39;, &amp;#39;compress&amp;#39;, &amp;#39;count&amp;#39;, &amp;#39;cycle&amp;#39;, &amp;#39;dropwhile&amp;#39;, &amp;#39;filterfalse&amp;#39;, &amp;#39;groupby&amp;#39;, &amp;#39;islice&amp;#39;, &amp;#39;permutations&amp;#39;, &amp;#39;product&amp;#39;, &amp;#39;repeat&amp;#39;, &amp;#39;starmap&amp;#39;, &amp;#39;takewhile&amp;#39;, &amp;#39;tee&amp;#39;, &amp;#39;zip_longest&amp;#39;] 无穷迭代器 from itertools import count [i for i in count(10)] -- &amp;gt; [10,11,12,13,14....] </description>
     </item>
     
     <item>

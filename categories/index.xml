@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Kenwood Chan</title>
     <link>https://kenwoodjw.github.io/categories/</link>
     <description>Recent content in Categories on Kenwood Chan</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 05 Aug 2019 22:48:13 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 03 Jan 2020 11:33:46 +0800</lastBuildDate>
     
 	<atom:link href="https://kenwoodjw.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
@@ -13,9 +13,18 @@
     <item>
       <title>k8s</title>
       <link>https://kenwoodjw.github.io/categories/k8s/</link>
-      <pubDate>Mon, 05 Aug 2019 22:48:13 +0800</pubDate>
+      <pubDate>Fri, 03 Jan 2020 11:33:46 +0800</pubDate>
       
       <guid>https://kenwoodjw.github.io/categories/k8s/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>prometheus</title>
+      <link>https://kenwoodjw.github.io/categories/prometheus/</link>
+      <pubDate>Fri, 03 Jan 2020 11:33:46 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/categories/prometheus/</guid>
       <description></description>
     </item>
     

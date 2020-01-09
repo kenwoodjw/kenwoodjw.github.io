@@ -63,7 +63,7 @@
   "headline": "K8s_02",
   "description" : "K8s 服务的创建 为什么需要服务？ 1.pod是短暂的，随时会启动或关闭 2.pod在启动时才分配地址，因此客户端不能提前知道服务的pod的ip地址 3",
   "inLanguage" : "zh-cn",
-  "wordCount":  430 ,
+  "wordCount":  534 ,
   "datePublished" : "2019-07-22T00:07:37",
   "dateModified" : "2019-07-22T00:07:37",
   "image" : "https:\/\/kenwoodjw.github.io\/images\/kenwood.jpg",
@@ -100,7 +100,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Kenwood Chan" />
 
-  <meta name="generator" content="Hugo 0.56.3" />
+  <meta name="generator" content="Hugo 0.62.2" />
   <link rel="alternate" href="https://kenwoodjw.github.io/index.xml" type="application/rss+xml" title="Kenwood Chan"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://kenwoodjw.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -251,10 +251,10 @@ if (!doNotTrack) {
   <i class="fas fa-calendar"></i>&nbsp;发表于 July 22, 2019
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;分钟
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;分钟
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;430&nbsp;个字
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;534&nbsp;个字
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood
@@ -277,20 +277,12 @@ if (!doNotTrack) {
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        
-
-<h2 id="k8s-服务的创建">K8s 服务的创建</h2>
-
+        <h2 id="k8s-服务的创建">K8s 服务的创建</h2>
 <h3 id="为什么需要服务">为什么需要服务？</h3>
-
 <p>1.pod是短暂的，随时会启动或关闭</p>
-
 <p>2.pod在启动时才分配地址，因此客户端不能提前知道服务的pod的ip地址</p>
-
 <p>3.水平伸缩意味着多个pod提供相同服务，所有的pod都可以通过一个IP地址进行访问</p>
-
 <h3 id="实际测试">实际测试</h3>
-
 <p>创建服务</p>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">apiVersion<span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Service<span class="w">
@@ -304,27 +296,22 @@ if (!doNotTrack) {
 </span><span class="w">    </span>app<span class="p">:</span><span class="w"> </span>kubia<span class="w">
 </span><span class="w">   
 </span><span class="w">   
-</span><span class="w">   </span></code></pre></div>
-<p>创建一个名叫kubia-nodeport的服务，他在端口80接收请求并连接路由到具有标签选择器是app=kubia的pod的8080端口上</p>
+</span><span class="w">   
+</span></code></pre></div><p>创建一个名叫kubia-nodeport的服务，他在端口80接收请求并连接路由到具有标签选择器是app=kubia的pod的8080端口上</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">kubectl get svc
 NAME                      CLUSTER-IP                EXTERNAL-IP   PORT<span class="o">(</span>s<span class="o">)</span>   AGE
-kubia                      <span class="m">10</span>.11.249.153             &lt;none&gt;       <span class="m">80</span>/TCP      6m</code></pre></div>
-<p>分配的服务的IP的集群的IP，只能通过集群内部访问</p>
-
+kubia                      10.11.249.153             &lt;none&gt;       80/TCP      6m
+</code></pre></div><p>分配的服务的IP的集群的IP，只能通过集群内部访问</p>
 <p>从集群内部测试服务</p>
-
-<p>kubectl exec kubia-7n0g1 &ndash; curl -s <a href="http://10.11.249.153">http://10.11.249.153</a></p>
-<div class="highlight"><pre class="chroma"></pre></div>
-<h3 id="服务发现">服务发现</h3>
-
+<p>kubectl exec kubia-7n0g1 &ndash; curl -s http://10.11.249.153</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">
+</code></pre></div><h3 id="服务发现">服务发现</h3>
 <h4 id="通过dns发现服务">通过dns发现服务</h4>
-
 <p>集群中所有的pod都使用kube-dns或coredns 作为dns（k8s通过修改每个pod的 /etc/resolv.conf文件实现） tips：pod是否使用内部的DNS服务器是根据pod中spec的dnsPolicy属性决定的</p>
-
 <h4 id="通过fqdn连接服务">通过FQDN连接服务</h4>
-<div class="highlight"><pre class="chroma">kubectl exec -it kubia-3inly bash
-root@kubia-3inly:/# curl http://kubia.default.svc.cluster.local</pre></div>
-<p>服务IP无法ping通，因为服务的集群IP是虚拟IP，只有在与服务端口结合才有意义</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">kubectl exec -it kubia-3inly bash
+root@kubia-3inly:/# curl http://kubia.default.svc.cluster.local
+</code></pre></div><p>服务IP无法ping通，因为服务的集群IP是虚拟IP，只有在与服务端口结合才有意义</p>
 
 
         
@@ -487,7 +474,7 @@ root@kubia-3inly:/# curl http://kubia.default.svc.cluster.local</pre></div>
 
           &nbsp;&bull;&nbsp;&copy;
           
-            2019
+            2020
           
 
           
@@ -497,7 +484,7 @@ root@kubia-3inly:/# curl http://kubia.default.svc.cluster.local</pre></div>
         </p>
         
         <p class="credits theme-by text-muted">
-          由 <a href="http://gohugo.io">Hugo v0.56.3</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          由 <a href="https://gohugo.io">Hugo v0.62.2</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

@@ -63,7 +63,7 @@
   "headline": "K8s_04",
   "description" : "为什么需要ingress？ Ingress 只需要一个公网ip就能为许多服务提供访问，当客户端向ingress发送HTTP请求时，Ingress 会根据请求的",
   "inLanguage" : "zh-cn",
-  "wordCount":  498 ,
+  "wordCount":  1025 ,
   "datePublished" : "2019-08-05T22:48:13",
   "dateModified" : "2019-08-05T22:48:13",
   "image" : "https:\/\/kenwoodjw.github.io\/images\/kenwood.jpg",
@@ -100,7 +100,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Kenwood Chan" />
 
-  <meta name="generator" content="Hugo 0.56.3" />
+  <meta name="generator" content="Hugo 0.62.2" />
   <link rel="alternate" href="https://kenwoodjw.github.io/index.xml" type="application/rss+xml" title="Kenwood Chan"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://kenwoodjw.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -251,10 +251,10 @@ if (!doNotTrack) {
   <i class="fas fa-calendar"></i>&nbsp;发表于 August 5, 2019
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;分钟
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;3&nbsp;分钟
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;498&nbsp;个字
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1025&nbsp;个字
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood
@@ -277,23 +277,17 @@ if (!doNotTrack) {
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        
-
-<h3 id="为什么需要ingress">为什么需要ingress？</h3>
-
+        <h3 id="为什么需要ingress">为什么需要ingress？</h3>
 <p>Ingress 只需要一个公网ip就能为许多服务提供访问，当客户端向ingress发送HTTP请求时，Ingress 会根据请求的主机名和路径决定请求转发到的服务</p>
-
 <h3 id="部署测试demo">部署测试demo</h3>
-
 <p><code>kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/baremetal/service-nodeport.yaml</code></p>
-
 <p>验证安装</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">kubectl get pods --all-namespaces -l app.kubernetes.io/name<span class="o">=</span>ingress-nginx --watch
 <span class="nv">POD_NAMESPACE</span><span class="o">=</span>ingress-nginx
 <span class="nv">POD_NAME</span><span class="o">=</span><span class="k">$(</span>kubectl get pods -n <span class="nv">$POD_NAMESPACE</span> -l app.kubernetes.io/name<span class="o">=</span>ingress-nginx -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
 
-kubectl <span class="nb">exec</span> -it <span class="nv">$POD_NAME</span> -n <span class="nv">$POD_NAMESPACE</span> -- /nginx-ingress-controller --version</code></pre></div>
-<p>参考link <a href="https://kubernetes.github.io/ingress-nginx/deploy/#bare-metal">https://kubernetes.github.io/ingress-nginx/deploy/#bare-metal</a></p>
+kubectl <span class="nb">exec</span> -it <span class="nv">$POD_NAME</span> -n <span class="nv">$POD_NAMESPACE</span> -- /nginx-ingress-controller --version
+</code></pre></div><p>参考link <a href="https://kubernetes.github.io/ingress-nginx/deploy/#bare-metal">https://kubernetes.github.io/ingress-nginx/deploy/#bare-metal</a></p>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">apiVersion<span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Service<span class="w">
 </span><span class="w"></span>metadata<span class="p">:</span><span class="w">
@@ -319,39 +313,41 @@ kubectl <span class="nb">exec</span> -it <span class="nv">$POD_NAME</span> -n <s
 </span><span class="w">      </span>protocol<span class="p">:</span><span class="w"> </span>TCP<span class="w">
 </span><span class="w">  </span>selector<span class="p">:</span><span class="w">
 </span><span class="w">    </span>app.kubernetes.io/name<span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
-</span><span class="w">    </span>app.kubernetes.io/part-of<span class="p">:</span><span class="w"> </span>ingress-nginx</code></pre></div>
-<h3 id="测试http-7层负载">测试http 7层负载</h3>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">kubectl run test-hello --image<span class="o">=</span>nginx:alpine --expose --port<span class="o">=</span><span class="m">80</span>
+</span><span class="w">    </span>app.kubernetes.io/part-of<span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
+</span><span class="w">
+</span></code></pre></div><h3 id="测试http-7层负载">测试http 7层负载</h3>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">kubectl run test-hello --image<span class="o">=</span>nginx:alpine --expose --port<span class="o">=</span><span class="m">80</span>
 <span class="c1">##</span>
 <span class="c1"># kubectl get deploy test-hello</span>
 NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 test-hello   <span class="m">1</span>         <span class="m">1</span>         <span class="m">1</span>            <span class="m">1</span>           56s
 <span class="c1"># kubectl get svc test-hello</span>
 NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT<span class="o">(</span>S<span class="o">)</span>   AGE
-test-hello   ClusterIP   <span class="m">10</span>.68.124.115   &lt;none&gt;        <span class="m">80</span>/TCP    1m</code></pre></div>
-<ul>
-<li><p>然后为这个应用创建 ingress</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">```<span class="w">
+test-hello   ClusterIP   10.68.124.115   &lt;none&gt;        80/TCP    1m
+</code></pre></div><ul>
+<li>然后为这个应用创建 ingress</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="w">
+</span><span class="w"></span>```<span class="w">
 </span><span class="w"></span><span class="c"># test-hello.ing.yaml内容</span><span class="w">
 </span><span class="w"></span>apiVersion<span class="p">:</span><span class="w"> </span>extensions/v1beta1<span class="w">
 </span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Ingress<span class="w">
 </span><span class="w"></span>metadata<span class="p">:</span><span class="w">
-</span><span class="w"></span>name<span class="p">:</span><span class="w"> </span>test-hello<span class="w">
+</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>test-hello<span class="w">
 </span><span class="w"></span>spec<span class="p">:</span><span class="w">
-</span><span class="w"></span>rules<span class="p">:</span><span class="w">
-</span><span class="w"></span>-<span class="w"> </span>host<span class="p">:</span><span class="w"> </span>hello.test.com<span class="w">
-</span><span class="w"></span>http<span class="p">:</span><span class="w">
-</span><span class="w">  </span>paths<span class="p">:</span><span class="w">
-</span><span class="w">  </span>-<span class="w"> </span>path<span class="p">:</span><span class="w"> </span>/<span class="w">
-</span><span class="w">    </span>backend<span class="p">:</span><span class="w">
-</span><span class="w">      </span>serviceName<span class="p">:</span><span class="w"> </span>test-hello<span class="w">
-</span><span class="w">      </span>servicePort<span class="p">:</span><span class="w"> </span><span class="m">80</span></code></pre></div></li>
-
-<li><p>集群内部尝试访问: <code>curl -H Host:hello.test.com 10.68.69.170(ingress-service的服务地址)</code> 能够看到欢迎页面 <code>Welcome to nginx!</code>；</p></li>
+</span><span class="w">  </span>rules<span class="p">:</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>host<span class="p">:</span><span class="w"> </span>hello.test.com<span class="w">
+</span><span class="w">    </span>http<span class="p">:</span><span class="w">
+</span><span class="w">      </span>paths<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>path<span class="p">:</span><span class="w"> </span>/<span class="w">
+</span><span class="w">        </span>backend<span class="p">:</span><span class="w">
+</span><span class="w">          </span>serviceName<span class="p">:</span><span class="w"> </span>test-hello<span class="w">
+</span><span class="w">          </span>servicePort<span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></code></pre></div><ul>
+<li>集群内部尝试访问: <code>curl -H Host:hello.test.com 10.68.69.170(ingress-service的服务地址)</code> 能够看到欢迎页面 <code>Welcome to nginx!</code>；</li>
 </ul>
-
 <h3 id="tcp-udp">TCP /UDP</h3>
-
 <p>Ingress does not support TCP or UDP services. For this reason this Ingress controller uses the flags <code>--tcp-services-configmap</code> and <code>--udp-services-configmap</code> to point to an existing config map where the key is the external port to use and the value indicates the service to expose using the format: <code>&lt;namespace/service name&gt;:&lt;service port&gt;:[PROXY]:[PROXY]</code></p>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">apiVersion<span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>ConfigMap<span class="w">
@@ -359,8 +355,8 @@ test-hello   ClusterIP   <span class="m">10</span>.68.124.115   &lt;none&gt;    
 </span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>tcp-services<span class="w">
 </span><span class="w">  </span>namespace<span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
 </span><span class="w"></span>data<span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="m">9000</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;default/example-go:8080&#34;</span></code></pre></div>
-<p>参考官网 <a href="https://kubernetes.github.io/ingress-nginx/user-guide/exposing-tcp-udp-services/">https://kubernetes.github.io/ingress-nginx/user-guide/exposing-tcp-udp-services/</a></p>
+</span><span class="w">  </span><span class="m">9000</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;default/example-go:8080&#34;</span><span class="w">
+</span></code></pre></div><p>参考官网 <a href="https://kubernetes.github.io/ingress-nginx/user-guide/exposing-tcp-udp-services/">https://kubernetes.github.io/ingress-nginx/user-guide/exposing-tcp-udp-services/</a></p>
 
 
         
@@ -445,6 +441,10 @@ test-hello   ClusterIP   <span class="m">10</span>.68.124.115   &lt;none&gt;    
             </li>
           
           
+            <li class="next">
+              <a href="https://kenwoodjw.github.io/post/k8s_05/" data-toggle="tooltip" data-placement="top" title="prometheus 使用blackbox-exporter">后一篇 &rarr;</a>
+            </li>
+          
         </ul>
       
 
@@ -519,7 +519,7 @@ test-hello   ClusterIP   <span class="m">10</span>.68.124.115   &lt;none&gt;    
 
           &nbsp;&bull;&nbsp;&copy;
           
-            2019
+            2020
           
 
           
@@ -529,7 +529,7 @@ test-hello   ClusterIP   <span class="m">10</span>.68.124.115   &lt;none&gt;    
         </p>
         
         <p class="credits theme-by text-muted">
-          由 <a href="http://gohugo.io">Hugo v0.56.3</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          由 <a href="https://gohugo.io">Hugo v0.62.2</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

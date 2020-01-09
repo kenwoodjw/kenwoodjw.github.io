@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>prometheus 使用blackbox-exporter - Kenwood Chan</title>
+  <meta property="og:title" content="prometheus 使用blackbox-exporter" />
+  <meta name="twitter:title" content="prometheus 使用blackbox-exporter" />
+  <meta name="description" content="Blackbox-exporter介绍 Blackbox Exporter 是 Prometheus 社区提供的官方黑盒监控解决方案，其允许用户通过：HTTP、HTTPS、DNS、TCP 以及 ICMP 的方">
+  <meta property="og:description" content="Blackbox-exporter介绍 Blackbox Exporter 是 Prometheus 社区提供的官方黑盒监控解决方案，其允许用户通过：HTTP、HTTPS、DNS、TCP 以及 ICMP 的方">
+  <meta name="twitter:description" content="Blackbox-exporter介绍 Blackbox Exporter 是 Prometheus 社区提供的官方黑盒监控解决方案，其允许用户通过：HTTP、HTTPS、DNS、TCP 以及 ICMP 的方">
+  <meta name="author" content="kenwood Chan"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Kenwood Chan",
+    
+    "url": "https:\/\/kenwoodjw.github.io"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/kenwoodjw.github.io"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/kenwoodjw.github.io",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/kenwoodjw.github.io\/post\/k8s_05\/",
+          "name": "Prometheus 使用blackbox exporter"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "kenwood"
+  },
+  "headline": "prometheus 使用blackbox-exporter",
+  "description" : "Blackbox-exporter介绍 Blackbox Exporter 是 Prometheus 社区提供的官方黑盒监控解决方案，其允许用户通过：HTTP、HTTPS、DNS、TCP 以及 ICMP 的方",
+  "inLanguage" : "zh-cn",
+  "wordCount":  1134 ,
+  "datePublished" : "2020-01-03T11:33:46",
+  "dateModified" : "2020-01-03T11:33:46",
+  "image" : "https:\/\/kenwoodjw.github.io\/images\/kenwood.jpg",
+  "keywords" : [ "prometheus, k8s" ],
+  "mainEntityOfPage" : "https:\/\/kenwoodjw.github.io\/post\/k8s_05\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/kenwoodjw.github.io",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/kenwoodjw.github.io\/images\/kenwood.jpg",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="prometheus 使用blackbox-exporter" />
+<meta property="og:description" content="Blackbox-exporter介绍 Blackbox Exporter 是 Prometheus 社区提供的官方黑盒监控解决方案，其允许用户通过：HTTP、HTTPS、DNS、TCP 以及 ICMP 的方">
+<meta property="og:image" content="https://kenwoodjw.github.io/images/kenwood.jpg" />
+<meta property="og:url" content="https://kenwoodjw.github.io/post/k8s_05/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Kenwood Chan" />
+  <meta name="twitter:title" content="prometheus 使用blackbox-exporter" />
+  <meta name="twitter:description" content="Blackbox-exporter介绍 Blackbox Exporter 是 Prometheus 社区提供的官方黑盒监控解决方案，其允许用户通过：HTTP、HTTPS、DNS、TCP 以及 ICMP 的方">
+  <meta name="twitter:image" content="https://kenwoodjw.github.io/images/kenwood.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <link href='https://kenwoodjw.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://kenwoodjw.github.io/images/kenwood.jpg" />
+  <meta name="twitter:image" content="https://kenwoodjw.github.io/images/kenwood.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://kenwoodjw.github.io/post/k8s_05/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Kenwood Chan" />
+
+  <meta name="generator" content="Hugo 0.62.2" />
+  <link rel="alternate" href="https://kenwoodjw.github.io/index.xml" type="application/rss+xml" title="Kenwood Chan"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://kenwoodjw.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://kenwoodjw.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://kenwoodjw.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-136760087-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">切换导航</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://kenwoodjw.github.io">Kenwood Chan</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Kenwood Chan" href="https://kenwoodjw.github.io">
+            <img class="avatar-img" src="https://kenwoodjw.github.io/images/kenwood.jpg" alt="Kenwood Chan" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>prometheus 使用blackbox-exporter</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;发表于 January 3, 2020
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;3&nbsp;分钟
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1134&nbsp;个字
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <h3 id="blackbox-exporter介绍">Blackbox-exporter介绍</h3>
+<p><a href="https://github.com/prometheus/blackbox_exporter">Blackbox Exporter</a> 是 Prometheus 社区提供的官方黑盒监控解决方案，其允许用户通过：<code>HTTP</code>、<code>HTTPS</code>、<code>DNS</code>、<code>TCP</code> 以及 <code>ICMP</code> 的方式对网络进行探测。</p>
+<h3 id="实操">实操</h3>
+<h4 id="创建blackbox-deploymentsvcconfigmap">创建blackbox deployment，svc，configmap</h4>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">apiVersion<span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>ConfigMap<span class="w">
+</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>blackbox-config<span class="w">
+</span><span class="w">  </span>namespace<span class="p">:</span><span class="w"> </span>kube-mon<span class="w">
+</span><span class="w"></span>data<span class="p">:</span><span class="w">
+</span><span class="w">  </span>blackbox.yml<span class="p">:</span><span class="w"> </span>|<span class="sd">-
+</span><span class="sd">   </span><span class="sd"> </span><span class="sd">modules:</span><span class="w">
+</span><span class="w">      </span>http_2xx<span class="p">:</span><span class="w">  </span><span class="c"># http 检测模块  Blockbox-Exporter 中所有的探针均是以 Module 的信息进行配置</span><span class="w">
+</span><span class="w">        </span>prober<span class="p">:</span><span class="w"> </span>http<span class="w">
+</span><span class="w">        </span>timeout<span class="p">:</span><span class="w"> </span>10s<span class="w">
+</span><span class="w">        </span>http<span class="p">:</span><span class="w">
+</span><span class="w">          </span>valid_http_versions<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;HTTP/1.1&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;HTTP/2&#34;</span><span class="p">]</span><span class="w">   
+</span><span class="w">          </span>valid_status_codes<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="m">200</span><span class="p">]</span><span class="w">  </span><span class="c"># 这里最好作一个返回状态码，在grafana作图时，有明示---陈刚注释。</span><span class="w">
+</span><span class="w">          </span>method<span class="p">:</span><span class="w"> </span>GET<span class="w">
+</span><span class="w">          </span>preferred_ip_protocol<span class="p">:</span><span class="w"> </span><span class="s2">&#34;ip4&#34;</span><span class="w">
+</span><span class="w">      </span>http_post_2xx<span class="p">:</span><span class="w"> </span><span class="c"># http post 监测模块</span><span class="w">
+</span><span class="w">        </span>prober<span class="p">:</span><span class="w"> </span>http<span class="w">
+</span><span class="w">        </span>timeout<span class="p">:</span><span class="w"> </span>10s<span class="w">
+</span><span class="w">        </span>http<span class="p">:</span><span class="w">
+</span><span class="w">          </span>valid_http_versions<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;HTTP/1.1&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;HTTP/2&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">          </span>method<span class="p">:</span><span class="w"> </span>POST<span class="w">
+</span><span class="w">          </span>preferred_ip_protocol<span class="p">:</span><span class="w"> </span><span class="s2">&#34;ip4&#34;</span><span class="w">
+</span><span class="w">      </span>tcp_connect<span class="p">:</span><span class="w">  </span><span class="c"># TCP 检测模块</span><span class="w">
+</span><span class="w">        </span>prober<span class="p">:</span><span class="w"> </span>tcp<span class="w">
+</span><span class="w">        </span>timeout<span class="p">:</span><span class="w"> </span>10s<span class="w">
+</span><span class="w">      </span>dns<span class="p">:</span><span class="w">  </span><span class="c"># DNS 检测模块</span><span class="w">
+</span><span class="w">        </span>prober<span class="p">:</span><span class="w"> </span>dns<span class="w">
+</span><span class="w">        </span>dns<span class="p">:</span><span class="w">
+</span><span class="w">          </span>transport_protocol<span class="p">:</span><span class="w"> </span><span class="s2">&#34;tcp&#34;</span><span class="w">  </span><span class="c"># 默认是 udp</span><span class="w">
+</span><span class="w">          </span>preferred_ip_protocol<span class="p">:</span><span class="w"> </span><span class="s2">&#34;ip4&#34;</span><span class="w">  </span><span class="c"># 默认是 ip6</span><span class="w">
+</span><span class="w">          </span>query_name<span class="p">:</span><span class="w"> </span><span class="s2">&#34;kubernetes.default.svc.cluster.local&#34;</span><span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span>apiVersion<span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
+</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Deployment<span class="w">
+</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>blackbox<span class="w">
+</span><span class="w">  </span>namespace<span class="p">:</span><span class="w"> </span>kube-mon<span class="w">
+</span><span class="w"></span>spec<span class="p">:</span><span class="w">
+</span><span class="w">  </span>selector<span class="p">:</span><span class="w">
+</span><span class="w">    </span>matchLabels<span class="p">:</span><span class="w">
+</span><span class="w">      </span>app<span class="p">:</span><span class="w"> </span>blackbox<span class="w">
+</span><span class="w">  </span>template<span class="p">:</span><span class="w">
+</span><span class="w">    </span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">      </span>labels<span class="p">:</span><span class="w">
+</span><span class="w">        </span>app<span class="p">:</span><span class="w"> </span>blackbox<span class="w">
+</span><span class="w">    </span>spec<span class="p">:</span><span class="w">
+</span><span class="w">      </span>containers<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>image<span class="p">:</span><span class="w"> </span>prom/blackbox-exporter<span class="p">:</span>v0<span class="m">.16</span><span class="m">.0</span><span class="w">
+</span><span class="w">        </span>name<span class="p">:</span><span class="w"> </span>blackbox<span class="w">
+</span><span class="w">        </span>args<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>--config.file=/etc/blackbox_exporter/blackbox.yml<span class="w"> </span><span class="c"># ConfigMap 中的配置文件</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>--log.level=error<span class="w">  </span><span class="c"># 错误级别控制</span><span class="w">
+</span><span class="w">        </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>containerPort<span class="p">:</span><span class="w"> </span><span class="m">9115</span><span class="w">
+</span><span class="w">        </span>volumeMounts<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>config<span class="w">
+</span><span class="w">          </span>mountPath<span class="p">:</span><span class="w"> </span>/etc/blackbox_exporter<span class="w">
+</span><span class="w">      </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>config<span class="w">
+</span><span class="w">        </span>configMap<span class="p">:</span><span class="w">
+</span><span class="w">          </span>name<span class="p">:</span><span class="w"> </span>blackbox-config<span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span>apiVersion<span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Service<span class="w">
+</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>blackbox<span class="w">
+</span><span class="w">  </span>namespace<span class="p">:</span><span class="w"> </span>kube-mon<span class="w">
+</span><span class="w"></span>spec<span class="p">:</span><span class="w">
+</span><span class="w">  </span>selector<span class="p">:</span><span class="w">
+</span><span class="w">    </span>app<span class="p">:</span><span class="w"> </span>blackbox<span class="w">
+</span><span class="w">  </span>type<span class="p">:</span><span class="w"> </span>NodePort<span class="w">
+</span><span class="w">  </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>port<span class="p">:</span><span class="w"> </span><span class="m">9115</span><span class="w">
+</span><span class="w">    </span>targetPort<span class="p">:</span><span class="w"> </span><span class="m">9115</span><span class="w">
+</span><span class="w">    </span>nodePort<span class="p">:</span><span class="w"> </span><span class="m">30010</span><span class="w">
+</span></code></pre></div><h4 id="增加prometheus配置物理机版本">增加prometheus配置（物理机版本)</h4>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"> - job_name: &#39;kubernetes-http-services&#39;
+    metrics_path: /probe
+    params:
+      module: [http_2xx]  # 使用定义的http模块
+    kubernetes_sd_configs:
+    - role: service
+      api_server: https://{{apiserver_address}} 
+      tls_config:
+        insecure_skip_verify: true
+      bearer_token: &#39;{{bearer_token}}&#39;
+    tls_config:
+      insecure_skip_verify: true
+    bearer_token: &#39;{{bearer_token}}&#39;
+    relabel_configs:
+    - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_http_probe]
+      action: keep
+      regex: true
+    - source_labels: [__address__]
+      target_label: __param_target
+    - target_label: __address__
+      replacement: 172.25.21.121:30010
+    - source_labels: [__param_target]
+      target_label: instance
+    - action: labelmap
+      regex: __meta_kubernetes_service_label_(.+)
+    - source_labels: [__meta_kubernetes_namespace]
+      target_label: kubernetes_namespace
+    - source_labels: [__meta_kubernetes_service_name]
+      target_label: kubernetes_name
+</code></pre></div><h4 id="添加注释--只有service的annotation中配置了-prometheusiohttp_probetrue-的才进行发现">添加注释,  只有service的annotation中配置了 prometheus.io/http_probe=true 的才进行发现</h4>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: kube-ops
+spec:
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:4
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 6379
+      - name: redis-exporter
+        image: oliver006/redis_exporter:latest
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 9121
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: redis
+  namespace: kube-ops
+  annotations:
+     prometheus.io/http-probe: &#34;true&#34;
+spec:
+  selector:
+    app: redis
+  ports:
+  - name: redis
+    port: 6379
+    targetPort: 6379
+  - name: prom
+    port: 9121
+    targetPort: 9121
+</code></pre></div><h4 id="可视化">可视化</h4>
+<p>面板id：9965， 7587</p>
+<p>参考资料: <a href="https://www.qikqiak.com/post/blackbox-exporter-on-prometheus/">https://www.qikqiak.com/post/blackbox-exporter-on-prometheus/</a></p>
+<p><a href="https://blog.fleeto.us/post/blackbox-monitor-dns-web/">https://blog.fleeto.us/post/blackbox-monitor-dns-web/</a></p>
+<p><a href="https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus-kubernetes.yml">https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus-kubernetes.yml</a></p>
+<p><a href="https://zhangguanzhang.github.io/2018/12/04/black-box-exporter/">https://zhangguanzhang.github.io/2018/12/04/black-box-exporter/</a></p>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://kenwoodjw.github.io/tags/prometheus/">prometheus</a>&nbsp;
+            
+              <a href="https://kenwoodjw.github.io/tags/k8s/">k8s</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fk8s_05%2f&amp;text=prometheus%20%e4%bd%bf%e7%94%a8blackbox-exporter&amp;via=" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//plus.google.com/share?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fk8s_05%2f" target="_blank" title="Share on Google Plus">
+          <i class="fab fa-google-plus"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fk8s_05%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fk8s_05%2f&amp;title=prometheus%20%e4%bd%bf%e7%94%a8blackbox-exporter" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fk8s_05%2f&amp;title=prometheus%20%e4%bd%bf%e7%94%a8blackbox-exporter" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fk8s_05%2f&amp;title=prometheus%20%e4%bd%bf%e7%94%a8blackbox-exporter" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fkenwoodjw.github.io%2fpost%2fk8s_05%2f&amp;description=prometheus%20%e4%bd%bf%e7%94%a8blackbox-exporter" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+              </div>
+            </section>
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://kenwoodjw.github.io/post/k8s_04/" data-toggle="tooltip" data-placement="top" title="K8s_04">&larr; 前一篇</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+        
+          
+          <div class="disqus-comments">
+            <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "kenwoodjw" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+          </div>
+          
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="https://github.com/kenwoodjw" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="https://kenwoodjw.github.io/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="kenwoodjw.github.io">kenwood Chan</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2020
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://kenwoodjw.github.io">Kenwood Chan</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          由 <a href="https://gohugo.io">Hugo v0.62.2</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://kenwoodjw.github.io/js/main.js"></script>
+<script src="https://kenwoodjw.github.io/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://kenwoodjw.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
+
