@@ -20,11 +20,29 @@
     </item>
     
     <item>
+      <title>prometheus 使用blackbox-exporter</title>
+      <link>https://kenwoodjw.github.io/post/k8s_05/</link>
+      <pubDate>Fri, 03 Jan 2020 11:33:46 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/post/k8s_05/</guid>
+      <description>Blackbox-exporter介绍 Blackbox Exporter 是 Prometheus 社区提供的官方黑盒监控解决方案，其允许用户通过：HTTP、HTTPS、DNS、TCP 以及 ICMP 的方</description>
+    </item>
+    
+    <item>
       <title>K8s_04</title>
       <link>https://kenwoodjw.github.io/k8s_04/</link>
       <pubDate>Mon, 05 Aug 2019 22:48:13 +0800</pubDate>
       
       <guid>https://kenwoodjw.github.io/k8s_04/</guid>
+      <description>为什么需要ingress？ Ingress 只需要一个公网ip就能为许多服务提供访问，当客户端向ingress发送HTTP请求时，Ingress 会根据请求的</description>
+    </item>
+    
+    <item>
+      <title>K8s_04</title>
+      <link>https://kenwoodjw.github.io/post/k8s_04/</link>
+      <pubDate>Mon, 05 Aug 2019 22:48:13 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/post/k8s_04/</guid>
       <description>为什么需要ingress？ Ingress 只需要一个公网ip就能为许多服务提供访问，当客户端向ingress发送HTTP请求时，Ingress 会根据请求的</description>
     </item>
     
@@ -38,11 +56,29 @@
     </item>
     
     <item>
+      <title>K8s_03</title>
+      <link>https://kenwoodjw.github.io/post/k8s_03/</link>
+      <pubDate>Thu, 25 Jul 2019 23:37:29 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/post/k8s_03/</guid>
+      <description>configmap 热更新 更新应用配置且不重启应用程序 使用环境变量或者命令行参数作为配置源的弊端在于无法在进程运行时更新配置。将configmap 暴露为卷可以</description>
+    </item>
+    
+    <item>
       <title>K8s_02</title>
       <link>https://kenwoodjw.github.io/k8s_02/</link>
       <pubDate>Mon, 22 Jul 2019 00:07:37 +0800</pubDate>
       
       <guid>https://kenwoodjw.github.io/k8s_02/</guid>
+      <description>K8s 服务的创建 为什么需要服务？ 1.pod是短暂的，随时会启动或关闭 2.pod在启动时才分配地址，因此客户端不能提前知道服务的pod的ip地址 3</description>
+    </item>
+    
+    <item>
+      <title>K8s_02</title>
+      <link>https://kenwoodjw.github.io/post/k8s_02/</link>
+      <pubDate>Mon, 22 Jul 2019 00:07:37 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/post/k8s_02/</guid>
       <description>K8s 服务的创建 为什么需要服务？ 1.pod是短暂的，随时会启动或关闭 2.pod在启动时才分配地址，因此客户端不能提前知道服务的pod的ip地址 3</description>
     </item>
     

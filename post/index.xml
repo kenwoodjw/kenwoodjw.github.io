@@ -12,6 +12,15 @@
     
     <item>
       <title>Docker</title>
+      <link>https://kenwoodjw.github.io/post/docker/</link>
+      <pubDate>Sun, 01 Mar 2020 16:40:23 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/post/docker/</guid>
+      <description>docker namespace 概念 首先让我们看看docker 官方文档的解释 当你启动一个container，docker会为container创建 一系列的namespa</description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
       <link>https://kenwoodjw.github.io/posts/docker/</link>
       <pubDate>Sun, 01 Mar 2020 16:40:23 +0800</pubDate>
       
@@ -53,15 +62,6 @@
       
       <guid>https://kenwoodjw.github.io/post/k8s_02/</guid>
       <description>K8s 服务的创建 为什么需要服务？ 1.pod是短暂的，随时会启动或关闭 2.pod在启动时才分配地址，因此客户端不能提前知道服务的pod的ip地址 3</description>
-    </item>
-    
-    <item>
-      <title>Docker组件构成</title>
-      <link>https://kenwoodjw.github.io/post/docker/</link>
-      <pubDate>Thu, 23 May 2019 23:30:31 +0800</pubDate>
-      
-      <guid>https://kenwoodjw.github.io/post/docker/</guid>
-      <description>历史 docker公司原名dotclound, Docker项目刚刚兴起时，Google也开源了一个在内部使用多年，经历过生产环境验证的Linu</description>
     </item>
     
     <item>
