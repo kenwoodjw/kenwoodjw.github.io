@@ -63,7 +63,7 @@
   "headline": "K8s_04",
   "description" : "为什么需要ingress？ Ingress 只需要一个公网ip就能为许多服务提供访问，当客户端向ingress发送HTTP请求时，Ingress 会根据请求的",
   "inLanguage" : "zh-cn",
-  "wordCount":  1025 ,
+  "wordCount":  680 ,
   "datePublished" : "2019-08-05T22:48:13",
   "dateModified" : "2019-08-05T22:48:13",
   "image" : "https:\/\/kenwoodjw.github.io\/images\/kenwood.jpg",
@@ -100,7 +100,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Kenwood Chan" />
 
-  <meta name="generator" content="Hugo 0.62.2" />
+  <meta name="generator" content="Hugo 0.65.3" />
   <link rel="alternate" href="https://kenwoodjw.github.io/index.xml" type="application/rss+xml" title="Kenwood Chan"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://kenwoodjw.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -251,10 +251,10 @@ if (!doNotTrack) {
   <i class="fas fa-calendar"></i>&nbsp;发表于 August 5, 2019
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;3&nbsp;分钟
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;分钟
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1025&nbsp;个字
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;680&nbsp;个字
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood
@@ -288,32 +288,32 @@ if (!doNotTrack) {
 
 kubectl <span class="nb">exec</span> -it <span class="nv">$POD_NAME</span> -n <span class="nv">$POD_NAMESPACE</span> -- /nginx-ingress-controller --version
 </code></pre></div><p>参考link <a href="https://kubernetes.github.io/ingress-nginx/deploy/#bare-metal">https://kubernetes.github.io/ingress-nginx/deploy/#bare-metal</a></p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">apiVersion<span class="p">:</span><span class="w"> </span>v1<span class="w">
-</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Service<span class="w">
-</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
-</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
-</span><span class="w">  </span>namespace<span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
-</span><span class="w">  </span>labels<span class="p">:</span><span class="w">
-</span><span class="w">    </span>app.kubernetes.io/name<span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
-</span><span class="w">    </span>app.kubernetes.io/part-of<span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
-</span><span class="w"></span>spec<span class="p">:</span><span class="w">
-</span><span class="w">  </span>type<span class="p">:</span><span class="w"> </span>NodePort<span class="w">
-</span><span class="w">  </span>ports<span class="p">:</span><span class="w">
-</span><span class="w">    </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>http<span class="w">
-</span><span class="w">      </span>port<span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
-</span><span class="w">      </span>targetPort<span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
-</span><span class="w">      </span>protocol<span class="p">:</span><span class="w"> </span>TCP<span class="w">
-</span><span class="w">    </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>https<span class="w">
-</span><span class="w">      </span>port<span class="p">:</span><span class="w"> </span><span class="m">443</span><span class="w">
-</span><span class="w">      </span>targetPort<span class="p">:</span><span class="w"> </span><span class="m">443</span><span class="w">
-</span><span class="w">      </span>protocol<span class="p">:</span><span class="w"> </span>TCP<span class="w">
-</span><span class="w">    </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>proxied-tcp<span class="m">-9000</span><span class="w">
-</span><span class="w">      </span>port<span class="p">:</span><span class="w"> </span><span class="m">9000</span><span class="w">
-</span><span class="w">      </span>targetPort<span class="p">:</span><span class="w"> </span><span class="m">9000</span><span class="w">
-</span><span class="w">      </span>protocol<span class="p">:</span><span class="w"> </span>TCP<span class="w">
-</span><span class="w">  </span>selector<span class="p">:</span><span class="w">
-</span><span class="w">    </span>app.kubernetes.io/name<span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
-</span><span class="w">    </span>app.kubernetes.io/part-of<span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Service<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
+</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
+</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">app.kubernetes.io/name</span><span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
+</span><span class="w">    </span><span class="k">app.kubernetes.io/part-of</span><span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">type</span><span class="p">:</span><span class="w"> </span>NodePort<span class="w">
+</span><span class="w">  </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>http<span class="w">
+</span><span class="w">      </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w">      </span><span class="k">targetPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w">      </span><span class="k">protocol</span><span class="p">:</span><span class="w"> </span>TCP<span class="w">
+</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>https<span class="w">
+</span><span class="w">      </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">443</span><span class="w">
+</span><span class="w">      </span><span class="k">targetPort</span><span class="p">:</span><span class="w"> </span><span class="m">443</span><span class="w">
+</span><span class="w">      </span><span class="k">protocol</span><span class="p">:</span><span class="w"> </span>TCP<span class="w">
+</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>proxied-tcp<span class="m">-9000</span><span class="w">
+</span><span class="w">      </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">9000</span><span class="w">
+</span><span class="w">      </span><span class="k">targetPort</span><span class="p">:</span><span class="w"> </span><span class="m">9000</span><span class="w">
+</span><span class="w">      </span><span class="k">protocol</span><span class="p">:</span><span class="w"> </span>TCP<span class="w">
+</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">app.kubernetes.io/name</span><span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
+</span><span class="w">    </span><span class="k">app.kubernetes.io/part-of</span><span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
 </span><span class="w">
 </span></code></pre></div><h3 id="测试http-7层负载">测试http 7层负载</h3>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="w">
@@ -331,31 +331,31 @@ test-hello   ClusterIP   10.68.124.115   &lt;none&gt;        80/TCP    1m
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="w">
 </span><span class="w"></span>```<span class="w">
 </span><span class="w"></span><span class="c"># test-hello.ing.yaml内容</span><span class="w">
-</span><span class="w"></span>apiVersion<span class="p">:</span><span class="w"> </span>extensions/v1beta1<span class="w">
-</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Ingress<span class="w">
-</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
-</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>test-hello<span class="w">
-</span><span class="w"></span>spec<span class="p">:</span><span class="w">
-</span><span class="w">  </span>rules<span class="p">:</span><span class="w">
-</span><span class="w">  </span>-<span class="w"> </span>host<span class="p">:</span><span class="w"> </span>hello.test.com<span class="w">
-</span><span class="w">    </span>http<span class="p">:</span><span class="w">
-</span><span class="w">      </span>paths<span class="p">:</span><span class="w">
-</span><span class="w">      </span>-<span class="w"> </span>path<span class="p">:</span><span class="w"> </span>/<span class="w">
-</span><span class="w">        </span>backend<span class="p">:</span><span class="w">
-</span><span class="w">          </span>serviceName<span class="p">:</span><span class="w"> </span>test-hello<span class="w">
-</span><span class="w">          </span>servicePort<span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>extensions/v1beta1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Ingress<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>test-hello<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">rules</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">host</span><span class="p">:</span><span class="w"> </span>hello.test.com<span class="w">
+</span><span class="w">    </span><span class="k">http</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">path</span><span class="p">:</span><span class="w"> </span>/<span class="w">
+</span><span class="w">        </span><span class="k">backend</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="k">serviceName</span><span class="p">:</span><span class="w"> </span>test-hello<span class="w">
+</span><span class="w">          </span><span class="k">servicePort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
 </span></code></pre></div><ul>
 <li>集群内部尝试访问: <code>curl -H Host:hello.test.com 10.68.69.170(ingress-service的服务地址)</code> 能够看到欢迎页面 <code>Welcome to nginx!</code>；</li>
 </ul>
 <h3 id="tcp-udp">TCP /UDP</h3>
 <p>Ingress does not support TCP or UDP services. For this reason this Ingress controller uses the flags <code>--tcp-services-configmap</code> and <code>--udp-services-configmap</code> to point to an existing config map where the key is the external port to use and the value indicates the service to expose using the format: <code>&lt;namespace/service name&gt;:&lt;service port&gt;:[PROXY]:[PROXY]</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">apiVersion<span class="p">:</span><span class="w"> </span>v1<span class="w">
-</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>ConfigMap<span class="w">
-</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
-</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>tcp-services<span class="w">
-</span><span class="w">  </span>namespace<span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
-</span><span class="w"></span>data<span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="m">9000</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;default/example-go:8080&#34;</span><span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ConfigMap<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>tcp-services<span class="w">
+</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>ingress-nginx<span class="w">
+</span><span class="w"></span><span class="k">data</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">9000</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;default/example-go:8080&#34;</span><span class="w">
 </span></code></pre></div><p>参考官网 <a href="https://kubernetes.github.io/ingress-nginx/user-guide/exposing-tcp-udp-services/">https://kubernetes.github.io/ingress-nginx/user-guide/exposing-tcp-udp-services/</a></p>
 
 
@@ -529,7 +529,7 @@ test-hello   ClusterIP   10.68.124.115   &lt;none&gt;        80/TCP    1m
         </p>
         
         <p class="credits theme-by text-muted">
-          由 <a href="https://gohugo.io">Hugo v0.62.2</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          由 <a href="https://gohugo.io">Hugo v0.65.3</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

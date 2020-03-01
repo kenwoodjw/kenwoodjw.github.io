@@ -4,7 +4,37 @@
   
   <url>
     <loc>https://kenwoodjw.github.io/categories/</loc>
-    <lastmod>2020-01-03T11:33:46+08:00</lastmod>
+    <lastmod>2020-03-01T16:40:23+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/tags/docker/</loc>
+    <lastmod>2020-03-01T16:40:23+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/categories/docker/</loc>
+    <lastmod>2020-03-01T16:40:23+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/posts/docker/</loc>
+    <lastmod>2020-03-01T16:40:23+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/</loc>
+    <lastmod>2020-03-01T16:40:23+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/post/</loc>
+    <lastmod>2020-03-01T16:40:23+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kenwoodjw.github.io/tags/</loc>
+    <lastmod>2020-03-01T16:40:23+08:00</lastmod>
   </url>
   
   <url>
@@ -18,12 +48,7 @@
   </url>
   
   <url>
-    <loc>https://kenwoodjw.github.io/</loc>
-    <lastmod>2020-01-03T11:33:46+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://kenwoodjw.github.io/post/</loc>
+    <loc>https://kenwoodjw.github.io/tags/prometheus/</loc>
     <lastmod>2020-01-03T11:33:46+08:00</lastmod>
   </url>
   
@@ -33,17 +58,7 @@
   </url>
   
   <url>
-    <loc>https://kenwoodjw.github.io/tags/prometheus/</loc>
-    <lastmod>2020-01-03T11:33:46+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://kenwoodjw.github.io/post/k8s_05/</loc>
-    <lastmod>2020-01-03T11:33:46+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://kenwoodjw.github.io/tags/</loc>
     <lastmod>2020-01-03T11:33:46+08:00</lastmod>
   </url>
   
@@ -60,11 +75,6 @@
   <url>
     <loc>https://kenwoodjw.github.io/post/k8s_02/</loc>
     <lastmod>2019-07-22T00:07:37+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://kenwoodjw.github.io/tags/docker/</loc>
-    <lastmod>2019-05-23T23:30:31+08:00</lastmod>
   </url>
   
   <url>

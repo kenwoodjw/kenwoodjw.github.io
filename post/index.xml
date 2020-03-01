@@ -5,10 +5,19 @@
     <link>https://kenwoodjw.github.io/post/</link>
     <description>Recent content in Posts on Kenwood Chan</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 03 Jan 2020 11:33:46 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 01 Mar 2020 16:40:23 +0800</lastBuildDate>
     
 	<atom:link href="https://kenwoodjw.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Docker</title>
+      <link>https://kenwoodjw.github.io/posts/docker/</link>
+      <pubDate>Sun, 01 Mar 2020 16:40:23 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/posts/docker/</guid>
+      <description>docker namespace 概念 首先让我们看看docker 官方文档的解释 当你启动一个container，docker会为container创建 一系列的namespa</description>
+    </item>
     
     <item>
       <title>prometheus 使用blackbox-exporter</title>

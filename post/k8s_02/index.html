@@ -63,7 +63,7 @@
   "headline": "K8s_02",
   "description" : "K8s 服务的创建 为什么需要服务？ 1.pod是短暂的，随时会启动或关闭 2.pod在启动时才分配地址，因此客户端不能提前知道服务的pod的ip地址 3",
   "inLanguage" : "zh-cn",
-  "wordCount":  534 ,
+  "wordCount":  470 ,
   "datePublished" : "2019-07-22T00:07:37",
   "dateModified" : "2019-07-22T00:07:37",
   "image" : "https:\/\/kenwoodjw.github.io\/images\/kenwood.jpg",
@@ -100,7 +100,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Kenwood Chan" />
 
-  <meta name="generator" content="Hugo 0.62.2" />
+  <meta name="generator" content="Hugo 0.65.3" />
   <link rel="alternate" href="https://kenwoodjw.github.io/index.xml" type="application/rss+xml" title="Kenwood Chan"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://kenwoodjw.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -251,10 +251,10 @@ if (!doNotTrack) {
   <i class="fas fa-calendar"></i>&nbsp;发表于 July 22, 2019
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;分钟
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;分钟
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;534&nbsp;个字
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;470&nbsp;个字
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood
@@ -284,16 +284,16 @@ if (!doNotTrack) {
 <p>3.水平伸缩意味着多个pod提供相同服务，所有的pod都可以通过一个IP地址进行访问</p>
 <h3 id="实际测试">实际测试</h3>
 <p>创建服务</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">apiVersion<span class="p">:</span><span class="w"> </span>v1<span class="w">
-</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Service<span class="w">
-</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
-</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>kubia-nodeport<span class="w">
-</span><span class="w"></span>spec<span class="p">:</span><span class="w">
-</span><span class="w">  </span>ports<span class="p">:</span><span class="w">
-</span><span class="w">  </span>-<span class="w"> </span>port<span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
-</span><span class="w">    </span>targetPort<span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
-</span><span class="w">  </span>selector<span class="p">:</span><span class="w">
-</span><span class="w">    </span>app<span class="p">:</span><span class="w"> </span>kubia<span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Service<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>kubia-nodeport<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w">    </span><span class="k">targetPort</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
+</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>kubia<span class="w">
 </span><span class="w">   
 </span><span class="w">   
 </span><span class="w">   
@@ -484,7 +484,7 @@ root@kubia-3inly:/# curl http://kubia.default.svc.cluster.local
         </p>
         
         <p class="credits theme-by text-muted">
-          由 <a href="https://gohugo.io">Hugo v0.62.2</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          由 <a href="https://gohugo.io">Hugo v0.65.3</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

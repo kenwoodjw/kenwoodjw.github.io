@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Docker on Kenwood Chan</title>
-    <link>https://kenwoodjw.github.io/tags/docker/</link>
+    <link>https://kenwoodjw.github.io/categories/docker/</link>
     <description>Recent content in Docker on Kenwood Chan</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sun, 01 Mar 2020 16:40:23 +0800</lastBuildDate>
     
-	<atom:link href="https://kenwoodjw.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://kenwoodjw.github.io/categories/docker/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -17,15 +17,6 @@
       
       <guid>https://kenwoodjw.github.io/posts/docker/</guid>
       <description>docker namespace 概念 首先让我们看看docker 官方文档的解释 当你启动一个container，docker会为container创建 一系列的namespa</description>
-    </item>
-    
-    <item>
-      <title>Docker组件构成</title>
-      <link>https://kenwoodjw.github.io/post/docker/</link>
-      <pubDate>Thu, 23 May 2019 23:30:31 +0800</pubDate>
-      
-      <guid>https://kenwoodjw.github.io/post/docker/</guid>
-      <description>历史 docker公司原名dotclound, Docker项目刚刚兴起时，Google也开源了一个在内部使用多年，经历过生产环境验证的Linu</description>
     </item>
     
   </channel>

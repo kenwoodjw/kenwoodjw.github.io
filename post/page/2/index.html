@@ -47,7 +47,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Kenwood Chan" />
 
-  <meta name="generator" content="Hugo 0.62.2" />
+  <meta name="generator" content="Hugo 0.65.3" />
   <link rel="alternate" href="https://kenwoodjw.github.io/index.xml" type="application/rss+xml" title="Kenwood Chan"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://kenwoodjw.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -195,7 +195,7 @@ if (!doNotTrack) {
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;发表于 January 3, 2020
+  <i class="fas fa-calendar"></i>&nbsp;发表于 March 1, 2020
   
   
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;0&nbsp;分钟
@@ -227,6 +227,44 @@ if (!doNotTrack) {
         <div class="posts-list">
           
             <article class="post-preview">
+              <a href="https://kenwoodjw.github.io/post/k8s01/">
+                <h2 class="post-title">为什么需要pod</h2>
+
+                
+              </a>
+
+              <p class="post-meta">
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;发表于 April 10, 2019
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;4&nbsp;分钟
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;1840&nbsp;个字
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood Chan
+  
+  
+</span>
+
+
+              </p>
+              <div class="post-entry">
+                
+                  Pod的实现原理： 首先，关于Pod最重要的一个事实是：它只是一个逻辑概念。Pod，其实是一组共享了某些资源的容器。具体的说，Pod里的所有容
+                  <a href="https://kenwoodjw.github.io/post/k8s01/" class="post-read-more">[阅读全文]</a>
+                
+              </div>
+
+              
+
+            </article>
+          
+            <article class="post-preview">
               <a href="https://kenwoodjw.github.io/post/python_standard_lib_01/">
                 <h2 class="post-title">每天一个python标准库00</h2>
 
@@ -256,38 +294,38 @@ if (!doNotTrack) {
               <div class="post-entry">
                 
                   <h2 id="itertools-----为高效循环而创建迭代器的函数">itertools &mdash; 为高效循环而创建迭代器的函数</h2>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="p">:</span> <span class="nb">dir</span><span class="p">(</span><span class="n">itertools</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="p">:</span> 
-<span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">__doc__</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">__loader__</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">__name__</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">__package__</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">__spec__</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">_grouper</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">_tee</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">_tee_dataobject</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">accumulate</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">chain</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">combinations</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">combinations_with_replacement</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">compress</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">count</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">cycle</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">dropwhile</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">filterfalse</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">groupby</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">islice</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">permutations</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">product</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">repeat</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">starmap</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">takewhile</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">tee</span><span class="s1">&#39;</span><span class="p">,</span>
- <span class="sa"></span><span class="s1">&#39;</span><span class="s1">zip_longest</span><span class="s1">&#39;</span><span class="p">]</span>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="nb">dir</span><span class="p">(</span><span class="n">itertools</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> 
+<span class="p">[</span><span class="s1">&#39;__doc__&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;__loader__&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;__name__&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;__package__&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;__spec__&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;_grouper&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;_tee&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;_tee_dataobject&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;accumulate&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;chain&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;combinations&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;combinations_with_replacement&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;compress&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;count&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;cycle&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;dropwhile&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;filterfalse&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;groupby&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;islice&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;permutations&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;product&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;repeat&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;starmap&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;takewhile&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;tee&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;zip_longest&#39;</span><span class="p">]</span>
 
 </code></pre></div><h3 id="无穷迭代器">无穷迭代器</h3>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">count</span>
-<span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">count</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="p">]</span> <span class="o">-</span><span class="o">-</span> <span class="o">&gt;</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mf">14.</span><span class="o">.</span><span class="o">.</span><span class="o">.</span><span class="p">]</span>
+<span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">count</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span> <span class="o">--</span> <span class="o">&gt;</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mf">14.</span><span class="o">...</span><span class="p">]</span>
 </code></pre></div>
                 
               </div>
@@ -401,7 +439,7 @@ if (!doNotTrack) {
         </p>
         
         <p class="credits theme-by text-muted">
-          由 <a href="https://gohugo.io">Hugo v0.62.2</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          由 <a href="https://gohugo.io">Hugo v0.65.3</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
