@@ -12,10 +12,10 @@
     
     <item>
       <title>hugo部署网站，circleci自动构建静态页面</title>
-      <link>https://kenwoodjw.github.io/post/hugo/</link>
+      <link>https://kenwoodjw.github.io/hugo/</link>
       <pubDate>Sun, 24 Mar 2019 20:52:13 +0800</pubDate>
       
-      <guid>https://kenwoodjw.github.io/post/hugo/</guid>
+      <guid>https://kenwoodjw.github.io/hugo/</guid>
       <description>1. 安裝 Hugo brew install hugo 2. 建立新网站 hugo new site my-website cd my-website git init my-website 可以替换成任意名称，但你也可以跟我一样，避免麻煩。找到名为 my-website 的文件夾，观察文件夹结构。 3. 新增主題</description>
     </item>
     
