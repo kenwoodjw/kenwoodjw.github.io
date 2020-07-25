@@ -5,10 +5,19 @@
     <link>https://kenwoodjw.github.io/</link>
     <description>Recent content on Kenwood Chan</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 03 Jan 2020 11:33:46 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 25 Jul 2020 16:20:35 +0800</lastBuildDate>
     
 	<atom:link href="https://kenwoodjw.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Loki</title>
+      <link>https://kenwoodjw.github.io/post/loki/</link>
+      <pubDate>Sat, 25 Jul 2020 16:20:35 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/post/loki/</guid>
+      <description>loki 日志采集安装 下载loki和promtail wget https://github.com/grafana/loki/releases/download/v1.5.0/loki-linux-amd64.zip uznip loki-linux-amd64.zip mv loki-linux-amd64 /usr/local/bin/loki wget https://github.com/grafana/loki/releases/download/v1.5.0/promtail-linux-amd64.zip unzip promtail-linux-amd64.zip unzip promtail-linux-amd64 /usr/local/bin/promtail 配置文件 https://github.com/grafana/loki/blob/v1.5.0/cmd/loki/loki-local-config.yaml https://github.com/grafana/loki/blob/v1.5.0/cmd/promtail/promtail-local-config.yaml mv loki-local-config.yaml /usr/local/bin/config-loki.yml mv promtail-local-config.yaml /usr/local/bin/config-promtail.yml 配置systemd vi /etc/systemd/system/loki.service [Unit] Description=Loki service After=network.target [Service] Type=simple ExecStart=/usr/local/bin/loki -config.file /usr/local/bin/config-loki.yml [Install] WantedBy=multi-user.target</description>
+    </item>
     
     <item>
       <title>Docker</title>

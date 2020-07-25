@@ -7,12 +7,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Overview of all pages with the tag #prometheus - Kenwood Chan</title>
-  <meta property="og:title" content="Overview of all pages with the tag #prometheus" />
-  <meta name="twitter:title" content="Overview of all pages with the tag #prometheus" />
-  <meta name="description" content="Overview of all pages with the tag #prometheus, such as: prometheus 使用blackbox-exporter">
-  <meta property="og:description" content="Overview of all pages with the tag #prometheus, such as: prometheus 使用blackbox-exporter">
-  <meta name="twitter:description" content="Overview of all pages with the tag #prometheus, such as: prometheus 使用blackbox-exporter">
+  <title>prometheus - Kenwood Chan</title>
+  <meta property="og:title" content="prometheus" />
+  <meta name="twitter:title" content="prometheus" />
   <meta name="author" content="kenwood Chan"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -50,7 +47,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Kenwood Chan" />
 
-  <meta name="generator" content="Hugo 0.65.3" />
+  <meta name="generator" content="Hugo 0.74.3" />
   <link rel="alternate" href="https://kenwoodjw.github.io/index.xml" type="application/rss+xml" title="Kenwood Chan"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://kenwoodjw.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -213,6 +210,52 @@ if (!doNotTrack) {
         <div class="posts-list">
           
             <article class="post-preview">
+              <a href="https://kenwoodjw.github.io/post/loki/">
+                <h2 class="post-title">Loki</h2>
+
+                
+              </a>
+
+              <p class="post-meta">
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;发表于 July 25, 2020
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;分钟
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;123&nbsp;个字
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood
+  
+  
+</span>
+
+
+              </p>
+              <div class="post-entry">
+                
+                  loki 日志采集安装 下载loki和promtail wget https://github.com/grafana/loki/releases/download/v1.5.0/loki-linux-amd64.zip uznip loki-linux-amd64.zip mv loki-linux-amd64 /usr/local/bin/loki wget https://github.com/grafana/loki/releases/download/v1.5.0/promtail-linux-amd64.zip unzip promtail-linux-amd64.zip unzip promtail-linux-amd64 /usr/local/bin/promtail 配置文件 https://github.com/grafana/loki/blob/v1.5.0/cmd/loki/loki-local-config.yaml https://github.com/grafana/loki/blob/v1.5.0/cmd/promtail/promtail-local-config.yaml mv loki-local-config.yaml /usr/local/bin/config-loki.yml mv promtail-local-config.yaml /usr/local/bin/config-promtail.yml 配置systemd vi /etc/systemd/system/loki.service [Unit] Description=Loki service After=network.target [Service] Type=simple ExecStart=/usr/local/bin/loki -config.file /usr/local/bin/config-loki.yml [Install] WantedBy=multi-user.target
+                  <a href="https://kenwoodjw.github.io/post/loki/" class="post-read-more">[阅读全文]</a>
+                
+              </div>
+
+              
+                <div class="blog-tags">
+                  
+                    <a href="https://kenwoodjw.github.io/tags/loki/">loki</a>&nbsp;
+                  
+                    <a href="https://kenwoodjw.github.io/tags/prometheus/">prometheus</a>&nbsp;
+                  
+                </div>
+              
+
+            </article>
+          
+            <article class="post-preview">
               <a href="https://kenwoodjw.github.io/k8s_05/">
                 <h2 class="post-title">prometheus 使用blackbox-exporter</h2>
 
@@ -356,7 +399,7 @@ if (!doNotTrack) {
         </p>
         
         <p class="credits theme-by text-muted">
-          由 <a href="https://gohugo.io">Hugo v0.65.3</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          由 <a href="https://gohugo.io">Hugo v0.74.3</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

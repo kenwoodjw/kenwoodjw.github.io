@@ -7,9 +7,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>K8s - Kenwood Chan</title>
-  <meta property="og:title" content="K8s" />
-  <meta name="twitter:title" content="K8s" />
+  <title>grafana - Kenwood Chan</title>
+  <meta property="og:title" content="grafana" />
+  <meta name="twitter:title" content="grafana" />
   <meta name="author" content="kenwood Chan"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -31,19 +31,19 @@
 }
 </script>
 
-<meta property="og:title" content="K8s" />
+<meta property="og:title" content="grafana" />
 <meta property="og:image" content="https://kenwoodjw.github.io/images/kenwood.jpg" />
-<meta property="og:url" content="https://kenwoodjw.github.io/tags/k8s/" />
+<meta property="og:url" content="https://kenwoodjw.github.io/categories/grafana/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Kenwood Chan" />
-  <meta name="twitter:title" content="K8s" />
+  <meta name="twitter:title" content="grafana" />
   <meta name="twitter:image" content="https://kenwoodjw.github.io/images/kenwood.jpg" />
   <meta name="twitter:card" content="summary" />
   <link href='https://kenwoodjw.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
   <meta property="og:image" content="https://kenwoodjw.github.io/images/kenwood.jpg" />
   <meta name="twitter:image" content="https://kenwoodjw.github.io/images/kenwood.jpg" />
   <meta name="twitter:card" content="summary" />
-  <meta property="og:url" content="https://kenwoodjw.github.io/tags/k8s/" />
+  <meta property="og:url" content="https://kenwoodjw.github.io/categories/grafana/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Kenwood Chan" />
 
@@ -185,9 +185,9 @@ if (!doNotTrack) {
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="tags-heading">
+            <div class="categories-heading">
               
-                <h1>K8s</h1>
+                <h1>grafana</h1>
               
               
                 <hr class="small">
@@ -210,8 +210,8 @@ if (!doNotTrack) {
         <div class="posts-list">
           
             <article class="post-preview">
-              <a href="https://kenwoodjw.github.io/k8s_05/">
-                <h2 class="post-title">prometheus 使用blackbox-exporter</h2>
+              <a href="https://kenwoodjw.github.io/post/loki/">
+                <h2 class="post-title">Loki</h2>
 
                 
               </a>
@@ -220,13 +220,13 @@ if (!doNotTrack) {
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;发表于 January 3, 2020
+  <i class="fas fa-calendar"></i>&nbsp;发表于 July 25, 2020
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;分钟
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;分钟
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;883&nbsp;个字
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;123&nbsp;个字
   
   
     &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood
@@ -238,327 +238,17 @@ if (!doNotTrack) {
               </p>
               <div class="post-entry">
                 
-                  Blackbox-exporter介绍 Blackbox Exporter 是 Prometheus 社区提供的官方黑盒监控解决方案，其允许用户通过：HTTP、HTTPS、DNS、TCP 以及 ICMP 的方
-                  <a href="https://kenwoodjw.github.io/k8s_05/" class="post-read-more">[阅读全文]</a>
+                  loki 日志采集安装 下载loki和promtail wget https://github.com/grafana/loki/releases/download/v1.5.0/loki-linux-amd64.zip uznip loki-linux-amd64.zip mv loki-linux-amd64 /usr/local/bin/loki wget https://github.com/grafana/loki/releases/download/v1.5.0/promtail-linux-amd64.zip unzip promtail-linux-amd64.zip unzip promtail-linux-amd64 /usr/local/bin/promtail 配置文件 https://github.com/grafana/loki/blob/v1.5.0/cmd/loki/loki-local-config.yaml https://github.com/grafana/loki/blob/v1.5.0/cmd/promtail/promtail-local-config.yaml mv loki-local-config.yaml /usr/local/bin/config-loki.yml mv promtail-local-config.yaml /usr/local/bin/config-promtail.yml 配置systemd vi /etc/systemd/system/loki.service [Unit] Description=Loki service After=network.target [Service] Type=simple ExecStart=/usr/local/bin/loki -config.file /usr/local/bin/config-loki.yml [Install] WantedBy=multi-user.target
+                  <a href="https://kenwoodjw.github.io/post/loki/" class="post-read-more">[阅读全文]</a>
                 
               </div>
 
               
                 <div class="blog-tags">
+                  
+                    <a href="https://kenwoodjw.github.io/tags/loki/">loki</a>&nbsp;
                   
                     <a href="https://kenwoodjw.github.io/tags/prometheus/">prometheus</a>&nbsp;
-                  
-                    <a href="https://kenwoodjw.github.io/tags/k8s/">k8s</a>&nbsp;
-                  
-                </div>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://kenwoodjw.github.io/post/k8s_05/">
-                <h2 class="post-title">prometheus 使用blackbox-exporter</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;发表于 January 3, 2020
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;分钟
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;883&nbsp;个字
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood
-  
-  
-</span>
-
-
-              </p>
-              <div class="post-entry">
-                
-                  Blackbox-exporter介绍 Blackbox Exporter 是 Prometheus 社区提供的官方黑盒监控解决方案，其允许用户通过：HTTP、HTTPS、DNS、TCP 以及 ICMP 的方
-                  <a href="https://kenwoodjw.github.io/post/k8s_05/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="https://kenwoodjw.github.io/tags/prometheus/">prometheus</a>&nbsp;
-                  
-                    <a href="https://kenwoodjw.github.io/tags/k8s/">k8s</a>&nbsp;
-                  
-                </div>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://kenwoodjw.github.io/k8s_04/">
-                <h2 class="post-title">K8s_04</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;发表于 August 5, 2019
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;分钟
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;680&nbsp;个字
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood
-  
-  
-</span>
-
-
-              </p>
-              <div class="post-entry">
-                
-                  为什么需要ingress？ Ingress 只需要一个公网ip就能为许多服务提供访问，当客户端向ingress发送HTTP请求时，Ingress 会根据请求的
-                  <a href="https://kenwoodjw.github.io/k8s_04/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="https://kenwoodjw.github.io/tags/k8s/">k8s</a>&nbsp;
-                  
-                </div>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://kenwoodjw.github.io/post/k8s_04/">
-                <h2 class="post-title">K8s_04</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;发表于 August 5, 2019
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;分钟
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;680&nbsp;个字
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood
-  
-  
-</span>
-
-
-              </p>
-              <div class="post-entry">
-                
-                  为什么需要ingress？ Ingress 只需要一个公网ip就能为许多服务提供访问，当客户端向ingress发送HTTP请求时，Ingress 会根据请求的
-                  <a href="https://kenwoodjw.github.io/post/k8s_04/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="https://kenwoodjw.github.io/tags/k8s/">k8s</a>&nbsp;
-                  
-                </div>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://kenwoodjw.github.io/k8s_03/">
-                <h2 class="post-title">K8s_03</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;发表于 July 25, 2019
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;分钟
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;413&nbsp;个字
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood
-  
-  
-</span>
-
-
-              </p>
-              <div class="post-entry">
-                
-                  configmap 热更新 更新应用配置且不重启应用程序 使用环境变量或者命令行参数作为配置源的弊端在于无法在进程运行时更新配置。将configmap 暴露为卷可以
-                  <a href="https://kenwoodjw.github.io/k8s_03/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="https://kenwoodjw.github.io/tags/k8s/">k8s</a>&nbsp;
-                  
-                </div>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://kenwoodjw.github.io/post/k8s_03/">
-                <h2 class="post-title">K8s_03</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;发表于 July 25, 2019
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;分钟
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;413&nbsp;个字
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood
-  
-  
-</span>
-
-
-              </p>
-              <div class="post-entry">
-                
-                  configmap 热更新 更新应用配置且不重启应用程序 使用环境变量或者命令行参数作为配置源的弊端在于无法在进程运行时更新配置。将configmap 暴露为卷可以
-                  <a href="https://kenwoodjw.github.io/post/k8s_03/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="https://kenwoodjw.github.io/tags/k8s/">k8s</a>&nbsp;
-                  
-                </div>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://kenwoodjw.github.io/k8s_02/">
-                <h2 class="post-title">K8s_02</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;发表于 July 22, 2019
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;分钟
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;470&nbsp;个字
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood
-  
-  
-</span>
-
-
-              </p>
-              <div class="post-entry">
-                
-                  K8s 服务的创建 为什么需要服务？ 1.pod是短暂的，随时会启动或关闭 2.pod在启动时才分配地址，因此客户端不能提前知道服务的pod的ip地址 3
-                  <a href="https://kenwoodjw.github.io/k8s_02/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="https://kenwoodjw.github.io/tags/k8s/">K8s</a>&nbsp;
-                  
-                </div>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://kenwoodjw.github.io/post/k8s_02/">
-                <h2 class="post-title">K8s_02</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;发表于 July 22, 2019
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;分钟
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;470&nbsp;个字
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;kenwood
-  
-  
-</span>
-
-
-              </p>
-              <div class="post-entry">
-                
-                  K8s 服务的创建 为什么需要服务？ 1.pod是短暂的，随时会启动或关闭 2.pod在启动时才分配地址，因此客户端不能提前知道服务的pod的ip地址 3
-                  <a href="https://kenwoodjw.github.io/post/k8s_02/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="https://kenwoodjw.github.io/tags/k8s/">K8s</a>&nbsp;
                   
                 </div>
               
@@ -588,7 +278,7 @@ if (!doNotTrack) {
           
           <li>
             
-            <a href="https://kenwoodjw.github.io/tags/k8s/index.xml" title="RSS">
+            <a href="https://kenwoodjw.github.io/categories/grafana/index.xml" title="RSS">
             
               <span class="fa-stack fa-lg">
                 <i class="fas fa-circle fa-stack-2x"></i>

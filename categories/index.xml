@@ -5,10 +5,19 @@
     <link>https://kenwoodjw.github.io/categories/</link>
     <description>Recent content in Categories on Kenwood Chan</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 01 Mar 2020 16:40:23 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 25 Jul 2020 16:20:35 +0800</lastBuildDate>
     
 	<atom:link href="https://kenwoodjw.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>grafana</title>
+      <link>https://kenwoodjw.github.io/categories/grafana/</link>
+      <pubDate>Sat, 25 Jul 2020 16:20:35 +0800</pubDate>
+      
+      <guid>https://kenwoodjw.github.io/categories/grafana/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Docker</title>
