@@ -1,0 +1,336 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Python装饰器 | Gridea</title>
+
+<link rel="shortcut icon" href="https://kenwoodjw.github.io/favicon.ico?v=1661153275321">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://kenwoodjw.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Gridea
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1661153275321"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Python装饰器
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2019-05-11 ·
+                    </time>
+                    
+                        <a href="https://kenwoodjw.github.io/tag/tKbO4MHmL1/" class="post-tags">
+                            # python
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h3 id="python装饰器">python装饰器</h3>
+<p>python装饰传入一个函数，添加一些功能，然后返回它</p>
+<h3 id="闭包">闭包</h3>
+<p>先了解闭包的功能，对理解装饰器有很大的帮助</p>
+<p>什么是闭包(closure),如何捕获变量</p>
+<pre><code class="language-python">def dog():
+    height = 40
+   	
+    def profile():
+        print(&quot;I'm a dog and my height is {}&quot;.format(height))
+    return profile
+
+if __name__ == &quot;__main__&quot;:
+    dog_profile = dog()
+    dog_profile()
+    
+</code></pre>
+<p>function dog()里面包了一个和profile()function，在调用的dog()会返回profile,在一般认知中，function中的</p>
+<p>variable其life cycle(生命周期)会随函数执行完而消灭，理论上变量height在执行完function dog()后就要消失，但在dog_profile()(调用profile())时还能够找到variable height，原因就是return profile时，函数profile capture 住了variable,把属于上一层的变量偷渡到自己函数范围,带有 capture variable的函数就是闭包.</p>
+<h4 id="capture-variable不能被assign">capture variable不能被assign</h4>
+<pre><code class="language-python">def dog():
+    height = 40
+    
+    def grow_up():
+        height = height +1
+    return grow_up
+
+if __name__ == &quot;__main__&quot;:
+    dog_grow_up = dog()
+    dog_grow_up()
+</code></pre>
+<p>报错UnboundLocalError，一般用global声明变量，如果在某个函数中同样命名的变量要赋值的话，一样会报UnboundLocalError，在python中，对变量赋值就等于建立局部变量</p>
+<pre><code class="language-python">global x
+x = 10
+def add_x():
+    x = x +1
+    
+if __name__ == &quot;__main__&quot;:
+    add_x()
+</code></pre>
+<h4 id="如何赋值capture-variable">如何赋值capture variable</h4>
+<pre><code class="language-python">def dog():
+    height = 40
+    
+    def grow_up():
+        nonlocal height
+        height = height +1
+        print(&quot;Thanks for making me growing up.I'm now {} meters!!!&quot;.format(height))
+	return grow_up
+
+if __name__==&quot;__main__&quot;:
+    dog_grow_up = dog()
+    dog_grow_up()
+</code></pre>
+<h3 id="什么是decorator装饰器">什么是Decorator(装饰器)</h3>
+<pre><code class="language-python"># defining a decorator 
+def hello_decorator(func): 
+
+	# inner1 is a Wrapper function in 
+	# which the argument is called 
+	
+	# inner function can access the outer local 
+	# functions like in this case &quot;func&quot; 
+	def inner1(): 
+		print(&quot;Hello, this is before function execution&quot;) 
+
+		# calling the actual function now 
+		# inside the wrapper function. 
+		func() 
+
+		print(&quot;This is after function execution&quot;) 
+		
+	return inner1 
+
+
+# defining a function, to be called inside wrapper 
+def function_to_be_used(): 
+	print(&quot;This is inside the function !!&quot;) 
+
+
+# passing 'function_to_be_used' inside the 
+# decorator to control its behavior 
+function_to_be_used = hello_decorator(function_to_be_used) 
+
+
+# calling the function 
+function_to_be_used() 
+
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>Hello, this is before function execution
+This is inside the function !!
+This is after function execution
+
+
+</code></pre>
+<p>{{&lt; figure src=&quot;/images/decorators_step.png&quot; width=&quot;&quot; height=&quot;&quot; &gt;}}</p>
+<h3 id="decorator的执行顺序">Decorator的执行顺序</h3>
+<pre><code class="language-python">def print_func_name(func):
+    def warp_1():
+        print(&quot;Now use function '{}'&quot;.format(func.__name__))
+    	func()
+    return warp_1
+
+def print_time(func):
+    import time
+    def warp_2():
+        print(&quot;Now the Unix time is {}&quot;.format(int(time.time())))
+        func()
+    return warp_2
+
+@print_func_name
+@print_time
+def dog_bark():
+    print(&quot;Bark !!!&quot;)
+  
+if __name__ == &quot;__main__&quot;:
+    dog_bark()
+# &gt; Now use function 'warp_2'
+# &gt; Now the Unix time is 16532445
+# &gt; Bark !!!
+</code></pre>
+<p>dog_bark会先被@print_time吃进去，然后吐出一个warp_2的function，然后这个warp_2的function 又会被 print_func_name吃进去，返回一个叫做warp_1的function</p>
+<h3 id="class式的decorator">class式的Decorator</h3>
+<pre><code class="language-python">class myDecorator:
+    def __init__(self,fn):
+        print(&quot;inside myDecorator.__init__()&quot;)
+        self.fn = fn
+    def __call__(self):
+        self.fn()
+        print(&quot;inside myDecorator.__call__()&quot;)
+@myDecorator
+def aFunction():
+    print(&quot;inside aFunction()&quot;)
+print(&quot;Finished decorating aFunction()&quot;)
+
+# 输出
+# inside myDecorator.__init__()
+# Finished decorating aFunction()
+# inside aFunction()
+# inside myDecorator.__call__()
+</code></pre>
+<h3 id="decorator的副作用">Decorator的副作用</h3>
+<p>被decoratoe的函数其实已经是另一个函数了，如果你查询一下function.<code>__name__</code>的输出是&quot;wrapper&quot;.</p>
+<p>这会给程序埋坑，python的functool包中提供一个叫wrap的decorator来消除副作用</p>
+<pre><code class="language-python">from functools import wraps
+def hello(fn):
+    @wraps(fn)
+    def wrapper():
+        print(&quot;hello, %s&quot;%fn.__name__)
+        fn()
+        print(&quot;goodby, %s&quot;%fn.__name__)
+    return wrapper
+@hello
+def foo():
+    '''foo help doc'''
+    print(&quot;I am foo&quot;)
+   	pass
+foo()
+print(foo.__name__)
+print(foo.__doc__)
+</code></pre>
+<p>参考文章</p>
+<p><a href="https://coolshell.cn/articles/11265.html">https://coolshell.cn/articles/11265.html</a></p>
+<p><a href="https://medium.com/citycoddee/python%E9%80%B2%E9%9A%8E%E6%8A%80%E5%B7%A7-3-%E7%A5%9E%E5%A5%87%E5%8F%88%E7%BE%8E%E5%A5%BD%E7%9A%84-decorator-%E5%97%B7%E5%97%9A-6559edc87bc0">https://medium.com/citycoddee/python進階技巧-3-神奇又美好的-decorator-嗷嗚-6559edc87bc0</a></p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://kenwoodjw.github.io/post/blog01/" class="post-title gt-a-link">
+                    如何讲明白技术
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://kenwoodjw.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

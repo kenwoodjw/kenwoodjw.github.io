@@ -1,0 +1,277 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>kubeflow国内环境最新安装方式 | Gridea</title>
+
+<link rel="shortcut icon" href="https://kenwoodjw.github.io/favicon.ico?v=1661153275321">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://kenwoodjw.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Gridea
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1661153275321"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    kubeflow国内环境最新安装方式
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-07-27 ·
+                    </time>
+                    
+                </div>
+                <div class="post-content">
+                    <p>最近又开始折腾kubeflow，发现以前用的kfctl 安装方式，官网github已经两年没更新，官方也推出了新的安装方式，但有些镜像是国外的，所以需要解决国外谷歌镜像拉取问题</p>
+<h3 id="获取镜像列表">获取镜像列表</h3>
+<h4 id="官方安装脚本仓库">官方安装脚本仓库</h4>
+<pre><code>https://github.com/kubeflow/manifests
+</code></pre>
+<h4 id="安装前准备">安装前准备</h4>
+<pre><code># 需要安装kustomize，kubectl，注意k8s版本兼容,
+https://github.com/kubeflow/manifests#prerequisites
+# StorageClass 可使用
+https://github.com/rancher/local-path-provisioner
+</code></pre>
+<h4 id="镜像同步至dockerhub方式">镜像同步至dockerhub方式</h4>
+<pre><code>### 获取gcr镜像，因为我的网络只无法获取gcr.io, quay.io正常，可以根据需求修改
+kustomize build example |grep 'image: gcr.io'|awk '$2 != &quot;&quot; { print $2}' |sort -u 
+###   使用github-ci同步至个人dockerhub仓库
+https://github.com/kenwoodjw/sync_gcr
+修改https://github.com/kenwoodjw/sync_gcr/blob/master/images.txt 提交会触发ci同步镜像至dockerhub
+可根据需求修改https://github.com/kenwoodjw/sync_gcr/blob/master/sync_image.py
+</code></pre>
+<h4 id="修改安装脚本拉取镜像">修改安装脚本拉取镜像</h4>
+<pre><code>#https://github.com/kubeflow/manifests/blob/master/example/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+# Cert-Manager
+- ../common/cert-manager/cert-manager/base
+- ../common/cert-manager/kubeflow-issuer/base
+# Istio
+- ../common/istio-1-14/istio-crds/base
+- ../common/istio-1-14/istio-namespace/base
+- ../common/istio-1-14/istio-install/base
+# OIDC Authservice
+- ../common/oidc-authservice/base
+# Dex
+- ../common/dex/overlays/istio
+# KNative
+- ../common/knative/knative-serving/overlays/gateways
+- ../common/knative/knative-eventing/base
+- ../common/istio-1-14/cluster-local-gateway/base
+# Kubeflow namespace
+- ../common/kubeflow-namespace/base
+# Kubeflow Roles
+- ../common/kubeflow-roles/base
+# Kubeflow Istio Resources
+- ../common/istio-1-14/kubeflow-istio-resources/base
+
+
+# Kubeflow Pipelines
+- ../apps/pipeline/upstream/env/cert-manager/platform-agnostic-multi-user
+# Katib
+- ../apps/katib/upstream/installs/katib-with-kubeflow
+# Central Dashboard
+- ../apps/centraldashboard/upstream/overlays/kserve
+# Admission Webhook
+- ../apps/admission-webhook/upstream/overlays/cert-manager
+# Jupyter Web App
+- ../apps/jupyter/jupyter-web-app/upstream/overlays/istio
+# Notebook Controller
+- ../apps/jupyter/notebook-controller/upstream/overlays/kubeflow
+# Profiles + KFAM
+- ../apps/profiles/upstream/overlays/kubeflow
+# Volumes Web App
+- ../apps/volumes-web-app/upstream/overlays/istio
+# Tensorboards Controller
+-  ../apps/tensorboard/tensorboard-controller/upstream/overlays/kubeflow
+# Tensorboard Web App
+-  ../apps/tensorboard/tensorboards-web-app/upstream/overlays/istio
+# Training Operator
+- ../apps/training-operator/upstream/overlays/kubeflow
+# User namespace
+- ../common/user-namespace/base
+
+# KServe
+- ../contrib/kserve/kserve
+- ../contrib/kserve/models-web-app/overlays/kubeflow
+images:
+ - name: gcr.io/arrikto/istio/pilot:1.14.1-1-g19df463bb
+   newName: kenwood/pilot
+   newTag: &quot;1.14.1-1-g19df463bb&quot;
+ - name: gcr.io/arrikto/kubeflow/oidc-authservice:28c59ef
+   newName: kenwood/oidc-authservice
+   newTag: &quot;28c59ef&quot;
+ - name: gcr.io/knative-releases/knative.dev/eventing/cmd/controller@sha256:dc0ac2d8f235edb04ec1290721f389d2bc719ab8b6222ee86f17af8d7d2a160f
+   newName: kenwood/cmd/controller
+   newTag: &quot;dc0ac2&quot;
+ - name: gcr.io/knative-releases/knative.dev/eventing/cmd/mtping@sha256:632d9d710d070efed2563f6125a87993e825e8e36562ec3da0366e2a897406c0
+   newName: kenwood/cmd/mtping
+   newTag: &quot;632d9d&quot;
+ - name: gcr.io/knative-releases/knative.dev/serving/cmd/domain-mapping-webhook@sha256:847bb97e38440c71cb4bcc3e430743e18b328ad1e168b6fca35b10353b9a2c22
+   newName: kenwood/domain-mapping-webhook
+   newTag: &quot;847bb9&quot;
+ - name: gcr.io/knative-releases/knative.dev/eventing/cmd/webhook@sha256:b7faf7d253bd256dbe08f1cac084469128989cf39abbe256ecb4e1d4eb085a31
+   newName: kenwood/webhook
+   newTag: &quot;b7faf7&quot;
+ - name: gcr.io/knative-releases/knative.dev/net-istio/cmd/controller@sha256:f253b82941c2220181cee80d7488fe1cefce9d49ab30bdb54bcb8c76515f7a26
+   newName: kenwood/controller
+   newTag: &quot;f253b8&quot;
+ - name: gcr.io/knative-releases/knative.dev/net-istio/cmd/webhook@sha256:a705c1ea8e9e556f860314fe055082fbe3cde6a924c29291955f98d979f8185e
+   newName: kenwood/webhook
+   newTag: &quot;a705c1&quot;
+ - name: gcr.io/knative-releases/knative.dev/serving/cmd/activator@sha256:93ff6e69357785ff97806945b284cbd1d37e50402b876a320645be8877c0d7b7
+   newName: kenwood/activator
+   newTag: &quot;93ff6e&quot;
+   .....
+</code></pre>
+<h4 id="开始安装">开始安装</h4>
+<pre><code>while ! kustomize build example | kubectl apply -f -; do echo &quot;Retrying to apply resources&quot;; sleep 10; done
+
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://kenwoodjw.github.io/post/openssh-yong-hu-mei-ju-lou-dong-cve-2018-15473xiu-fu/" class="post-title gt-a-link">
+                    OpenSSH 用户枚举漏洞(CVE-2018-15473)修复
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://kenwoodjw.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

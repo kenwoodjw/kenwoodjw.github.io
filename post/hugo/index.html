@@ -1,0 +1,267 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>hugo部署网站，circleci自动构建静态页面 | Gridea</title>
+
+<link rel="shortcut icon" href="https://kenwoodjw.github.io/favicon.ico?v=1661153275321">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://kenwoodjw.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Gridea
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1661153275321"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    hugo部署网站，circleci自动构建静态页面
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2019-03-24 ·
+                    </time>
+                    
+                        <a href="https://kenwoodjw.github.io/tag/cBsT8u6lMK/" class="post-tags">
+                            # hugo
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h3 id="1-安裝-hugo">1. 安裝 Hugo</h3>
+<pre><code>brew install hugo
+</code></pre>
+<h3 id="2-建立新网站">2. 建立新网站</h3>
+<pre><code>hugo new site my-website
+cd my-website
+git init
+</code></pre>
+<p><code>my-website</code> 可以替换成任意名称，但你也可以跟我一样，避免麻煩。找到名为 <code>my-website</code> 的文件夾，观察文件夹结构。</p>
+<h3 id="3-新增主題-theme此处以-casper-为例">3. 新增主題 <a href="https://themes.gohugo.io">(theme)</a>：此处以 <a href="https://themes.gohugo.io/casper/">Casper</a> 为例</h3>
+<pre><code>git submodule add git@github.com:vjeantet/hugo-theme-casper.git themes/casper
+</code></pre>
+<p>你也可以选其他主題，进到该主題的 GitHub repo，將上面的网址改成 repo 的网址、<code>themes/casper</code> 改成 <code>themes/你的主題名称</code>。</p>
+<h3 id="4-將-themescasper-中的-static-和-layouts-文件夹复制取代根目录中的-static-和-layouts-文件夹">4. 將 /themes/casper 中的 static 和 layouts 文件夹复制，取代根目录中的 static 和 layouts 文件夹</h3>
+<h3 id="5-建立新文章">5. 建立新文章</h3>
+<pre><code>hugo new posts/my-first-post.md
+</code></pre>
+<p>此指令会在 <code>/content/posts</code> 文件夾中建立 <code>my-first-post.md</code>。使用任意文字编輯器打开此 markdown 文件，將 draft 改成 false，文件內容任意。以后建立文章都是以此方式。</p>
+<p>使用文字编輯器打开 <code>config.toml</code>，并调整內容为上面这样。</p>
+<h3 id="6-编輯-configtoml">6. 编輯 config.toml</h3>
+<pre><code>baseURL = &quot;https://kenwoodjw.github.io/&quot;    #改成你的GitHub帳號名稱
+languageCode = &quot;zh-cn&quot;
+title = &quot;kenwood Blog&quot;    #自由命名
+</code></pre>
+<h3 id="7-本地测试">7. 本地测试</h3>
+<pre><code>hugo server -D
+</code></pre>
+<p>执行完后，在浏览器中輸入网址 http://localhost:1313/ ，就可以看到网站的雏形了！</p>
+<h2 id="第二部分部署到-github">第二部分：部署到 GitHub</h2>
+<p><a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/">Hugo 部署在 GitHub 的方式</a>有两种，这边介绍部署个人唯一主页的方式。</p>
+<h3 id="1-在-github-建立两个-repo">1. 在 GitHub 建立两个 repo</h3>
+<p>在 GitHub 建立 <code>my-website</code> 和 <code>kenwoodjw.github.io</code> (改成自己的帐号名称) 兩個 repo。</p>
+<h3 id="2-建立-public-文件夹">2. 建立 /public 文件夹</h3>
+<pre><code>hugo
+</code></pre>
+<p>执行 <code>hugo</code>，就会在 <code>my-website</code> 內产生名为 <code>public</code> 的文件夾。</p>
+<h3 id="3-将-public-文件夾连接到-github-上的-kenwoodjwgithubio">3. 将 /public 文件夾连接到 GitHub 上的 kenwoodjw.github.io</h3>
+<pre><code>#建立submodule
+git submodule add git@github.com:&lt;your-account&gt;/&lt;your-account&gt;.github.io.git public
+#上传submodule
+cd public
+git status
+git commit -m &quot;first commit&quot;
+git remote add origin git@github.com:&lt;you-account&gt;/&lt;your-account&gt;.github.io.git
+git push -u origin master
+</code></pre>
+<h3 id="4-将整个-my-website文件夹连接到-github-上的-website-hugo">4. 将整个 my-website文件夹连接到 GitHub 上的 website-hugo</h3>
+<pre><code>cd ../
+git remote add origin https://github.com/kenwood/my-website.git
+git add .
+git commit -m &quot;Initial commit&quot;
+git push -u origin master
+</code></pre>
+<p>在执行 <code>git add .</code> 时出现如下面的 warning 时不用在意</p>
+<p>等个几分钟，输入网址 https://kenwoodjw.github.io/ 就大功告成！</p>
+<h3 id="5自动构建静态页面并上传到git">5.自动构建静态页面并上传到git</h3>
+<p>使用circleci，打开https://circleci.com链接github仓库，在项目顶层，新建.circleci/config.yml</p>
+<pre><code>version: 2
+global: &amp;global
+  working_directory: ~/project
+  docker:
+    - image: cibuilds/hugo:latest
+
+jobs:
+  build_n_deploy:
+    &lt;&lt;: *global
+    steps:
+      - run: apk update &amp;&amp; apk add git
+      - checkout
+      - run:
+          name: &quot;Run Hugo&quot;
+          command: |
+            git submodule sync &amp;&amp; git submodule update --init 
+            git submodule foreach --recursive git pull origin master
+            HUGO_ENV=production hugo -v
+
+      - run:
+          name: &quot;Deploy to github.io&quot;       
+          command: |
+            cd ~/project/public
+            git config --global user.email &quot;xxxgmail.com&quot;
+            git config --global user.name &quot;xxx&quot;
+            git add -A
+            git commit -m &quot;Deploy from CircleCI&quot;
+            git push origin HEAD:master
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build_n_deploy:
+          filters:
+            branches:
+              only: master
+
+</code></pre>
+<h3 id="references">References:</h3>
+<ol>
+<li><a href="https://gohugo.io/documentation/">Hugo Documentation</a></li>
+<li><a href="https://brent-li.github.io/post/build-personal-site-with-hugo/">用Hugo搭建个人网站</a></li>
+<li><a href="https://chengjunwang.com/note/note_archive/2016-08-03-github/">Github个人网站维护</a></li>
+<li><a href="https://jimmylin212.github.io/post/0001_create_hugo_and_deploy_on-github_page/">jimmylin blog</a></li>
+</ol>
+
+                </div>
+            </article>
+        </div>
+
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://kenwoodjw.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

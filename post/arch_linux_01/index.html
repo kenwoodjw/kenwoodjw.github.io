@@ -1,0 +1,204 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Arch_linux deepin 桌面蓝牙连接故障解决 | Gridea</title>
+
+<link rel="shortcut icon" href="https://kenwoodjw.github.io/favicon.ico?v=1661153275321">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://kenwoodjw.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Gridea
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1661153275321"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Arch_linux deepin 桌面蓝牙连接故障解决
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2019-05-04 ·
+                    </time>
+                    
+                        <a href="https://kenwoodjw.github.io/tag/GEOjZrKOw7/" class="post-tags">
+                            # linux
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h3 id="arch-linux-deepin桌面蓝牙无法连接">arch linux deepin桌面蓝牙无法连接</h3>
+<p>重装桌面deepin，发现没有蓝牙功能，按照wiki<a href="https://wiki.archlinux.org/index.php/Bluetooth_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)">https://wiki.archlinux.org/index.php/Bluetooth_(简体中文)</a></p>
+<p>安装bluetooth</p>
+<pre><code class="language-shell">yaourt -S pulseaudio-alsa pulseaudio-bluetooth bluez bluez-libs bluez-utils
+
+</code></pre>
+<p>启动bluetooth</p>
+<pre><code>sudo systemctl start bluetooth
+sudo systemctl enable bluetooth
+</code></pre>
+<p>移除设备</p>
+<pre><code>bluetoothctl
+➜  my-website git:(master) ✗ bluetoothctl 
+Agent registered
+[F9-5.0]# devices 
+Device 40:EF:4C:61:xx:xx EDIFIER R1700BT
+Device 34:36:3B:D1:xx:xx 34-36-3B-D1-xx-xx
+Device 76:84:EA:CB:xx:xx 76-84-EA-CB-xx-xx
+Device CB:4F:51:12:xx:xx Mi Band 3
+
+
+remove xx:xx...
+</code></pre>
+<h3 id="设备连接不了日志里有错误">设备连接不了，日志里有错误</h3>
+<p>如果你在连接设备时看见 <code>journalctl</code> 的输出有类似的消息：</p>
+<p>或者 sudo systemctl status bluetooth</p>
+<pre><code>a2dp-source profile connect failed for 9C:64:40:22:E1:3F: Protocol not available
+</code></pre>
+<p>解决方法</p>
+<p>安装 <a href="https://www.archlinux.org/packages/?name=pulseaudio-bluetooth">pulseaudio-bluetooth</a> 再重启 <a href="https://wiki.archlinux.org/index.php/PulseAudio">PulseAudio</a>。这个错误在文件传输是也会有。</p>
+<pre><code>killall pulseaudio
+pulseaudio --start --log-target=syslog
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://kenwoodjw.github.io/post/python_02/" class="post-title gt-a-link">
+                    Python后端架构演进
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://kenwoodjw.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

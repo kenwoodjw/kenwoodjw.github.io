@@ -1,0 +1,192 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>如何讲明白技术 | Gridea</title>
+
+<link rel="shortcut icon" href="https://kenwoodjw.github.io/favicon.ico?v=1661153275321">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://kenwoodjw.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Gridea
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1661153275321"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    如何讲明白技术
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2019-05-08 ·
+                    </time>
+                    
+                        <a href="https://kenwoodjw.github.io/tag/S8jxiqY5S8/" class="post-tags">
+                            # 随想
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>在面试的时候，技术问题所占的比重非常大，如何讲明白技术，决定了面试的成败。从某种程度，也体现你对技术的了解程度，所以如何讲明白技术。如何在学习的时候，对技术知识点进行加工内化，以下分析角度来源极客时间专栏：面试现场，我会尝试从这个角度去写的我技术文章</p>
+<figure data-type="image" tabindex="1"><img src="/home/kenwood/Projects/my-website/static/images/1557325773291.png" alt="1557325773291" loading="lazy"></figure>
+<h2 id="外部应用维度">外部应用维度</h2>
+<h3 id="问题">问题</h3>
+<p>首先考虑的是要解决什么问题，这是技术产生的原因。Java 多线程的产生，是因为要并发，并发使得程序的多种功能响应更快，用户体验更好。问题这层就是回答干什么用</p>
+<h3 id="技术规范">技术规范</h3>
+<p>怎么用这门技术，技术使用说明书</p>
+<h3 id="最佳实践">最佳实践</h3>
+<p>把技术应用到不同的场景时，发发现同样的使用方法，会有不同的效果。该技术有不同的适应面。从而你可能踩了很多坑，从中总结出最佳实践</p>
+<h3 id="市场应用趋势">市场应用趋势</h3>
+<p>随着技术生态的发展，和应用问题的变迁，技术的应用场景和流行趋势会受到影响。对于java，从低并发逐渐发展到高并发。谁在用，用在哪</p>
+<h2 id="设计维度">设计维度</h2>
+<p>应用维度是从外部看技术的应用，那么从内部能看到技术的哪些层面？</p>
+<h3 id="目标">目标</h3>
+<p>为了解决用户的问题，技术本身要达成什么目标。比如，java多线程在优先级调度、锁、信息同步等方面达成怎样的目标，才能更好地实现并非</p>
+<h3 id="实现原理">实现原理</h3>
+<p>为了达到设计目标，该技术采用了什么原理和机制。java多线程的实现原理包括内核线程，使用用户态线程加轻量级进程混合等。实现原理层回答怎么做到的问题。把实现原理弄懂，并且讲清楚，是技术人员的基本</p>
+<h3 id="优劣局限">优劣局限</h3>
+<p>每种技术实现，都有其局限性，在某些条件下能最大化的发挥效能，缺少某些条件则暴露出其缺陷。比如在java多线程编程中，采用共享内存的方式，锁的开销比较大，程序员编程难度大。 优劣局限层回答“做得怎么样的问题。对技术优劣局限的把握，更有利于应用时总结最佳实践，是分析各种坑的基础</p>
+<h3 id="演进趋势">演进趋势</h3>
+<p>技术是在迭代改进和不断淘汰的。了解技术的前生后世，分清技术不变的本质，和变化的脉络，以及与其他技术的共生关系，能体现你对技术发展趋势的关注和思考。</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://kenwoodjw.github.io/post/arch_linux_01/" class="post-title gt-a-link">
+                    Arch_linux deepin 桌面蓝牙连接故障解决
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://kenwoodjw.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

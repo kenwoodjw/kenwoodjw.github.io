@@ -1,0 +1,341 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>prometheus 使用blackbox-exporter | Gridea</title>
+
+<link rel="shortcut icon" href="https://kenwoodjw.github.io/favicon.ico?v=1661153275321">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://kenwoodjw.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Gridea
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1661153275321"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    prometheus 使用blackbox-exporter
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2020-01-03 ·
+                    </time>
+                    
+                        <a href="https://kenwoodjw.github.io/tag/8FR_xgHIsB/" class="post-tags">
+                            # prometheus
+                        </a>
+                    
+                        <a href="https://kenwoodjw.github.io/tag/I7dftS0SwS/" class="post-tags">
+                            # k8s
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h3 id="blackbox-exporter介绍">Blackbox-exporter介绍</h3>
+<p><a href="https://github.com/prometheus/blackbox_exporter">Blackbox Exporter</a> 是 Prometheus 社区提供的官方黑盒监控解决方案，其允许用户通过：<code>HTTP</code>、<code>HTTPS</code>、<code>DNS</code>、<code>TCP</code> 以及 <code>ICMP</code> 的方式对网络进行探测。</p>
+<h3 id="实操">实操</h3>
+<h4 id="创建blackbox-deploymentsvcconfigmap">创建blackbox deployment，svc，configmap</h4>
+<pre><code class="language-yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: blackbox-config
+  namespace: kube-mon
+data:
+  blackbox.yml: |-
+    modules:
+      http_2xx:  # http 检测模块  Blockbox-Exporter 中所有的探针均是以 Module 的信息进行配置
+        prober: http
+        timeout: 10s
+        http:
+          valid_http_versions: [&quot;HTTP/1.1&quot;, &quot;HTTP/2&quot;]   
+          valid_status_codes: [200]  # 这里最好作一个返回状态码，在grafana作图时，有明示---陈刚注释。
+          method: GET
+          preferred_ip_protocol: &quot;ip4&quot;
+      http_post_2xx: # http post 监测模块
+        prober: http
+        timeout: 10s
+        http:
+          valid_http_versions: [&quot;HTTP/1.1&quot;, &quot;HTTP/2&quot;]
+          method: POST
+          preferred_ip_protocol: &quot;ip4&quot;
+      tcp_connect:  # TCP 检测模块
+        prober: tcp
+        timeout: 10s
+      dns:  # DNS 检测模块
+        prober: dns
+        dns:
+          transport_protocol: &quot;tcp&quot;  # 默认是 udp
+          preferred_ip_protocol: &quot;ip4&quot;  # 默认是 ip6
+          query_name: &quot;kubernetes.default.svc.cluster.local&quot;
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blackbox
+  namespace: kube-mon
+spec:
+  selector:
+    matchLabels:
+      app: blackbox
+  template:
+    metadata:
+      labels:
+        app: blackbox
+    spec:
+      containers:
+      - image: prom/blackbox-exporter:v0.16.0
+        name: blackbox
+        args:
+        - --config.file=/etc/blackbox_exporter/blackbox.yml # ConfigMap 中的配置文件
+        - --log.level=error  # 错误级别控制
+        ports:
+        - containerPort: 9115
+        volumeMounts:
+        - name: config
+          mountPath: /etc/blackbox_exporter
+      volumes:
+      - name: config
+        configMap:
+          name: blackbox-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blackbox
+  namespace: kube-mon
+spec:
+  selector:
+    app: blackbox
+  type: NodePort
+  ports:
+  - port: 9115
+    targetPort: 9115
+    nodePort: 30010
+</code></pre>
+<h4 id="增加prometheus配置物理机版本">增加prometheus配置（物理机版本)</h4>
+<pre><code> - job_name: 'kubernetes-http-services'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]  # 使用定义的http模块
+    kubernetes_sd_configs:
+    - role: service
+      api_server: https://{{apiserver_address}} 
+      tls_config:
+        insecure_skip_verify: true
+      bearer_token: '{{bearer_token}}'
+    tls_config:
+      insecure_skip_verify: true
+    bearer_token: '{{bearer_token}}'
+    relabel_configs:
+    - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_http_probe]
+      action: keep
+      regex: true
+    - source_labels: [__address__]
+      target_label: __param_target
+    - target_label: __address__
+      replacement: 172.25.21.121:30010
+    - source_labels: [__param_target]
+      target_label: instance
+    - action: labelmap
+      regex: __meta_kubernetes_service_label_(.+)
+    - source_labels: [__meta_kubernetes_namespace]
+      target_label: kubernetes_namespace
+    - source_labels: [__meta_kubernetes_service_name]
+      target_label: kubernetes_name
+</code></pre>
+<h4 id="添加注释-只有service的annotation中配置了-prometheusiohttp_probetrue-的才进行发现">添加注释,  只有service的annotation中配置了 prometheus.io/http_probe=true 的才进行发现</h4>
+<pre><code>apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: kube-ops
+spec:
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:4
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 6379
+      - name: redis-exporter
+        image: oliver006/redis_exporter:latest
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 9121
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: redis
+  namespace: kube-ops
+  annotations:
+     prometheus.io/http-probe: &quot;true&quot;
+spec:
+  selector:
+    app: redis
+  ports:
+  - name: redis
+    port: 6379
+    targetPort: 6379
+  - name: prom
+    port: 9121
+    targetPort: 9121
+</code></pre>
+<h4 id="可视化">可视化</h4>
+<p>面板id：9965， 7587</p>
+<p>参考资料: https://www.qikqiak.com/post/blackbox-exporter-on-prometheus/</p>
+<p>https://blog.fleeto.us/post/blackbox-monitor-dns-web/</p>
+<p>https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus-kubernetes.yml</p>
+<p>https://zhangguanzhang.github.io/2018/12/04/black-box-exporter/</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://kenwoodjw.github.io/post/k8s_04/" class="post-title gt-a-link">
+                    K8s_04
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://kenwoodjw.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

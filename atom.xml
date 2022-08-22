@@ -1,0 +1,868 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://kenwoodjw.github.io</id>
+    <title>Gridea</title>
+    <updated>2022-08-22T07:28:03.878Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://kenwoodjw.github.io"/>
+    <link rel="self" href="https://kenwoodjw.github.io/atom.xml"/>
+    <subtitle>温故而知新</subtitle>
+    <logo>https://kenwoodjw.github.io/images/avatar.png</logo>
+    <icon>https://kenwoodjw.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2022, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[kubeflow国内环境最新安装方式]]></title>
+        <id>https://kenwoodjw.github.io/post/kubeflow-guo-nei-huan-jing-zui-xin-an-zhuang-fang-shi/</id>
+        <link href="https://kenwoodjw.github.io/post/kubeflow-guo-nei-huan-jing-zui-xin-an-zhuang-fang-shi/">
+        </link>
+        <updated>2022-07-27T03:28:12.000Z</updated>
+        <content type="html"><![CDATA[<p>最近又开始折腾kubeflow，发现以前用的kfctl 安装方式，官网github已经两年没更新，官方也推出了新的安装方式，但有些镜像是国外的，所以需要解决国外谷歌镜像拉取问题</p>
+<h3 id="获取镜像列表">获取镜像列表</h3>
+<h4 id="官方安装脚本仓库">官方安装脚本仓库</h4>
+<pre><code>https://github.com/kubeflow/manifests
+</code></pre>
+<h4 id="安装前准备">安装前准备</h4>
+<pre><code># 需要安装kustomize，kubectl，注意k8s版本兼容,
+https://github.com/kubeflow/manifests#prerequisites
+# StorageClass 可使用
+https://github.com/rancher/local-path-provisioner
+</code></pre>
+<h4 id="镜像同步至dockerhub方式">镜像同步至dockerhub方式</h4>
+<pre><code>### 获取gcr镜像，因为我的网络只无法获取gcr.io, quay.io正常，可以根据需求修改
+kustomize build example |grep 'image: gcr.io'|awk '$2 != &quot;&quot; { print $2}' |sort -u 
+###   使用github-ci同步至个人dockerhub仓库
+https://github.com/kenwoodjw/sync_gcr
+修改https://github.com/kenwoodjw/sync_gcr/blob/master/images.txt 提交会触发ci同步镜像至dockerhub
+可根据需求修改https://github.com/kenwoodjw/sync_gcr/blob/master/sync_image.py
+</code></pre>
+<h4 id="修改安装脚本拉取镜像">修改安装脚本拉取镜像</h4>
+<pre><code>#https://github.com/kubeflow/manifests/blob/master/example/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+# Cert-Manager
+- ../common/cert-manager/cert-manager/base
+- ../common/cert-manager/kubeflow-issuer/base
+# Istio
+- ../common/istio-1-14/istio-crds/base
+- ../common/istio-1-14/istio-namespace/base
+- ../common/istio-1-14/istio-install/base
+# OIDC Authservice
+- ../common/oidc-authservice/base
+# Dex
+- ../common/dex/overlays/istio
+# KNative
+- ../common/knative/knative-serving/overlays/gateways
+- ../common/knative/knative-eventing/base
+- ../common/istio-1-14/cluster-local-gateway/base
+# Kubeflow namespace
+- ../common/kubeflow-namespace/base
+# Kubeflow Roles
+- ../common/kubeflow-roles/base
+# Kubeflow Istio Resources
+- ../common/istio-1-14/kubeflow-istio-resources/base
+
+
+# Kubeflow Pipelines
+- ../apps/pipeline/upstream/env/cert-manager/platform-agnostic-multi-user
+# Katib
+- ../apps/katib/upstream/installs/katib-with-kubeflow
+# Central Dashboard
+- ../apps/centraldashboard/upstream/overlays/kserve
+# Admission Webhook
+- ../apps/admission-webhook/upstream/overlays/cert-manager
+# Jupyter Web App
+- ../apps/jupyter/jupyter-web-app/upstream/overlays/istio
+# Notebook Controller
+- ../apps/jupyter/notebook-controller/upstream/overlays/kubeflow
+# Profiles + KFAM
+- ../apps/profiles/upstream/overlays/kubeflow
+# Volumes Web App
+- ../apps/volumes-web-app/upstream/overlays/istio
+# Tensorboards Controller
+-  ../apps/tensorboard/tensorboard-controller/upstream/overlays/kubeflow
+# Tensorboard Web App
+-  ../apps/tensorboard/tensorboards-web-app/upstream/overlays/istio
+# Training Operator
+- ../apps/training-operator/upstream/overlays/kubeflow
+# User namespace
+- ../common/user-namespace/base
+
+# KServe
+- ../contrib/kserve/kserve
+- ../contrib/kserve/models-web-app/overlays/kubeflow
+images:
+ - name: gcr.io/arrikto/istio/pilot:1.14.1-1-g19df463bb
+   newName: kenwood/pilot
+   newTag: &quot;1.14.1-1-g19df463bb&quot;
+ - name: gcr.io/arrikto/kubeflow/oidc-authservice:28c59ef
+   newName: kenwood/oidc-authservice
+   newTag: &quot;28c59ef&quot;
+ - name: gcr.io/knative-releases/knative.dev/eventing/cmd/controller@sha256:dc0ac2d8f235edb04ec1290721f389d2bc719ab8b6222ee86f17af8d7d2a160f
+   newName: kenwood/cmd/controller
+   newTag: &quot;dc0ac2&quot;
+ - name: gcr.io/knative-releases/knative.dev/eventing/cmd/mtping@sha256:632d9d710d070efed2563f6125a87993e825e8e36562ec3da0366e2a897406c0
+   newName: kenwood/cmd/mtping
+   newTag: &quot;632d9d&quot;
+ - name: gcr.io/knative-releases/knative.dev/serving/cmd/domain-mapping-webhook@sha256:847bb97e38440c71cb4bcc3e430743e18b328ad1e168b6fca35b10353b9a2c22
+   newName: kenwood/domain-mapping-webhook
+   newTag: &quot;847bb9&quot;
+ - name: gcr.io/knative-releases/knative.dev/eventing/cmd/webhook@sha256:b7faf7d253bd256dbe08f1cac084469128989cf39abbe256ecb4e1d4eb085a31
+   newName: kenwood/webhook
+   newTag: &quot;b7faf7&quot;
+ - name: gcr.io/knative-releases/knative.dev/net-istio/cmd/controller@sha256:f253b82941c2220181cee80d7488fe1cefce9d49ab30bdb54bcb8c76515f7a26
+   newName: kenwood/controller
+   newTag: &quot;f253b8&quot;
+ - name: gcr.io/knative-releases/knative.dev/net-istio/cmd/webhook@sha256:a705c1ea8e9e556f860314fe055082fbe3cde6a924c29291955f98d979f8185e
+   newName: kenwood/webhook
+   newTag: &quot;a705c1&quot;
+ - name: gcr.io/knative-releases/knative.dev/serving/cmd/activator@sha256:93ff6e69357785ff97806945b284cbd1d37e50402b876a320645be8877c0d7b7
+   newName: kenwood/activator
+   newTag: &quot;93ff6e&quot;
+   .....
+</code></pre>
+<h4 id="开始安装">开始安装</h4>
+<pre><code>while ! kustomize build example | kubectl apply -f -; do echo &quot;Retrying to apply resources&quot;; sleep 10; done
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[OpenSSH 用户枚举漏洞(CVE-2018-15473)修复]]></title>
+        <id>https://kenwoodjw.github.io/post/openssh-yong-hu-mei-ju-lou-dong-cve-2018-15473xiu-fu/</id>
+        <link href="https://kenwoodjw.github.io/post/openssh-yong-hu-mei-ju-lou-dong-cve-2018-15473xiu-fu/">
+        </link>
+        <updated>2022-06-02T02:33:10.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="升级openssh">升级openssh</h3>
+<pre><code>wget https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.6p1.tar.gz
+tar xvf openssh-8.6p1.tar.gz
+./configure
+yum -y group install &quot;Development Tools&quot;
+yum -y install openssl-devel
+make &amp;&amp;make install
+#备份
+cp /usr/lib/systemd/system/sshd.service{,.bak}
+#验证
+ll /usr/lib/systemd/system/sshd.service*
+#修改配置
+ cat &gt; /usr/local/etc/sshd_config &lt;&lt;EOF
+UseDNS no
+AddressFamily inet
+SyslogFacility AUTHPRIV
+PermitRootLogin yes
+PasswordAuthentication yes
+Banner /etc/ssh/ssh_banner
+EOF
+cat &gt;/usr/lib/systemd/system/sshd.service &lt;&lt;EOF
+[Unit]
+Description=OpenSSH server daemon
+[Service]
+ExecStart=/usr/local/sbin/sshd -f /usr/local/etc/sshd_config -D
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl daemon-reload
+systemctl   restart sshd
+</code></pre>
+<h3 id="验证">验证</h3>
+<pre><code>https://github.com/Rhynorater/CVE-2018-15473-Exploit
+pip3 install paramiko==2.4.1
+python3 sshUsernameEnumExploit.py --port 20022 --userList exampleInput.txt your-ip
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Loki]]></title>
+        <id>https://kenwoodjw.github.io/post/loki/</id>
+        <link href="https://kenwoodjw.github.io/post/loki/">
+        </link>
+        <updated>2020-07-25T00:20:35.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="loki-日志采集安装">loki 日志采集安装</h3>
+<h4 id="下载loki和promtail">下载loki和promtail</h4>
+<pre><code class="language-shell">wget https://github.com/grafana/loki/releases/download/v1.5.0/loki-linux-amd64.zip
+uznip loki-linux-amd64.zip 
+mv loki-linux-amd64 /usr/local/bin/loki
+wget https://github.com/grafana/loki/releases/download/v1.5.0/promtail-linux-amd64.zip
+unzip promtail-linux-amd64.zip
+unzip promtail-linux-amd64 /usr/local/bin/promtail
+
+</code></pre>
+<h4 id="配置文件">配置文件</h4>
+<p>https://github.com/grafana/loki/blob/v1.5.0/cmd/loki/loki-local-config.yaml</p>
+<p>https://github.com/grafana/loki/blob/v1.5.0/cmd/promtail/promtail-local-config.yaml</p>
+<pre><code>mv loki-local-config.yaml /usr/local/bin/config-loki.yml
+mv promtail-local-config.yaml /usr/local/bin/config-promtail.yml
+</code></pre>
+<h4 id="配置systemd">配置systemd</h4>
+<pre><code>vi /etc/systemd/system/loki.service
+[Unit]
+Description=Loki service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/loki -config.file /usr/local/bin/config-loki.yml
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<pre><code>vi /etc/systemd/system/promtail.service
+[Unit]
+Description=Promtail service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/promtail -config.file /usr/local/bin/config-promtail.yml
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<pre><code>systemctl start loki
+systemctl enable loki
+systemctl start promtail
+systemctl start promtail
+
+</code></pre>
+<h4 id="验证">验证</h4>
+<p>[http://<a href="http://%5Byour/">Your</a>-Server-Domain-or-IP]:3100/metrics</p>
+<p>[http://<a href="http://%5Byour/">Your</a>-Server-Domain-or-IP]:9080</p>
+<h4 id="grafana-数据源添加">grafana 数据源添加</h4>
+<p>添加数据源</p>
+<p>http://127.0.0.1:3100</p>
+<p>点击查看exporter</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Docker]]></title>
+        <id>https://kenwoodjw.github.io/post/docker/</id>
+        <link href="https://kenwoodjw.github.io/post/docker/">
+        </link>
+        <updated>2020-03-01T00:40:23.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="docker-namespace">docker namespace</h3>
+<h4 id="概念">概念</h4>
+<p>首先让我们看看docker 官方文档的解释</p>
+<figure data-type="image" tabindex="1"><img src="/images/docker01.jpg" alt="docker官网" loading="lazy"></figure>
+<p>当你启动一个container，docker会为container创建 一系列的namespaces</p>
+<h5 id="小测试">小测试</h5>
+<pre><code class="language-shell"># 在容器里运行
+watch 'ps ax'
+Every 2s: ps ax                                                                                                                                                                            2020-03-01 09:44:12
+
+PID   USER     TIME  COMMAND
+    1 root      0:03 /sbin/runsvdir -P /etc/service/enabled
+   64 root      0:00 runsv felix
+   65 root      0:00 runsv bird
+   66 root      0:00 runsv bird6
+   67 root      0:00 runsv confd
+   69 root      1h21 calico-node -felix
+   71 root      0:28 calico-node -confd
+  176 root      1:38 bird -R -s /var/run/calico/bird.ctl -d -c /etc/calico/confd/config/bird.cfg
+  177 root      1:26 bird6 -R -s /var/run/calico/bird6.ctl -d -c /etc/calico/confd/config/bird6.cfg
+28692 root      0:00 sh
+28720 root      0:00 watch ps ax
+29670 root      0:00 ps ax
+# 查看 宿主机pid
+21609 pts/0    S+     0:00 watch ps ax
+# 同样的进程不同的pid
+</code></pre>
+<pre><code class="language-shell"># 查看进程树
+pstree -p 
+systemd(1)─┬─NetworkManager(974)─┬─{NetworkManager}(1034)
+           │                     └─{NetworkManager}(1036)
+           ├─agetty(6593)
+           ├─aksusbd_x86_64(31834)─┬─{aksusbd_x86_64}(31835)
+           │                       └─{aksusbd_x86_64}(31836)
+           ├─auditd(934)───{auditd}(935)
+           ├─chronyd(1003)
+           ├─containerd-shim(1335)─┬─{containerd-shim}(1336)
+           │                       ├─{containerd-shim}(1337)
+           │                       ├─{containerd-shim}(1338)
+           │                       ├─{containerd-shim}(1339)
+           │                       ├─{containerd-shim}(1340)
+           │                       ├─{containerd-shim}(1341)
+           │                       ├─{containerd-shim}(1342)
+           │                       ├─{containerd-shim}(1343)
+           │                       └─{containerd-shim}(5137)
+           ├─containerd-shim(1366)─┬─{containerd-shim}(1367)
+           │                       ├─{containerd-shim}(1368)
+           │                       ├─{containerd-shim}(1369)
+           │                       ├─{containerd-shim}(1372)
+           │                       ├─{containerd-shim}(1373)
+           │                       ├─{containerd-shim}(1374)
+           │                       ├─{containerd-shim}(1376)
+           │                       ├─{containerd-shim}(1378)
+           │                       └─{containerd-shim}(5139)
+           ├─crond(1024)
+           ├─dbus-daemon(967)
+           ├─dockerd(1419)─┬─containerd(1433)─┬─containerd-shim(2424)─┬─pause(2498)
+           │               │                  │                       ├─{containerd-shim}(2426)
+           │               │                  │                       ├─{containerd-shim}(2427)
+           │               │                  │                       ├─{containerd-shim}(2428)
+           │               │                  │                       ├─{containerd-shim}(2430)
+           │               │                  │                       ├─{containerd-shim}(2431)
+           │               │                  │                       ├─{containerd-shim}(2432)
+           │               │                  │                       ├─{containerd-shim}(2435)
+           │               │                  │                       ├─{containerd-shim}(2438)
+           │               │                  │                       ├─{containerd-shim}(2616)
+           │               │                  │                       └─{containerd-shim}(5154)
+
+</code></pre>
+<p>docker 启动流程</p>
+<p>dockerd-&gt; containerd-&gt;containerd-shim-puase</p>
+<h4 id="containerd">containerd</h4>
+<p><strong>containerd</strong> is available as a daemon for Linux and Windows. It manages the complete container lifecycle of its host system, from image transfer and storage to container execution and supervision to low-level storage to network attachments and beyond.</p>
+<p>容器化的运行时要求非常低。 与Linux和Windows容器功能集的大多数交互都是通过runc和/或特定于操作系统的库（例如，适用于Microsoft的hcsshim）处理的。 RUNC.md中始终列出了当前所需的runc版本。</p>
+<h4 id="runc">runc</h4>
+<p>什么是runc</p>
+<p><code>runc</code> is a CLI tool for spawning and running containers according to the OCI specification.</p>
+<h4 id="跟踪">跟踪</h4>
+<pre><code>strace -f -p `pidof containerd` -o strace_log
+# 查找关键词unshare
+ unshare(CLONE_NEWNS|CLONE_NEWUTS|CLONE_NEWIPC|CLONE_NEWPID|CLONE_NEWNET &lt;unfinished ...&gt;
+
+</code></pre>
+<p>什么是unshare</p>
+<p>取消共享-运行具有父级未共享的某些名称空间的程序</p>
+<p><strong>http://man7.org/linux/man-pages/man1/unshare.1.html</strong></p>
+<p>unshare/clone/syscalls: please fake pid for child&quot;</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[prometheus 使用blackbox-exporter]]></title>
+        <id>https://kenwoodjw.github.io/post/k8s_05/</id>
+        <link href="https://kenwoodjw.github.io/post/k8s_05/">
+        </link>
+        <updated>2020-01-02T19:33:46.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="blackbox-exporter介绍">Blackbox-exporter介绍</h3>
+<p><a href="https://github.com/prometheus/blackbox_exporter">Blackbox Exporter</a> 是 Prometheus 社区提供的官方黑盒监控解决方案，其允许用户通过：<code>HTTP</code>、<code>HTTPS</code>、<code>DNS</code>、<code>TCP</code> 以及 <code>ICMP</code> 的方式对网络进行探测。</p>
+<h3 id="实操">实操</h3>
+<h4 id="创建blackbox-deploymentsvcconfigmap">创建blackbox deployment，svc，configmap</h4>
+<pre><code class="language-yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: blackbox-config
+  namespace: kube-mon
+data:
+  blackbox.yml: |-
+    modules:
+      http_2xx:  # http 检测模块  Blockbox-Exporter 中所有的探针均是以 Module 的信息进行配置
+        prober: http
+        timeout: 10s
+        http:
+          valid_http_versions: [&quot;HTTP/1.1&quot;, &quot;HTTP/2&quot;]   
+          valid_status_codes: [200]  # 这里最好作一个返回状态码，在grafana作图时，有明示---陈刚注释。
+          method: GET
+          preferred_ip_protocol: &quot;ip4&quot;
+      http_post_2xx: # http post 监测模块
+        prober: http
+        timeout: 10s
+        http:
+          valid_http_versions: [&quot;HTTP/1.1&quot;, &quot;HTTP/2&quot;]
+          method: POST
+          preferred_ip_protocol: &quot;ip4&quot;
+      tcp_connect:  # TCP 检测模块
+        prober: tcp
+        timeout: 10s
+      dns:  # DNS 检测模块
+        prober: dns
+        dns:
+          transport_protocol: &quot;tcp&quot;  # 默认是 udp
+          preferred_ip_protocol: &quot;ip4&quot;  # 默认是 ip6
+          query_name: &quot;kubernetes.default.svc.cluster.local&quot;
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blackbox
+  namespace: kube-mon
+spec:
+  selector:
+    matchLabels:
+      app: blackbox
+  template:
+    metadata:
+      labels:
+        app: blackbox
+    spec:
+      containers:
+      - image: prom/blackbox-exporter:v0.16.0
+        name: blackbox
+        args:
+        - --config.file=/etc/blackbox_exporter/blackbox.yml # ConfigMap 中的配置文件
+        - --log.level=error  # 错误级别控制
+        ports:
+        - containerPort: 9115
+        volumeMounts:
+        - name: config
+          mountPath: /etc/blackbox_exporter
+      volumes:
+      - name: config
+        configMap:
+          name: blackbox-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blackbox
+  namespace: kube-mon
+spec:
+  selector:
+    app: blackbox
+  type: NodePort
+  ports:
+  - port: 9115
+    targetPort: 9115
+    nodePort: 30010
+</code></pre>
+<h4 id="增加prometheus配置物理机版本">增加prometheus配置（物理机版本)</h4>
+<pre><code> - job_name: 'kubernetes-http-services'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]  # 使用定义的http模块
+    kubernetes_sd_configs:
+    - role: service
+      api_server: https://{{apiserver_address}} 
+      tls_config:
+        insecure_skip_verify: true
+      bearer_token: '{{bearer_token}}'
+    tls_config:
+      insecure_skip_verify: true
+    bearer_token: '{{bearer_token}}'
+    relabel_configs:
+    - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_http_probe]
+      action: keep
+      regex: true
+    - source_labels: [__address__]
+      target_label: __param_target
+    - target_label: __address__
+      replacement: 172.25.21.121:30010
+    - source_labels: [__param_target]
+      target_label: instance
+    - action: labelmap
+      regex: __meta_kubernetes_service_label_(.+)
+    - source_labels: [__meta_kubernetes_namespace]
+      target_label: kubernetes_namespace
+    - source_labels: [__meta_kubernetes_service_name]
+      target_label: kubernetes_name
+</code></pre>
+<h4 id="添加注释-只有service的annotation中配置了-prometheusiohttp_probetrue-的才进行发现">添加注释,  只有service的annotation中配置了 prometheus.io/http_probe=true 的才进行发现</h4>
+<pre><code>apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: kube-ops
+spec:
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:4
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 6379
+      - name: redis-exporter
+        image: oliver006/redis_exporter:latest
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 9121
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: redis
+  namespace: kube-ops
+  annotations:
+     prometheus.io/http-probe: &quot;true&quot;
+spec:
+  selector:
+    app: redis
+  ports:
+  - name: redis
+    port: 6379
+    targetPort: 6379
+  - name: prom
+    port: 9121
+    targetPort: 9121
+</code></pre>
+<h4 id="可视化">可视化</h4>
+<p>面板id：9965， 7587</p>
+<p>参考资料: https://www.qikqiak.com/post/blackbox-exporter-on-prometheus/</p>
+<p>https://blog.fleeto.us/post/blackbox-monitor-dns-web/</p>
+<p>https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus-kubernetes.yml</p>
+<p>https://zhangguanzhang.github.io/2018/12/04/black-box-exporter/</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[K8s_04]]></title>
+        <id>https://kenwoodjw.github.io/post/k8s_04/</id>
+        <link href="https://kenwoodjw.github.io/post/k8s_04/">
+        </link>
+        <updated>2019-08-05T06:48:13.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="为什么需要ingress">为什么需要ingress？</h3>
+<p>Ingress 只需要一个公网ip就能为许多服务提供访问，当客户端向ingress发送HTTP请求时，Ingress 会根据请求的主机名和路径决定请求转发到的服务</p>
+<h3 id="部署测试demo">部署测试demo</h3>
+<p><code>kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/baremetal/service-nodeport.yaml</code></p>
+<p>验证安装</p>
+<pre><code class="language-shell">kubectl get pods --all-namespaces -l app.kubernetes.io/name=ingress-nginx --watch
+POD_NAMESPACE=ingress-nginx
+POD_NAME=$(kubectl get pods -n $POD_NAMESPACE -l app.kubernetes.io/name=ingress-nginx -o jsonpath='{.items[0].metadata.name}')
+
+kubectl exec -it $POD_NAME -n $POD_NAMESPACE -- /nginx-ingress-controller --version
+</code></pre>
+<p>参考link <a href="https://kubernetes.github.io/ingress-nginx/deploy/#bare-metal">https://kubernetes.github.io/ingress-nginx/deploy/#bare-metal</a></p>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Service
+metadata:
+  name: ingress-nginx
+  namespace: ingress-nginx
+  labels:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      protocol: TCP
+    - name: https
+      port: 443
+      targetPort: 443
+      protocol: TCP
+    - name: proxied-tcp-9000
+      port: 9000
+      targetPort: 9000
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+
+</code></pre>
+<h3 id="测试http-7层负载">测试http 7层负载</h3>
+<pre><code class="language-yaml">
+</code></pre>
+<pre><code class="language-shell">kubectl run test-hello --image=nginx:alpine --expose --port=80
+##
+# kubectl get deploy test-hello
+NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+test-hello   1         1         1            1           56s
+# kubectl get svc test-hello
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+test-hello   ClusterIP   10.68.124.115   &lt;none&gt;        80/TCP    1m
+</code></pre>
+<ul>
+<li>然后为这个应用创建 ingress</li>
+</ul>
+<pre><code class="language-yaml">
+```
+# test-hello.ing.yaml内容
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: test-hello
+spec:
+  rules:
+  - host: hello.test.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: test-hello
+          servicePort: 80
+</code></pre>
+<ul>
+<li>集群内部尝试访问: <code>curl -H Host:hello.test.com 10.68.69.170(ingress-service的服务地址)</code> 能够看到欢迎页面 <code>Welcome to nginx!</code>；</li>
+</ul>
+<h3 id="tcp-udp">TCP /UDP</h3>
+<p>Ingress does not support TCP or UDP services. For this reason this Ingress controller uses the flags <code>--tcp-services-configmap</code> and <code>--udp-services-configmap</code> to point to an existing config map where the key is the external port to use and the value indicates the service to expose using the format: <code>&lt;namespace/service name&gt;:&lt;service port&gt;:[PROXY]:[PROXY]</code></p>
+<pre><code class="language-yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tcp-services
+  namespace: ingress-nginx
+data:
+  9000: &quot;default/example-go:8080&quot;
+</code></pre>
+<p>参考官网 <a href="https://kubernetes.github.io/ingress-nginx/user-guide/exposing-tcp-udp-services/">https://kubernetes.github.io/ingress-nginx/user-guide/exposing-tcp-udp-services/</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[K8s_03]]></title>
+        <id>https://kenwoodjw.github.io/post/k8s_03/</id>
+        <link href="https://kenwoodjw.github.io/post/k8s_03/">
+        </link>
+        <updated>2019-07-25T07:37:29.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="configmap-热更新">configmap 热更新</h2>
+<h3 id="更新应用配置且不重启应用程序">更新应用配置且不重启应用程序</h3>
+<p>使用环境变量或者命令行参数作为配置源的弊端在于无法在进程运行时更新配置。将configmap 暴露为卷可以达到配置热更新的效果，无须重新创建pod或者重启容器</p>
+<h3 id="了解更新configmap的影响">了解更新configmap的影响</h3>
+<p>容器的一个比较重要的特性是其不变性，从同一镜像启动的多个容器之间不存在任何差异，那么修改被运行的容器所使用的configmap来打破这种不变性的行为是否是错误的？</p>
+<p>关键在于应用是否支持重载配置，configmap更新之后创建的pod也会使用新配置，而之前的pod依旧使用旧配置，这会导致运行中的不同实例的配置的不同，这不仅限于新pod，</p>
+<p>如果pod中的容器因为某种原因重启了，新进程同样会使用新配置，因此，应用不支持主动重载配置，那么修改某些运行pod所使用的configmap并不是一个好主意</p>
+<p>如果应用支持主动重载配置，那么修改configmap的行为就算不了什么。不过，不同的pod同步时间可能长达一分钟</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[K8s_02]]></title>
+        <id>https://kenwoodjw.github.io/post/k8s_02/</id>
+        <link href="https://kenwoodjw.github.io/post/k8s_02/">
+        </link>
+        <updated>2019-07-21T08:07:37.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="k8s-服务的创建">K8s 服务的创建</h2>
+<h3 id="为什么需要服务">为什么需要服务？</h3>
+<p>1.pod是短暂的，随时会启动或关闭</p>
+<p>2.pod在启动时才分配地址，因此客户端不能提前知道服务的pod的ip地址</p>
+<p>3.水平伸缩意味着多个pod提供相同服务，所有的pod都可以通过一个IP地址进行访问</p>
+<h3 id="实际测试">实际测试</h3>
+<p>创建服务</p>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Service
+metadata:
+  name: kubia-nodeport
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: kubia
+   
+   
+   
+</code></pre>
+<p>创建一个名叫kubia-nodeport的服务，他在端口80接收请求并连接路由到具有标签选择器是app=kubia的pod的8080端口上</p>
+<pre><code class="language-shell">kubectl get svc
+NAME                      CLUSTER-IP                EXTERNAL-IP   PORT(s)   AGE
+kubia                      10.11.249.153             &lt;none&gt;       80/TCP      6m
+</code></pre>
+<p>分配的服务的IP的集群的IP，只能通过集群内部访问</p>
+<p>从集群内部测试服务</p>
+<p>kubectl exec kubia-7n0g1 -- curl -s http://10.11.249.153</p>
+<pre><code>
+</code></pre>
+<h3 id="服务发现">服务发现</h3>
+<h4 id="通过dns发现服务">通过dns发现服务</h4>
+<p>集群中所有的pod都使用kube-dns或coredns 作为dns（k8s通过修改每个pod的 /etc/resolv.conf文件实现） tips：pod是否使用内部的DNS服务器是根据pod中spec的dnsPolicy属性决定的</p>
+<h4 id="通过fqdn连接服务">通过FQDN连接服务</h4>
+<pre><code>kubectl exec -it kubia-3inly bash
+root@kubia-3inly:/# curl http://kubia.default.svc.cluster.local
+</code></pre>
+<p>服务IP无法ping通，因为服务的集群IP是虚拟IP，只有在与服务端口结合才有意义</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Python装饰器]]></title>
+        <id>https://kenwoodjw.github.io/post/python_03/</id>
+        <link href="https://kenwoodjw.github.io/post/python_03/">
+        </link>
+        <updated>2019-05-11T06:15:01.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="python装饰器">python装饰器</h3>
+<p>python装饰传入一个函数，添加一些功能，然后返回它</p>
+<h3 id="闭包">闭包</h3>
+<p>先了解闭包的功能，对理解装饰器有很大的帮助</p>
+<p>什么是闭包(closure),如何捕获变量</p>
+<pre><code class="language-python">def dog():
+    height = 40
+   	
+    def profile():
+        print(&quot;I'm a dog and my height is {}&quot;.format(height))
+    return profile
+
+if __name__ == &quot;__main__&quot;:
+    dog_profile = dog()
+    dog_profile()
+    
+</code></pre>
+<p>function dog()里面包了一个和profile()function，在调用的dog()会返回profile,在一般认知中，function中的</p>
+<p>variable其life cycle(生命周期)会随函数执行完而消灭，理论上变量height在执行完function dog()后就要消失，但在dog_profile()(调用profile())时还能够找到variable height，原因就是return profile时，函数profile capture 住了variable,把属于上一层的变量偷渡到自己函数范围,带有 capture variable的函数就是闭包.</p>
+<h4 id="capture-variable不能被assign">capture variable不能被assign</h4>
+<pre><code class="language-python">def dog():
+    height = 40
+    
+    def grow_up():
+        height = height +1
+    return grow_up
+
+if __name__ == &quot;__main__&quot;:
+    dog_grow_up = dog()
+    dog_grow_up()
+</code></pre>
+<p>报错UnboundLocalError，一般用global声明变量，如果在某个函数中同样命名的变量要赋值的话，一样会报UnboundLocalError，在python中，对变量赋值就等于建立局部变量</p>
+<pre><code class="language-python">global x
+x = 10
+def add_x():
+    x = x +1
+    
+if __name__ == &quot;__main__&quot;:
+    add_x()
+</code></pre>
+<h4 id="如何赋值capture-variable">如何赋值capture variable</h4>
+<pre><code class="language-python">def dog():
+    height = 40
+    
+    def grow_up():
+        nonlocal height
+        height = height +1
+        print(&quot;Thanks for making me growing up.I'm now {} meters!!!&quot;.format(height))
+	return grow_up
+
+if __name__==&quot;__main__&quot;:
+    dog_grow_up = dog()
+    dog_grow_up()
+</code></pre>
+<h3 id="什么是decorator装饰器">什么是Decorator(装饰器)</h3>
+<pre><code class="language-python"># defining a decorator 
+def hello_decorator(func): 
+
+	# inner1 is a Wrapper function in 
+	# which the argument is called 
+	
+	# inner function can access the outer local 
+	# functions like in this case &quot;func&quot; 
+	def inner1(): 
+		print(&quot;Hello, this is before function execution&quot;) 
+
+		# calling the actual function now 
+		# inside the wrapper function. 
+		func() 
+
+		print(&quot;This is after function execution&quot;) 
+		
+	return inner1 
+
+
+# defining a function, to be called inside wrapper 
+def function_to_be_used(): 
+	print(&quot;This is inside the function !!&quot;) 
+
+
+# passing 'function_to_be_used' inside the 
+# decorator to control its behavior 
+function_to_be_used = hello_decorator(function_to_be_used) 
+
+
+# calling the function 
+function_to_be_used() 
+
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>Hello, this is before function execution
+This is inside the function !!
+This is after function execution
+
+
+</code></pre>
+<p>{{&lt; figure src=&quot;/images/decorators_step.png&quot; width=&quot;&quot; height=&quot;&quot; &gt;}}</p>
+<h3 id="decorator的执行顺序">Decorator的执行顺序</h3>
+<pre><code class="language-python">def print_func_name(func):
+    def warp_1():
+        print(&quot;Now use function '{}'&quot;.format(func.__name__))
+    	func()
+    return warp_1
+
+def print_time(func):
+    import time
+    def warp_2():
+        print(&quot;Now the Unix time is {}&quot;.format(int(time.time())))
+        func()
+    return warp_2
+
+@print_func_name
+@print_time
+def dog_bark():
+    print(&quot;Bark !!!&quot;)
+  
+if __name__ == &quot;__main__&quot;:
+    dog_bark()
+# &gt; Now use function 'warp_2'
+# &gt; Now the Unix time is 16532445
+# &gt; Bark !!!
+</code></pre>
+<p>dog_bark会先被@print_time吃进去，然后吐出一个warp_2的function，然后这个warp_2的function 又会被 print_func_name吃进去，返回一个叫做warp_1的function</p>
+<h3 id="class式的decorator">class式的Decorator</h3>
+<pre><code class="language-python">class myDecorator:
+    def __init__(self,fn):
+        print(&quot;inside myDecorator.__init__()&quot;)
+        self.fn = fn
+    def __call__(self):
+        self.fn()
+        print(&quot;inside myDecorator.__call__()&quot;)
+@myDecorator
+def aFunction():
+    print(&quot;inside aFunction()&quot;)
+print(&quot;Finished decorating aFunction()&quot;)
+
+# 输出
+# inside myDecorator.__init__()
+# Finished decorating aFunction()
+# inside aFunction()
+# inside myDecorator.__call__()
+</code></pre>
+<h3 id="decorator的副作用">Decorator的副作用</h3>
+<p>被decoratoe的函数其实已经是另一个函数了，如果你查询一下function.<code>__name__</code>的输出是&quot;wrapper&quot;.</p>
+<p>这会给程序埋坑，python的functool包中提供一个叫wrap的decorator来消除副作用</p>
+<pre><code class="language-python">from functools import wraps
+def hello(fn):
+    @wraps(fn)
+    def wrapper():
+        print(&quot;hello, %s&quot;%fn.__name__)
+        fn()
+        print(&quot;goodby, %s&quot;%fn.__name__)
+    return wrapper
+@hello
+def foo():
+    '''foo help doc'''
+    print(&quot;I am foo&quot;)
+   	pass
+foo()
+print(foo.__name__)
+print(foo.__doc__)
+</code></pre>
+<p>参考文章</p>
+<p><a href="https://coolshell.cn/articles/11265.html">https://coolshell.cn/articles/11265.html</a></p>
+<p><a href="https://medium.com/citycoddee/python%E9%80%B2%E9%9A%8E%E6%8A%80%E5%B7%A7-3-%E7%A5%9E%E5%A5%87%E5%8F%88%E7%BE%8E%E5%A5%BD%E7%9A%84-decorator-%E5%97%B7%E5%97%9A-6559edc87bc0">https://medium.com/citycoddee/python進階技巧-3-神奇又美好的-decorator-嗷嗚-6559edc87bc0</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[如何讲明白技术]]></title>
+        <id>https://kenwoodjw.github.io/post/blog01/</id>
+        <link href="https://kenwoodjw.github.io/post/blog01/">
+        </link>
+        <updated>2019-05-08T06:22:54.000Z</updated>
+        <content type="html"><![CDATA[<p>在面试的时候，技术问题所占的比重非常大，如何讲明白技术，决定了面试的成败。从某种程度，也体现你对技术的了解程度，所以如何讲明白技术。如何在学习的时候，对技术知识点进行加工内化，以下分析角度来源极客时间专栏：面试现场，我会尝试从这个角度去写的我技术文章</p>
+<figure data-type="image" tabindex="1"><img src="/home/kenwood/Projects/my-website/static/images/1557325773291.png" alt="1557325773291" loading="lazy"></figure>
+<h2 id="外部应用维度">外部应用维度</h2>
+<h3 id="问题">问题</h3>
+<p>首先考虑的是要解决什么问题，这是技术产生的原因。Java 多线程的产生，是因为要并发，并发使得程序的多种功能响应更快，用户体验更好。问题这层就是回答干什么用</p>
+<h3 id="技术规范">技术规范</h3>
+<p>怎么用这门技术，技术使用说明书</p>
+<h3 id="最佳实践">最佳实践</h3>
+<p>把技术应用到不同的场景时，发发现同样的使用方法，会有不同的效果。该技术有不同的适应面。从而你可能踩了很多坑，从中总结出最佳实践</p>
+<h3 id="市场应用趋势">市场应用趋势</h3>
+<p>随着技术生态的发展，和应用问题的变迁，技术的应用场景和流行趋势会受到影响。对于java，从低并发逐渐发展到高并发。谁在用，用在哪</p>
+<h2 id="设计维度">设计维度</h2>
+<p>应用维度是从外部看技术的应用，那么从内部能看到技术的哪些层面？</p>
+<h3 id="目标">目标</h3>
+<p>为了解决用户的问题，技术本身要达成什么目标。比如，java多线程在优先级调度、锁、信息同步等方面达成怎样的目标，才能更好地实现并非</p>
+<h3 id="实现原理">实现原理</h3>
+<p>为了达到设计目标，该技术采用了什么原理和机制。java多线程的实现原理包括内核线程，使用用户态线程加轻量级进程混合等。实现原理层回答怎么做到的问题。把实现原理弄懂，并且讲清楚，是技术人员的基本</p>
+<h3 id="优劣局限">优劣局限</h3>
+<p>每种技术实现，都有其局限性，在某些条件下能最大化的发挥效能，缺少某些条件则暴露出其缺陷。比如在java多线程编程中，采用共享内存的方式，锁的开销比较大，程序员编程难度大。 优劣局限层回答“做得怎么样的问题。对技术优劣局限的把握，更有利于应用时总结最佳实践，是分析各种坑的基础</p>
+<h3 id="演进趋势">演进趋势</h3>
+<p>技术是在迭代改进和不断淘汰的。了解技术的前生后世，分清技术不变的本质，和变化的脉络，以及与其他技术的共生关系，能体现你对技术发展趋势的关注和思考。</p>
+]]></content>
+    </entry>
+</feed>

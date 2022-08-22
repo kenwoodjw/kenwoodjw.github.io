@@ -1,0 +1,258 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Docker | Gridea</title>
+
+<link rel="shortcut icon" href="https://kenwoodjw.github.io/favicon.ico?v=1661153275321">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://kenwoodjw.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/9.12.0/languages//dart.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+    
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Gridea
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1661153275321"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Docker
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2020-03-01 ·
+                    </time>
+                    
+                        <a href="https://kenwoodjw.github.io/tag/a5f_uzQK6l/" class="post-tags">
+                            # Docker
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h3 id="docker-namespace">docker namespace</h3>
+<h4 id="概念">概念</h4>
+<p>首先让我们看看docker 官方文档的解释</p>
+<figure data-type="image" tabindex="1"><img src="/images/docker01.jpg" alt="docker官网" loading="lazy"></figure>
+<p>当你启动一个container，docker会为container创建 一系列的namespaces</p>
+<h5 id="小测试">小测试</h5>
+<pre><code class="language-shell"># 在容器里运行
+watch 'ps ax'
+Every 2s: ps ax                                                                                                                                                                            2020-03-01 09:44:12
+
+PID   USER     TIME  COMMAND
+    1 root      0:03 /sbin/runsvdir -P /etc/service/enabled
+   64 root      0:00 runsv felix
+   65 root      0:00 runsv bird
+   66 root      0:00 runsv bird6
+   67 root      0:00 runsv confd
+   69 root      1h21 calico-node -felix
+   71 root      0:28 calico-node -confd
+  176 root      1:38 bird -R -s /var/run/calico/bird.ctl -d -c /etc/calico/confd/config/bird.cfg
+  177 root      1:26 bird6 -R -s /var/run/calico/bird6.ctl -d -c /etc/calico/confd/config/bird6.cfg
+28692 root      0:00 sh
+28720 root      0:00 watch ps ax
+29670 root      0:00 ps ax
+# 查看 宿主机pid
+21609 pts/0    S+     0:00 watch ps ax
+# 同样的进程不同的pid
+</code></pre>
+<pre><code class="language-shell"># 查看进程树
+pstree -p 
+systemd(1)─┬─NetworkManager(974)─┬─{NetworkManager}(1034)
+           │                     └─{NetworkManager}(1036)
+           ├─agetty(6593)
+           ├─aksusbd_x86_64(31834)─┬─{aksusbd_x86_64}(31835)
+           │                       └─{aksusbd_x86_64}(31836)
+           ├─auditd(934)───{auditd}(935)
+           ├─chronyd(1003)
+           ├─containerd-shim(1335)─┬─{containerd-shim}(1336)
+           │                       ├─{containerd-shim}(1337)
+           │                       ├─{containerd-shim}(1338)
+           │                       ├─{containerd-shim}(1339)
+           │                       ├─{containerd-shim}(1340)
+           │                       ├─{containerd-shim}(1341)
+           │                       ├─{containerd-shim}(1342)
+           │                       ├─{containerd-shim}(1343)
+           │                       └─{containerd-shim}(5137)
+           ├─containerd-shim(1366)─┬─{containerd-shim}(1367)
+           │                       ├─{containerd-shim}(1368)
+           │                       ├─{containerd-shim}(1369)
+           │                       ├─{containerd-shim}(1372)
+           │                       ├─{containerd-shim}(1373)
+           │                       ├─{containerd-shim}(1374)
+           │                       ├─{containerd-shim}(1376)
+           │                       ├─{containerd-shim}(1378)
+           │                       └─{containerd-shim}(5139)
+           ├─crond(1024)
+           ├─dbus-daemon(967)
+           ├─dockerd(1419)─┬─containerd(1433)─┬─containerd-shim(2424)─┬─pause(2498)
+           │               │                  │                       ├─{containerd-shim}(2426)
+           │               │                  │                       ├─{containerd-shim}(2427)
+           │               │                  │                       ├─{containerd-shim}(2428)
+           │               │                  │                       ├─{containerd-shim}(2430)
+           │               │                  │                       ├─{containerd-shim}(2431)
+           │               │                  │                       ├─{containerd-shim}(2432)
+           │               │                  │                       ├─{containerd-shim}(2435)
+           │               │                  │                       ├─{containerd-shim}(2438)
+           │               │                  │                       ├─{containerd-shim}(2616)
+           │               │                  │                       └─{containerd-shim}(5154)
+
+</code></pre>
+<p>docker 启动流程</p>
+<p>dockerd-&gt; containerd-&gt;containerd-shim-puase</p>
+<h4 id="containerd">containerd</h4>
+<p><strong>containerd</strong> is available as a daemon for Linux and Windows. It manages the complete container lifecycle of its host system, from image transfer and storage to container execution and supervision to low-level storage to network attachments and beyond.</p>
+<p>容器化的运行时要求非常低。 与Linux和Windows容器功能集的大多数交互都是通过runc和/或特定于操作系统的库（例如，适用于Microsoft的hcsshim）处理的。 RUNC.md中始终列出了当前所需的runc版本。</p>
+<h4 id="runc">runc</h4>
+<p>什么是runc</p>
+<p><code>runc</code> is a CLI tool for spawning and running containers according to the OCI specification.</p>
+<h4 id="跟踪">跟踪</h4>
+<pre><code>strace -f -p `pidof containerd` -o strace_log
+# 查找关键词unshare
+ unshare(CLONE_NEWNS|CLONE_NEWUTS|CLONE_NEWIPC|CLONE_NEWPID|CLONE_NEWNET &lt;unfinished ...&gt;
+
+</code></pre>
+<p>什么是unshare</p>
+<p>取消共享-运行具有父级未共享的某些名称空间的程序</p>
+<p><strong>http://man7.org/linux/man-pages/man1/unshare.1.html</strong></p>
+<p>unshare/clone/syscalls: please fake pid for child&quot;</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://kenwoodjw.github.io/post/k8s_05/" class="post-title gt-a-link">
+                    prometheus 使用blackbox-exporter
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">温故而知新</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    <div>
+        Theme <a href="https://github.com/imhanjie/gridea-theme-pure" target="_blank">Pure</a>, Powered by <a
+                href="https://gridea.dev" target="_blank">Gridea</a> | <a href="https://kenwoodjw.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
